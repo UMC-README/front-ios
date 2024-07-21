@@ -59,7 +59,7 @@ DerivedData/
 /*.gcno
 
 ### Projects ###
-*.xcodeproj
+# *.xcodeproj
 *.xcworkspace
 
 ### Tuist derived files ###
