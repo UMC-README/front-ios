@@ -40,5 +40,6 @@ struct DefaultButtonStyle: ButtonStyle {
 
                 }
             }
+            .opacity(configuration.isPressed ? 0.5 : 1)
     }
 }
