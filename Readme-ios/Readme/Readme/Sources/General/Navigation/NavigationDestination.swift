@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+enum NavigationDestination {
+    case signUp
+    case room
+}
