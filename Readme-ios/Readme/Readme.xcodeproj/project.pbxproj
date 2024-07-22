@@ -195,7 +195,7 @@
 		6C882A992C4D1EC500AE5734 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				6C882AB52C4D6B4600AE5734 /* User */,
+				6C882AB62C4D6B4D00AE5734 /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -251,14 +251,6 @@
 				6C882AAE2C4D304700AE5734 /* NavigationDestination.swift */,
 			);
 			path = Navigation;
-			sourceTree = "<group>";
-		};
-		6C882AB52C4D6B4600AE5734 /* User */ = {
-			isa = PBXGroup;
-			children = (
-				6C882AB62C4D6B4D00AE5734 /* User.swift */,
-			);
-			path = User;
 			sourceTree = "<group>";
 		};
 		6C882ABB2C4D71A600AE5734 /* Authentification */ = {
