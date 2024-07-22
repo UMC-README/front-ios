@@ -54,10 +54,10 @@ extension Color {
     static let danger = Color(hex: "F5535E")
     
     // primary
-    static let dark = Color(hex: "0f00bf")
-    static let normal = Color(hex: "0011ff")
-    static let lightActive = Color(hex: "b0b5ff")
-    static let light = Color(hex: "e6e7ff")
+    static let primaryDark = Color(hex: "3C74B9")
+    static let primaryNormal = Color(hex: "509BF7")
+    static let primaryLightActive = Color(hex: "C9E0FD")
+    static let primaryLight = Color(hex: "F4F9FF")
     
     // text
     static let txtDefault = Color(hex: "222222")
