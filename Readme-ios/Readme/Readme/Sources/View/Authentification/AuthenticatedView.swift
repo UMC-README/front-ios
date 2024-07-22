@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct AuthenticatedView: View {
-    @StateObject var authViewModel: AuthentificationViewModel
+    @StateObject var authViewModel: AuthenticationViewModel
     var body: some View {
         VStack {
             switch authViewModel.authentificationState {
             case .unauthenticated:
-                SigninIntroView()
+                SignInIntroView()
+                    .environmentObject(authViewModel)
             case .authenticated:
                 MainView()
             }

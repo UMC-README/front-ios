@@ -14,7 +14,8 @@ struct ReadmeApp: App {
     
     var body: some Scene {
         WindowGroup {
-            AuthenticatedView(authViewModel: AuthentificationViewModel(container: container))
+            AuthenticatedView(authViewModel: AuthenticationViewModel(container: container))
+                .environmentObject(container)
         }
     }
 }
