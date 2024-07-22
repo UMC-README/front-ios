@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct ReadmeApp: App {
+    
+    @StateObject var container: DIContainer = .init(services: Services())
+    
     var body: some Scene {
         WindowGroup {
-//            ContentView()
+            AuthenticatedView(authViewModel: AuthentificationViewModel(container: container))
         }
     }
 }
