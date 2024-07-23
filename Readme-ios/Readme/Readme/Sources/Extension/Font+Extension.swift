@@ -10,13 +10,18 @@ import SwiftUI
 extension Font {
     
     // Bold
-    static let pretenardBold18: Font = .custom("Pretendard-Bold", size: 18)
+    static let pretendardBold20: Font = .custom("Pretendard-Bold", size: 20)
+    static let pretendardBold18: Font = .custom("Pretendard-Bold", size: 18)
+    static let pretendardBold16: Font = .custom("Pretendard-Bold", size: 16)
     
     // Medium
-    static let pretenardMedium16: Font = .custom("Pretendard-Medium", size: 16)
+    static let pretendardMedium16: Font = .custom("Pretendard-Medium", size: 16)
     
     // Regular
+    static let pretendardRegular14: Font = .custom("Pretendard-Regular", size: 14)
     static let pretendardRegular12: Font = .custom("Pretendard-Regular", size: 12)
+    static let pretendardRegular10: Font = .custom("Pretendard-Regular", size: 10)
+    
     
 }
 

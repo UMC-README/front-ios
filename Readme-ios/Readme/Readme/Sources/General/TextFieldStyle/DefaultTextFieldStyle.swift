@@ -17,7 +17,7 @@ struct DefaultTextFieldStyle: TextFieldStyle {
     func _body(configuration: TextField<Self._Label>) -> some View {
         configuration
             
-            .font(.pretenardBold18)
+            .font(.pretendardBold18)
             .padding(.vertical, 20)
             .padding(.leading, 18)
             .frame(maxWidth: .infinity)

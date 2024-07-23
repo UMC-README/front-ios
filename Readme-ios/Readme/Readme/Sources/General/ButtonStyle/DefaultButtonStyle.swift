@@ -25,7 +25,7 @@ struct DefaultButtonStyle: ButtonStyle {
     
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .font(.pretenardMedium16)
+            .font(.pretendardMedium16)
             .padding(.vertical, 16)
             .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
             .foregroundStyle(buttonType == .blue ? Color.basicWhite : Color.primaryNormal)
