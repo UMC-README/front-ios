@@ -28,18 +28,29 @@ struct RoomItemView: View {
                 Text(roomName)
                     .foregroundStyle(Color.primaryDark)
                     .font(.pretendardRegular14)
+                    
+                
                 Text(nickname)
                     .foregroundStyle(Color.txtCaption)
                     .font(.pretendardRegular10)
+                    
                 
-            }
-            .multilineTextAlignment(.center)
-            .lineLimit(2)
-            .padding(.vertical, 16)
-            Spacer()
+                }
+            
+                .lineLimit(2)
+                .multilineTextAlignment(.center)
+                .lineSpacing(1)
+                
+                .padding(.top, 16)
+                .padding(.horizontal, 8)
         }
-        .frame(maxWidth: .infinity, maxHeight: 160)
+        .frame(maxWidth: .infinity)
+        .frame(height: 160, alignment: .top)
         .clipShape(RoundedRectangle(cornerRadius: 8))
+        .overlay {
+            RoundedRectangle(cornerRadius: 8)
+                .strokeBorder(Color.primaryNormal, lineWidth: 0.33)
+        }
     }
 }
 
@@ -49,7 +60,7 @@ struct RoomItemView: View {
 
 struct RoomItemView_Previews: PreviewProvider {
     static var previews: some View {
-        RoomItemView(time: "30분", roomName: "공지방 이름", nickname: "닉네임")
+        RoomItemView(time: "30분", roomName: "공지방ddddddㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ 이름", nickname: "닉네ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ임")
             .previewLayout(.sizeThatFits)
     }
 }
