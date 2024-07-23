@@ -15,6 +15,7 @@ struct MainView: View {
             Color.backgroundLight
             ScrollView {
                 VStack(spacing: 24) {
+                    pinnedNotice
                     createdRoomView
                     enteredRoomView
                 }
@@ -24,6 +25,33 @@ struct MainView: View {
         }
     }
     
+    /// 고정 공지
+    @ViewBuilder
+    var pinnedNotice: some View {
+        HStack(alignment: .top, spacing: 8) {
+            // TODO: icon 수정
+            Rectangle()
+                .frame(width: 14, height: 14)
+            VStack(alignment: .leading, spacing: 8) {
+                Text("공지글 제목")
+                    .font(.pretendardBold16)
+                    .foregroundStyle(Color.txtDefault)
+                Text("공지글 날짜")
+                    .font(.pretendardRegular12)
+                    .foregroundStyle(Color.primaryNormal)
+            }
+            Spacer()
+            Rectangle()
+                .frame(width: 14, height: 14)
+        }
+        .padding(10)
+        .background(Color.primaryLight)
+        .clipShape(RoundedRectangle(cornerRadius: 8))
+        .overlay {
+            RoundedRectangle(cornerRadius: 8)
+                .strokeBorder(Color.primaryLightActive, lineWidth: 0.33)
+        }
+    }
     
     /// 생성한 공지방
     @ViewBuilder
