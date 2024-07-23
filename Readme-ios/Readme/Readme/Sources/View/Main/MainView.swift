@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct MainView: View {
-
     
     var body: some View {
         ZStack {
@@ -16,6 +15,7 @@ struct MainView: View {
             ScrollView {
                 VStack(spacing: 24) {
                     pinnedNotice
+                    recentNoticeView
                     createdRoomView
                     enteredRoomView
                 }
@@ -50,6 +50,38 @@ struct MainView: View {
         .overlay {
             RoundedRectangle(cornerRadius: 8)
                 .strokeBorder(Color.primaryLightActive, lineWidth: 0.33)
+        }
+    }
+    
+    /// 최근 공지
+    @ViewBuilder
+    var recentNoticeView: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            title("최근 공지")
+            VStack(spacing: 0) {
+                // TODO : For Each
+                RecentNoticeItemView(roomName: "예시 공지방 이름", noticeTitle: "예시 공지글 제목", time: "1분 전")
+                RecentNoticeItemView(roomName: "예시 공지방 이름", noticeTitle: "예시 공지글 제목", time: "1분 전")
+                RecentNoticeItemView(roomName: "예시 공지방 이름", noticeTitle: "예시 공지글 제목", time: "1분 전")
+                RecentNoticeItemView(roomName: "예시 공지방 이름", noticeTitle: "예시 공지글 제목", time: "1분 전")
+                RecentNoticeItemView(roomName: "예시 공지방 이름", noticeTitle: "예시 공지글 제목", time: "1분 전")
+                
+                // TODO: 최근 공지 좌우 페이징 버튼 수정
+                HStack {
+                    Button {
+                        
+                    } label: {
+                        Text("<")
+                    }
+                    Button {
+                        
+                    } label: {
+                        Text(">")
+                    }
+                }
+                .padding(.horizontal, 8)
+            }
+            .border(width: 0.33, edges: [.top, .bottom], color: Color.primaryNormal)
         }
     }
     
