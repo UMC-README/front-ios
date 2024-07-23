@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftUI
 
 /// 공지방 Model
 struct Room: Codable, Identifiable {
@@ -20,11 +19,7 @@ struct Room: Codable, Identifiable {
     var maxPenalty: Int?            /// 최대 페널티 개수
     var state: stateType?           /// 존재 여부
     
-    /// 공지방 존재 여부
-    enum stateType: Codable {
-        case exist
-        case deleted
-    }
+
     
     enum CodingKeys: String, CodingKey {
         case adminID = "admin_id"
