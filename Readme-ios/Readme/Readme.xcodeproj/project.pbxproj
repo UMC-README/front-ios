@@ -38,6 +38,10 @@
 		6C43ECE92C53B2CD000582AF /* APIHeaderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C43ECE82C53B2CD000582AF /* APIHeaderManager.swift */; };
 		6C43ECEB2C53BC3C000582AF /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C43ECEA2C53BC3C000582AF /* UserService.swift */; };
 		6C43ECED2C53BE8D000582AF /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C43ECEC2C53BE8D000582AF /* UserAPI.swift */; };
+		6C43ECEF2C5417EA000582AF /* CombineMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 6C43ECEE2C5417EA000582AF /* CombineMoya */; };
+		6C43ECF12C5417EA000582AF /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 6C43ECF02C5417EA000582AF /* Moya */; };
+		6C43ECF32C5417EA000582AF /* ReactiveMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 6C43ECF22C5417EA000582AF /* ReactiveMoya */; };
+		6C43ECF52C5417EA000582AF /* RxMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 6C43ECF42C5417EA000582AF /* RxMoya */; };
 		6C55BB622C4FAD8C00A3C357 /* RoomItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C55BB612C4FAD8C00A3C357 /* RoomItemView.swift */; };
 		6C55BB642C4FBBB800A3C357 /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C55BB632C4FBBB800A3C357 /* Room.swift */; };
 		6C55BB672C4FC08200A3C357 /* StateType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C55BB662C4FC08200A3C357 /* StateType.swift */; };
@@ -125,8 +129,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C43ECF52C5417EA000582AF /* RxMoya in Frameworks */,
 				6C43ECD52C539946000582AF /* Moya in Frameworks */,
 				6C43ECD32C539946000582AF /* CombineMoya in Frameworks */,
+				6C43ECF12C5417EA000582AF /* Moya in Frameworks */,
+				6C43ECF32C5417EA000582AF /* ReactiveMoya in Frameworks */,
+				6C43ECEF2C5417EA000582AF /* CombineMoya in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -460,6 +468,10 @@
 			packageProductDependencies = (
 				6C43ECD22C539946000582AF /* CombineMoya */,
 				6C43ECD42C539946000582AF /* Moya */,
+				6C43ECEE2C5417EA000582AF /* CombineMoya */,
+				6C43ECF02C5417EA000582AF /* Moya */,
+				6C43ECF22C5417EA000582AF /* ReactiveMoya */,
+				6C43ECF42C5417EA000582AF /* RxMoya */,
 			);
 			productName = Readme;
 			productReference = 6C882A852C4D180600AE5734 /* Readme.app */;
@@ -799,6 +811,26 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6C43ECD12C539946000582AF /* XCRemoteSwiftPackageReference "Moya" */;
 			productName = Moya;
+		};
+		6C43ECEE2C5417EA000582AF /* CombineMoya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6C43ECD12C539946000582AF /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = CombineMoya;
+		};
+		6C43ECF02C5417EA000582AF /* Moya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6C43ECD12C539946000582AF /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = Moya;
+		};
+		6C43ECF22C5417EA000582AF /* ReactiveMoya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6C43ECD12C539946000582AF /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = ReactiveMoya;
+		};
+		6C43ECF42C5417EA000582AF /* RxMoya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6C43ECD12C539946000582AF /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = RxMoya;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
