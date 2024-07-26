@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct AuthenticatedView: View {
+    @EnvironmentObject var container: DIContainer
     @StateObject var authViewModel: AuthenticationViewModel
     var body: some View {
         VStack {
@@ -17,6 +18,7 @@ struct AuthenticatedView: View {
                     .environmentObject(authViewModel)
             case .authenticated:
                 MainView()
+                    .environmentObject(container)
             }
         }
     }

@@ -9,11 +9,26 @@ import SwiftUI
 
 struct MainView: View {
     
+    @EnvironmentObject var container: DIContainer
+    
     var body: some View {
+        NavigationStack(path: $container.navigationRouter.destinations) {
+            mainContentView
+//                .navigationDestination(for: NavigationDestination.Self) {
+//                    
+//                }
+        }
+        
+    }
+    
+    /// 메인 콘텐츠
+    @ViewBuilder
+    var mainContentView: some View {
         ZStack {
             Color.backgroundLight
             ScrollView {
                 VStack(spacing: 24) {
+                    headerView
                     pinnedNotice
                     recentNoticeView
                     createdRoomView
@@ -21,6 +36,37 @@ struct MainView: View {
                 }
                 .padding(.top, 10)
                 .padding(.horizontal, 16)
+            }
+        }
+    }
+    
+    /// 헤더
+    @ViewBuilder
+    var headerView: some View {
+        HStack {
+            
+            Spacer()
+            
+            HStack(spacing: 4) {
+                Button {
+                    
+                } label: {
+                    HStack {
+                        Rectangle().frame(width: 16, height: 16)
+                        Text("확인 요청 내역")
+                    }
+                }
+                .buttonStyle(MyInfoButtonStyle())
+                
+                Button {
+                    
+                } label: {
+                    HStack {
+                        Rectangle().frame(width: 16, height: 16)
+                        Text("페널티")
+                    }
+                }
+                .buttonStyle(MyInfoButtonStyle())
             }
         }
     }
@@ -134,6 +180,11 @@ struct MainView: View {
     }
 }
 
-#Preview {
-    MainView()
+struct MainView_Previews: PreviewProvider {
+    static let container: DIContainer = .stub
+    
+    static var previews: some View {
+        MainView()
+            .environmentObject(container)
+    }
 }
