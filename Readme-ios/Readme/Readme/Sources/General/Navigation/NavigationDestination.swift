@@ -7,7 +7,10 @@
 
 import Foundation
 
-enum NavigationDestination {
+enum NavigationDestination: Hashable {
     case signUp
-    case room
+    case mypage
+    case penalty
+    case submit
+    case room(RoomId: String)
 }
