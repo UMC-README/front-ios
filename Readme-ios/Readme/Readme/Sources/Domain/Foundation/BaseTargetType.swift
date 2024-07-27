@@ -13,7 +13,7 @@ public protocol BaseTargetType: TargetType {}
 
 extension BaseTargetType {
     public var baseURL: URL {
-        return URL(string: ReadmeAPI.baseURL)!
+        return URL(string: BaseAPI.base.apiDesc)!
     }
     
     public var headers: [String : String]? {
