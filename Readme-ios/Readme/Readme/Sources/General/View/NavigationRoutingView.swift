@@ -16,13 +16,13 @@ struct NavigationRoutingView: View {
         case let .signUp:
             SignUpView()
         case let .mypage:
-            Text("mypage")
+            MyPageView()
         case let .penalty:
-            Text("penalty")
+            PenaltyView()
         case let .submit:
             Text("submit")
         case let .room(roomId):
-            Text("공지글 자세히 보기 \(roomId)")
+            Text("공지방 자세히 보기 \(roomId)")
         }
     }
 }
