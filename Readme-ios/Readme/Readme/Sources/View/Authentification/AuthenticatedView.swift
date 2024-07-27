@@ -17,8 +17,8 @@ struct AuthenticatedView: View {
                 SignInIntroView()
                     .environmentObject(authViewModel)
             case .authenticated:
-                MainView()
-                    .environmentObject(container)
+                MainView(mainViewModel: .init(container: container))
+//                    .environmentObject(container)
             }
         }
     }
