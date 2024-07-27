@@ -8,32 +8,32 @@
 import Foundation
 import Moya
 
-enum UserAPI {
-    case profile(accessToken: String)   // 내 프로필 조회
+enum UserTarget {
+    case getUser(accessToken: String)   // 내 프로필 조회
 }
 
-extension UserAPI: BaseTargetType {
+extension UserTarget: BaseTargetType {
     var baseURL: URL {
-        return URL(string: ReadmeAPI.baseURL)!
+        return URL(string: BaseAPI.base.apiDesc)!
     }
     
     var path: String {
         switch self {
-        case .profile:
-            return ""
+        case .getUser:
+            return UserAPI.user.apiDesc
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .profile:
+        case .getUser:
             return .get
         }
     }
     
     var task: Moya.Task {
         switch self {
-        case .profile(let accessToken):
+        case .getUser(let accessToken):
             let parameters : [String : Any] = [:]
             return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
         }
@@ -42,7 +42,7 @@ extension UserAPI: BaseTargetType {
     var headers: [String : String]? {
         let token: String
         switch self {
-        case .profile(let accessToken):
+        case .getUser(let accessToken):
             token = accessToken
             return [
                 "Content-Type": "application/json",
