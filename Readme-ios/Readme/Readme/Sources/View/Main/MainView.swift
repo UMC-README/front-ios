@@ -10,22 +10,22 @@ import SwiftUI
 struct MainView: View {
     
     @EnvironmentObject var container: DIContainer
+    @StateObject var mainViewModel: MainViewModel
     
     var body: some View {
         NavigationStack(path: $container.navigationRouter.destinations) {
             mainContentView
-//                .navigationDestination(for: NavigationDestination.Self) {
-//                    
-//                }
+                .navigationDestination(for: NavigationDestination.self) {
+                    NavigationRoutingView(destination: $0)
+                }
         }
-        
     }
     
     /// 메인 콘텐츠
     @ViewBuilder
     var mainContentView: some View {
         ZStack {
-            Color.backgroundLight
+            Color.backgroundLight.ignoresSafeArea(.all)
             ScrollView {
                 VStack(spacing: 24) {
                     headerView
@@ -49,7 +49,7 @@ struct MainView: View {
             
             HStack(spacing: 4) {
                 Button {
-                    
+                    mainViewModel.send(action: .goToSetting)
                 } label: {
                     HStack {
                         Rectangle().frame(width: 16, height: 16)
@@ -184,7 +184,7 @@ struct MainView_Previews: PreviewProvider {
     static let container: DIContainer = .stub
     
     static var previews: some View {
-        MainView()
+        MainView(mainViewModel: .init(container: container))
             .environmentObject(container)
     }
 }
