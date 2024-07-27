@@ -25,7 +25,7 @@ struct MainView: View {
     @ViewBuilder
     var mainContentView: some View {
         ZStack {
-            Color.backgroundLight
+            Color.backgroundLight.ignoresSafeArea(.all)
             ScrollView {
                 VStack(spacing: 24) {
                     headerView
