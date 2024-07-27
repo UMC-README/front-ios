@@ -14,18 +14,18 @@ import SwiftUI
 protocol UserServiceType {
 //    func getProfile() async throws
 //    func getProfile() -> AnyPublisher<User, ServiceError>
-    func getProfile(completion: @escaping (Result<User, ServiceError>) -> Void)
+    func getUser(completion: @escaping (Result<User, ServiceError>) -> Void)
 //    func getProfile()
 }
 
 class UserService: UserServiceType {
 
     private let jsonDecoder = JSONDecoder()
-    let provider = MoyaProvider<UserAPI>(plugins: [MoyaLoggingPlugin()])
+    let provider = MoyaProvider<UserTarget>(plugins: [MoyaLoggingPlugin()])
     
     /// 내 프로필 조회
-    func getProfile(completion: @escaping (Result<User, ServiceError>) -> Void) {
-        provider.request(.profile(accessToken: "")) { result in
+    func getUser(completion: @escaping (Result<User, ServiceError>) -> Void) {
+        provider.request(.getUser(accessToken: "")) { result in
             switch result {
             case let .success(response):
                 do {
@@ -43,7 +43,7 @@ class UserService: UserServiceType {
 }
 
 class StubUserService: UserServiceType {
-    func getProfile(completion: @escaping (Result<User, ServiceError>) -> Void) {
+    func getUser(completion: @escaping (Result<User, ServiceError>) -> Void) {
       
     }
 }
