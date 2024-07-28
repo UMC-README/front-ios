@@ -18,7 +18,10 @@ struct MainView: View {
                 .navigationDestination(for: NavigationDestination.self) {
                     NavigationRoutingView(destination: $0)
                 }
+                .navigationTitle("Readme")
+                .navigationBarTitleDisplayMode(.inline)
         }
+        
     }
     
     /// 메인 콘텐츠
@@ -44,13 +47,17 @@ struct MainView: View {
     @ViewBuilder
     var headerView: some View {
         HStack {
-            
+            Text("profile")
+                .onTapGesture {
+                    mainViewModel.send(action: .goToSetting)
+                }
+
             Spacer()
             
             HStack(spacing: 4) {
                 Button {
 
-                    mainViewModel.send(action: .goToSetting)
+                    
                 } label: {
                     HStack {
                         Rectangle().frame(width: 16, height: 16)
