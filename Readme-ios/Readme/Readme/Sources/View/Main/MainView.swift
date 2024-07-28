@@ -10,7 +10,7 @@ import SwiftUI
 struct MainView: View {
     
     @EnvironmentObject var container: DIContainer
-    @StateObject var mainViewModel: MainViewModel
+    var mainViewModel: MainViewModel
     
     var body: some View {
         NavigationStack(path: $container.navigationRouter.destinations) {
@@ -49,6 +49,7 @@ struct MainView: View {
             
             HStack(spacing: 4) {
                 Button {
+
                     mainViewModel.send(action: .goToSetting)
                 } label: {
                     HStack {

@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-//@Observable
+@Observable
 class MainViewModel: ObservableObject {
     enum Action {
         case load
@@ -19,8 +19,8 @@ class MainViewModel: ObservableObject {
 //        case goToNotice(Notice)
     }
     
-    @Published var myUser: User?
-    @Published var phase: Phase = .notRequested
+    var myUser: User?
+    var phase: Phase = .notRequested
     
     
     private var container: DIContainer
