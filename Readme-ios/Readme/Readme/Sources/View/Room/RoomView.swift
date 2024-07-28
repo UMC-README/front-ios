@@ -9,6 +9,9 @@ import SwiftUI
 
 struct RoomView: View {
     
+    @EnvironmentObject var container: DIContainer
+    @StateObject var roomViewModel: RoomViewModel
+    
     
     var example: [Notice] = [
         .init(title: "공지방 예시", content: "공지글 내용 예시입니다. 공지글 내용 예시입니다. 공지글 내용 예시입니다. 공지글 내용 예시입니다.", type: .mission),
@@ -38,6 +41,11 @@ struct RoomView: View {
     }
 }
 
-#Preview {
-    RoomView()
+struct RoomView_Previews: PreviewProvider {
+    static let container: DIContainer = .stub
+    
+    static var previews: some View {
+        RoomView(roomViewModel: .init(container: container, roomId: 1))
+            .environmentObject(container)
+    }
 }
