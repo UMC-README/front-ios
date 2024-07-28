@@ -46,7 +46,7 @@ extension UserTarget: BaseTargetType {
             token = accessToken
             return [
                 "Content-Type": "application/json",
-                "Authorization": "Bearer \(accessToken)",
+                "Authorization": "Bearer \(token)",
 
             ]
         }
