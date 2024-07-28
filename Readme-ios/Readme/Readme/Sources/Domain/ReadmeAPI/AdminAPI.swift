@@ -12,16 +12,16 @@ import Foundation
 public enum AdminAPI {
     
     case createRoom
-    case patchRoom(Int)
-    case deleteRoom(Int)
+    case patchRoom(String)
+    case deleteRoom(String)
     case createPost
-    case patchPost(Int)
-    case deletePost(Int)
+    case patchPost(String)
+    case deletePost(String)
     case unconfirmedUser
     case search
-    case profile(Int)
+    case profile(String)
     case invitations
-    case deleteUser(Int)
+    case deleteUser(String)
     
     // TODO: 확인요청내역조회 /api/admin/submit/type=?
     //    case submitType
