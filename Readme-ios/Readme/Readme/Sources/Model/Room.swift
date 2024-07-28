@@ -32,3 +32,30 @@ struct Room: Codable, Identifiable {
     }
     
 }
+
+extension Room {
+    static var stub1: Room {
+        .init(id: "room01", adminID: "admin01", adminNickname: "admin01", roomName: "roomName01", roomPassword: "roompassword", roomImage: "", roomInviteUrl: "", maxPenalty: 10, state: .exist)
+    }
+    
+    static var stub2: Room {
+        .init(id: "room02", adminID: "admin01", adminNickname: "admin01", roomName: "roomName01", roomPassword: "roompassword", roomImage: "", roomInviteUrl: "", maxPenalty: 10, state: .exist)
+    }
+    
+    static var stub3: Room {
+        .init(id: "room03", adminID: "admin01", adminNickname: "admin01", roomName: "roomName01", roomPassword: "roompassword", roomImage: "", roomInviteUrl: "", maxPenalty: 10, state: .exist)
+    }
+    
+    static var stub4: Room {
+        .init(id: "room04", adminID: "admin01", adminNickname: "admin01", roomName: "roomName01", roomPassword: "roompassword", roomImage: "", roomInviteUrl: "", maxPenalty: 10, state: .exist)
+    }
+    
+    static var stub5: Room {
+        .init(id: "room05", adminID: "admin01", adminNickname: "admin01", roomName: "roomName01", roomPassword: "roompassword", roomImage: "", roomInviteUrl: "", maxPenalty: 10, state: .exist)
+    }
+    
+    static var stub6: Room {
+        .init(id: "room06", adminID: "admin01", adminNickname: "admin01", roomName: "roomName01", roomPassword: "roompassword", roomImage: "", roomInviteUrl: "", maxPenalty: 10, state: .exist)
+    }
+    
+}

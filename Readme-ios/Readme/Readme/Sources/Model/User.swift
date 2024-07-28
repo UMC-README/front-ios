@@ -24,3 +24,21 @@ struct User: Identifiable, Codable {
     let password: String?
     let profileImage: String?
 }
+
+extension User {
+    static var stub1: User {
+        .init(userId: 1, name: "정성찬", email: "jsc@gmail.com", password: "1234", profileImage: "")
+    }
+
+    static var stub2: User {
+        .init(userId: 2, name: "유우시", email: "abc@gmail.com", password: "1234", profileImage: "")
+    }
+
+    static var stub3: User {
+        .init(userId: 3, name: "김석진", email: "abc@gmail.com", password: "1234", profileImage: "")
+    }
+    
+    static var stub4: User {
+        .init(userId: 4, name: "리쿠", email: "abc@gmail.com", password: "1234", profileImage: "")
+    }
+}

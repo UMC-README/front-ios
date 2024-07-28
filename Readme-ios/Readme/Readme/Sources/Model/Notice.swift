@@ -22,4 +22,9 @@ struct Notice: Identifiable, Codable {
 //    enum CodingKeys: CodingKey {
 //    
 //    }
+    
+}
+
+extension Notice {
+    static var stub1: Notice = .init(id: "notice01", title: "title01", content: "공지글 내용 예제입니다. 공지글 내용 예제입니다. 공지글 내용 예제입니다. 공지글 내용 예제입니다. 공지글 내용 예제입니다. 공지글 내용 예제입니다. 공지글 내용 예제입니다.", type: .mission, startDate: "99.99.99", endDate: "99.99.99", commentCount: 10, question: "공지글 퀴즈 예제입니다.", quizAnswer: "정답", unreadCount: 10)
 }
