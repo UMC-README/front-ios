@@ -11,7 +11,7 @@ public enum BaseAPI: String {
     public var apiDesc: String {
         switch self {
         case .base:
-            return "http://52.78.229.147:8000/"
+            return "http://52.78.229.147:8000"
         }
     }
 }

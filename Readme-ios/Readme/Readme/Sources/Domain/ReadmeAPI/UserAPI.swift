@@ -23,12 +23,12 @@ public enum UserAPI {
     case joinRoom               /// 내가 입장한 공지방 조회
     case profile                /// 내 프로필 전체 조회
     case patchProfile           /// 내 기본 프로필 수정
-    case patchProfileRoom(Int)  /// 공지방별 프로필 수정
-    case profileNickname(Int)   /// 공지방별 닉네임 중복 확인
+    case patchProfileRoom(String)  /// 공지방별 프로필 수정
+    case profileNickname(String)   /// 공지방별 닉네임 중복 확인
     case password               /// 내 비밀번호 확인
     case fetchPassword          /// 내 비밀번호 수정
     case rooms                  /// 본인이 소속된 공지방 조회
-    case roomsMissions(Int)     /// 공지방마다 제출한 미션 내역 조회
+    case roomsMissions(String)     /// 공지방마다 제출한 미션 내역 조회
     case roomsPenalty           /// 각 공지방마다 페널티 조회
     
     
