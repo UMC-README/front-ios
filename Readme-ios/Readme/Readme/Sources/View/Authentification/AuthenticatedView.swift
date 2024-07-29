@@ -18,7 +18,6 @@ struct AuthenticatedView: View {
                     .environmentObject(authViewModel)
             case .authenticated:
                 MainView(mainViewModel: .init(container: container))
-//                    .environmentObject(container)
             }
         }
     }
