@@ -60,6 +60,7 @@
 		6C621DDC2C5800800007999B /* PhotoPickerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C621DDB2C5800800007999B /* PhotoPickerService.swift */; };
 		6C621DDF2C5800C60007999B /* PhotoImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C621DDE2C5800C60007999B /* PhotoImage.swift */; };
 		6C621DE12C5804FE0007999B /* ImageURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C621DE02C5804FE0007999B /* ImageURL.swift */; };
+		6C621DE32C5816180007999B /* CreateRoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C621DE22C5816180007999B /* CreateRoomViewModel.swift */; };
 		6C75A7732C52212F00EF396E /* RoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C75A7722C52212F00EF396E /* RoomView.swift */; };
 		6C75A7752C52238500EF396E /* NavigationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C75A7742C52238500EF396E /* NavigationRouter.swift */; };
 		6C75A7772C52270500EF396E /* NavigationRoutingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C75A7762C52270500EF396E /* NavigationRoutingView.swift */; };
@@ -131,6 +132,7 @@
 		6C621DDB2C5800800007999B /* PhotoPickerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerService.swift; sourceTree = "<group>"; };
 		6C621DDE2C5800C60007999B /* PhotoImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoImage.swift; sourceTree = "<group>"; };
 		6C621DE02C5804FE0007999B /* ImageURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageURL.swift; sourceTree = "<group>"; };
+		6C621DE22C5816180007999B /* CreateRoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoomViewModel.swift; sourceTree = "<group>"; };
 		6C75A7722C52212F00EF396E /* RoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomView.swift; sourceTree = "<group>"; };
 		6C75A7742C52238500EF396E /* NavigationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRouter.swift; sourceTree = "<group>"; };
 		6C75A7762C52270500EF396E /* NavigationRoutingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRoutingView.swift; sourceTree = "<group>"; };
@@ -340,6 +342,7 @@
 			isa = PBXGroup;
 			children = (
 				6C621DD92C57F8730007999B /* CreateRoomView.swift */,
+				6C621DE22C5816180007999B /* CreateRoomViewModel.swift */,
 			);
 			path = CreateRoom;
 			sourceTree = "<group>";
@@ -637,6 +640,7 @@
 				6C5DCC932C4E7FCF007E59E5 /* SignUpView.swift in Sources */,
 				6C55BB692C4FC0BB00A3C357 /* SubmitStateType.swift in Sources */,
 				6C87014B2C54E0EA00C6CF97 /* AdminAPI.swift in Sources */,
+				6C621DE32C5816180007999B /* CreateRoomViewModel.swift in Sources */,
 				6C75A7732C52212F00EF396E /* RoomView.swift in Sources */,
 				6C1927E52C4E35CF00669E23 /* DefaultButtonStyle.swift in Sources */,
 				6C621DDF2C5800C60007999B /* PhotoImage.swift in Sources */,

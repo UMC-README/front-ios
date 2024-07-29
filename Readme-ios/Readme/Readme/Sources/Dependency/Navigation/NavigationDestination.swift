@@ -13,4 +13,5 @@ enum NavigationDestination: Hashable {
     case penalty
     case submit
     case room(roomId: Int)
+    case createRoom
 }

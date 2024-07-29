@@ -14,6 +14,7 @@ enum PhotoPickerError: Error {
 }
 
 protocol PhotoPickerServiceType {
+    func loadTransferable(from imageSelection: PhotosPickerItem) async throws -> Data
     func loadTransferable(from imageSelection: PhotosPickerItem) -> AnyPublisher<Data, ServiceError>
 }
 
@@ -36,5 +37,23 @@ class PhotoPickerService: PhotoPickerServiceType {
         }
         .mapError { .error($0) }
         .eraseToAnyPublisher()
+    }
+    
+    func loadTransferable(from imageSelection: PhotosPickerItem) async throws -> Data {
+        guard let image = try await imageSelection.loadTransferable(type: PhotoImage.self) else {
+            throw PhotoPickerError.importFailed
+        }
+        return image.data
+    }
+}
+
+class StubPhotoPickerService: PhotoPickerServiceType {
+    
+    func loadTransferable(from imageSelection: PhotosPickerItem) -> AnyPublisher<Data, ServiceError> {
+        Empty().eraseToAnyPublisher()
+    }
+    
+    func loadTransferable(from imageSelection: PhotosPickerItem) async throws -> Data {
+        return Data()
     }
 }

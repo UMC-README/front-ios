@@ -14,7 +14,8 @@ struct NavigationRoutingView: View {
     var body: some View {
         switch destination {
         case let .signUp:
-            SignUpView()
+//            SignUpView()
+            Text("signup")
         case let .mypage:
             MyPageView()
         case let .penalty:
@@ -23,6 +24,8 @@ struct NavigationRoutingView: View {
             Text("submit")
         case let .room(roomId):
             Text("공지방 자세히 보기 \(roomId)")
+        case let .createRoom:
+            CreateRoomView(createRoomViewModel: .init(container: container) )
         }
     }
 }

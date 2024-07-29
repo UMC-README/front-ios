@@ -21,6 +21,9 @@ struct MainView: View {
                 .navigationTitle("Readme")
                 .navigationBarTitleDisplayMode(.inline)
         }
+        .task {
+            mainViewModel.send(action: .load)
+        }
         
     }
     
@@ -32,7 +35,9 @@ struct MainView: View {
             ScrollView {
                 VStack(spacing: 24) {
                     headerView
-                    pinnedNotice
+                    if mainViewModel.fixedNotice?.result != nil {
+                        pinnedNotice
+                    }
                     recentNoticeView
                     createdRoomView
                     enteredRoomView
@@ -56,7 +61,7 @@ struct MainView: View {
             
             HStack(spacing: 4) {
                 Button {
-
+                    
                     
                 } label: {
                     HStack {
@@ -87,7 +92,7 @@ struct MainView: View {
             Rectangle()
                 .frame(width: 14, height: 14)
             VStack(alignment: .leading, spacing: 8) {
-                Text("공지글 제목")
+                Text((mainViewModel.fixedNotice?.result?.title ?? FixedNotice.stub1.result?.title)!)
                     .font(.pretendardBold16)
                     .foregroundStyle(Color.txtDefault)
                 Text("공지글 날짜")
@@ -148,7 +153,15 @@ struct MainView: View {
             GridItem(.flexible()),
         ]
         VStack(alignment: .leading, spacing: 10) {
-            title("개설한 공지방")
+            HStack {
+                title("생성한 공지방")
+                Spacer()
+                Button {
+                    mainViewModel.send(action: .goToCreateRoom)
+                } label: {
+                    Image(systemName: "plus")
+                }
+            }
             LazyVGrid(columns: columns) {
                 RoomItemView(time: "30분", roomName: "공지방", nickname: "닉네임")
                 RoomItemView(time: "30분", roomName: "공지방공지방공지방공지방공지방공지방공지방공지방공지방", nickname: "닉네임닉네임닉네임닉네임닉네임닉네임닉네임닉네임닉네임")
