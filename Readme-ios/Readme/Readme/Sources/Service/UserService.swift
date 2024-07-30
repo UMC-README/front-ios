@@ -26,6 +26,7 @@ class UserService: UserServiceType {
     private let jsonDecoder = JSONDecoder()
     let provider = MoyaProvider<UserTarget>(plugins: [MoyaLoggingPlugin()])
     
+    let accessToken: String? = TokenManager.shared.accessToken
     func uploadImage(data: Data?) async throws -> ImageURL {
         guard let data = data else { return ImageURL() }
         var url: ImageURL = .init()

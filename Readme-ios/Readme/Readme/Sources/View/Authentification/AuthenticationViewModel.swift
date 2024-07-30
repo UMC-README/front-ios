@@ -38,6 +38,7 @@ extension AuthenticationViewModel {
         print("signinWithEmail()")
         if let result = try? await container.services.authService.signIn() {
             if result {
+                print(TokenManager.shared.accessToken)
                 authentificationState = .authenticated
                 print("- 로그인 성공")
             } else {
