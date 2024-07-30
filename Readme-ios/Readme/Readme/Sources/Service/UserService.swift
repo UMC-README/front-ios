@@ -30,31 +30,34 @@ class UserService: UserServiceType {
     
     /// s3 이미지 url 생성
     func uploadImage(data: Data?) async throws -> ImageURL {
-        var url: ImageURL = .stub01
-        guard let data = data else { return url }
+//        var url: ImageURL = .stub01
+//        guard let data = data else { return url }
         
         
         guard let accessToken = accessToken else {
             print("토큰이 존재하지 않습니다.")
             return .stub01
         }
+        return try await withCheckedThrowingContinuation { continuation in
             provider.request(.s3Upload(data: data, accessToken: accessToken), completion: { result in
                 print("data \(data)")
                 switch result {
                 case .success(let response):
                     do {
                         let decodedResponse = try JSONDecoder().decode(ImageURL.self, from: response.data)
-                        url = decodedResponse
-//                        print("response \(decodedResponse)")
+                        continuation.resume(returning: decodedResponse)
+                        //                        print("response \(decodedResponse)")
                         print("s3 이미지 링크 생성 성공")
                     } catch {
                         print("s3 이미지 링크 생성 실패 \(error.localizedDescription)")
+                        continuation.resume(throwing: error)
                     }
                 case .failure(let error):
                     print("s3 이미지 링크 생성 네트워크 오류 \(error.localizedDescription)")
+                    continuation.resume(throwing: error)
                 }
             })
-        return url
+        }
     }
     
     /// 내 프로필 조회
