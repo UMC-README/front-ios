@@ -9,7 +9,7 @@ import SwiftUI
 
 struct NoticeDetailView: View {
     
-    var notice: Notice = Notice(title: "공지방 예시", content: "공지글 내용 예시입니다. 공지글 내용 예시입니다. 공지글 내용 예시입니다. 공지글 내용 예시입니다.", type: .mission)
+    var notice: Notice = Notice.stub1
     
     // TODO: Comment
     
