@@ -58,7 +58,7 @@ struct NoticePreviewView: View {
 
 struct PostPreviewView_Previews: PreviewProvider {
     static var previews: some View {
-        NoticePreviewView(notice: .init())
+        NoticePreviewView(notice: .stub1)
             .previewLayout(.sizeThatFits)
     }
 }
