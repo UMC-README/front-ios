@@ -31,7 +31,8 @@ class AuthenticationService: AuthenticationServiceType {
     
     // TODO: 로그인
     func signIn() async throws  -> Bool {
-        TokenManager.shared.accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJwcm92aWRlciI6IlJFQURNRSIsImlhdCI6MTcyMjM0MDk1NCwiZXhwIjoxNzIyMzUxNzU0fQ.ldJ4nNKKAvM_4oOQns0SLC0LHjC_bcuthf3hCL6HLmI"
+        TokenManager.shared.accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJwcm92aWRlciI6IlJFQURNRSIsImlhdCI6MTcyMjM2Mzc0NCwiZXhwIjoxNzIyMzc0NTQ0fQ.fYyR_44VYzuRL92cLj8CH_AM_vk4Z-e_rMeXWsQJTyk"
+        
         return true
     }
 }

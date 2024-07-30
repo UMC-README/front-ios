@@ -22,6 +22,7 @@ class AdminService: AdminServiceType {
     
     let accessToken: String? = TokenManager.shared.accessToken
     
+    /// 공지방 생성
     func createRoom(roomRequest: RoomRequest) {
         
         guard let accessToken = accessToken else {
