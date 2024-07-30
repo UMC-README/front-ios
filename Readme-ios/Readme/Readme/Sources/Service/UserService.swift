@@ -14,9 +14,11 @@ import SwiftUI
 protocol UserServiceType {
     func uploadImage(data: Data?) async throws -> ImageURL
     func getUser(completion: @escaping (Result<User, ServiceError>) -> Void)
+    func getUser() async throws -> User
     
     
     func getFixedNotice(completion: @escaping (Result<FixedNotice, ServiceError>) -> Void)
+    func getFixedNotice() async throws -> FixedNotice
 }
 
 class UserService: UserServiceType {
@@ -42,8 +44,9 @@ class UserService: UserServiceType {
                 case .success(let response):
                     do {
                         let decodedResponse = try JSONDecoder().decode(ImageURL.self, from: response.data)
-                        print("response \(decodedResponse)")
-                        print("성공")
+                        url = decodedResponse
+//                        print("response \(decodedResponse)")
+                        print("s3 이미지 링크 생성 성공")
                     } catch {
                         print("s3 이미지 링크 생성 실패 \(error.localizedDescription)")
                     }
@@ -77,6 +80,35 @@ class UserService: UserServiceType {
         }
     }
     
+    /// 내 프로필 조회
+    func getUser() async throws -> User {
+        guard let accessToken = accessToken else {
+            print("토큰이 존재하지 않습니다.")
+            return .stub01
+        }
+        
+        return try await withCheckedThrowingContinuation { continuation in
+            provider.request(.getUser(accessToken: accessToken), completion: { result in
+                switch result {
+                case let .success(response):
+                    do {
+                        let response = try self.jsonDecoder.decode(User.self, from: response.data)
+//                        user = response
+                        continuation.resume(returning: response)
+                    } catch {
+                        Log.network("UserService - 내 프로필 조회 실패", error.localizedDescription)
+                        continuation.resume(throwing: error)
+                    }
+                    
+                case let .failure(error):
+                    Log.network("UserService - 내 프로필 조회 네트워킹 에러", error.localizedDescription)
+                    continuation.resume(throwing: error)
+                }
+                
+            })
+        }
+    }
+    
     /// 고정된 공지 조회
     func getFixedNotice(completion: @escaping (Result<FixedNotice, ServiceError>) -> Void) {
         
@@ -99,19 +131,53 @@ class UserService: UserServiceType {
             }
         }
     }
+    
+    func getFixedNotice() async throws -> FixedNotice {
+        
+        var notice: FixedNotice = .stub1
+        
+        guard let accessToken = accessToken else {
+            print("토큰이 존재하지 않습니다.")
+            return notice
+        }
+        
+        provider.request(.getFixedNotice(accessToken: accessToken)) { result in
+            switch result {
+            case let .success(response):
+                do {
+                    let response = try self.jsonDecoder.decode(FixedNotice.self, from: response.data)
+                    notice = response
+                } catch {
+                    Log.network("UserService - getFixedNotice()", error.localizedDescription)
+                }
+            case let .failure(error):
+                Log.network("UserService - getFixedNotice()", error.localizedDescription)
+            }
+        }
+        
+        return notice
+    }
 }
 
 class StubUserService: UserServiceType {
+
     func uploadImage(data: Data?) async throws -> ImageURL {
         return ImageURL.stub01
     }
-    
     
     func getUser(completion: @escaping (Result<User, ServiceError>) -> Void) {
       
     }
     
+    func getUser() async throws -> User {
+        return User.stub01
+    }
+    
     func getFixedNotice(completion: @escaping (Result<FixedNotice, ServiceError>) -> Void) {
         
+    }
+    
+    func getFixedNotice() async throws -> FixedNotice {
+        return FixedNotice.stub1
     }
 }

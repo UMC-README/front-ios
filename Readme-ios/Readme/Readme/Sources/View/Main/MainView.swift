@@ -23,6 +23,7 @@ struct MainView: View {
         }
         .task {
             mainViewModel.send(action: .load)
+            await mainViewModel.getUser()
         }
         
     }
@@ -52,10 +53,11 @@ struct MainView: View {
     @ViewBuilder
     var headerView: some View {
         HStack {
-            Text("profile")
+            profileView
                 .onTapGesture {
                     mainViewModel.send(action: .goToSetting)
                 }
+                .foregroundStyle(Color.txtDefault)
 
             Spacer()
             
@@ -80,6 +82,23 @@ struct MainView: View {
                     }
                 }
                 .buttonStyle(MyInfoButtonStyle())
+            }
+        }
+    }
+    
+    /// 내 프로필
+    @ViewBuilder
+    var profileView: some View {
+        HStack {
+            RoundedRectangle(cornerRadius: 12)
+                .frame(width: 44, height: 44)
+            VStack(alignment: .leading) {
+                Text(mainViewModel.myUser?.result?.nickname ?? "")  // 닉네임
+                    .font(.pretendardBold18)
+                    .foregroundStyle(Color.txtDefault)
+                Text(mainViewModel.myUser?.result?.email ?? "")     // 이메일
+                    .font(.pretendardRegular12)
+                    .foregroundStyle(Color.txtCaption)
             }
         }
     }

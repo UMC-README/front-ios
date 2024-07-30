@@ -16,29 +16,56 @@ import Foundation
 //| password | 비밀번호 |  |
 //| profileImage | 프로필 이미지 |  |
 
-struct User: Identifiable, Codable {
+import Foundation
+
+// MARK: - User
+struct User: Codable, Identifiable {
     let id = UUID().uuidString
-    let userId: Int
-    let name: String?
-    let email: String?
-    let password: String?
-    let profileImage: String?
+    let status: Int?
+    let isSuccess: Bool?
+    let code: Int?
+    let message: String?
+    let result: UserResult?
 }
 
+// MARK: - Result
+struct UserResult: Codable, Identifiable {
+    let id = UUID().uuidString
+    let userID: Int?
+    let name, nickname, email, profileImage: String?
+
+    enum CodingKeys: String, CodingKey {
+        case userID = "userId"
+        case name, nickname, email, profileImage
+    }
+}
+
+
 extension User {
-    static var stub1: User {
-        .init(userId: 1, name: "정성찬", email: "jsc@gmail.com", password: "1234", profileImage: "")
+    static var stub01: User {
+        .init(status: 1, isSuccess: true, code: 200, message: "success!", result:
+                .init(userID: 1, name: "정성찬", nickname: "정성찬", email: "jsc@gmail.com", profileImage: "")
+        )
+    }
+    static var stub02: User {
+        .init(status: 1, isSuccess: true, code: 200, message: "success!", result:
+                .init(userID: 2, name: "유우시", nickname: "유우시", email: "jsc@gmail.com", profileImage: "")
+        )
+    }
+    static var stub03: User {
+        .init(status: 1, isSuccess: true, code: 200, message: "success!", result:
+                .init(userID: 3, name: "김석진", nickname: "김석진", email: "jsc@gmail.com", profileImage: "")
+        )
+    }
+    static var stub04: User {
+        .init(status: 1, isSuccess: true, code: 200, message: "success!", result:
+                .init(userID: 4, name: "한수빈", nickname: "한수빈", email: "jsc@gmail.com", profileImage: "")
+        )
+    }
+    static var stub05: User {
+        .init(status: 1, isSuccess: true, code: 200, message: "success!", result:
+                .init(userID: 5, name: "강해린", nickname: "강해린", email: "jsc@gmail.com", profileImage: "")
+        )
     }
 
-    static var stub2: User {
-        .init(userId: 2, name: "유우시", email: "abc@gmail.com", password: "1234", profileImage: "")
-    }
-
-    static var stub3: User {
-        .init(userId: 3, name: "김석진", email: "abc@gmail.com", password: "1234", profileImage: "")
-    }
-    
-    static var stub4: User {
-        .init(userId: 4, name: "리쿠", email: "abc@gmail.com", password: "1234", profileImage: "")
-    }
 }
