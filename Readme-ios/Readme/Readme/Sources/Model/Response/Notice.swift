@@ -8,16 +8,16 @@
 import Foundation
 
 struct Notice: Identifiable, Codable {
-    var id = UUID().uuidString
-    var title: String?
-    var content: String?
-    var type: NoticeType?
-    var startDate: String?
-    var endDate: String?
-    var commentCount: Int?
-    var question: String?
-    var quizAnswer: String?
-    var unreadCount: Int?
+    let id = UUID().uuidString
+    let title: String?
+    let content: String?
+    let type: NoticeType?
+    let startDate: String?
+    let endDate: String?
+    let commentCount: Int?
+    let question: String?
+    let quizAnswer: String?
+    let unreadCount: Int?
     
 //    enum CodingKeys: CodingKey {
 //    
@@ -42,7 +42,7 @@ struct FixedNoticeResult: Identifiable, Codable {
 }
 
 extension Notice {
-    static var stub1: Notice = .init(id: "notice01", title: "title01", content: "공지글 내용 예제입니다. 공지글 내용 예제입니다. 공지글 내용 예제입니다. 공지글 내용 예제입니다. 공지글 내용 예제입니다. 공지글 내용 예제입니다. 공지글 내용 예제입니다.", type: .mission, startDate: "99.99.99", endDate: "99.99.99", commentCount: 10, question: "공지글 퀴즈 예제입니다.", quizAnswer: "정답", unreadCount: 10)
+    static var stub1: Notice = .init(title: "title01", content: "공지글 내용 예제입니다. 공지글 내용 예제입니다. 공지글 내용 예제입니다. 공지글 내용 예제입니다. 공지글 내용 예제입니다. 공지글 내용 예제입니다. 공지글 내용 예제입니다.", type: .mission, startDate: "99.99.99", endDate: "99.99.99", commentCount: 10, question: "공지글 퀴즈 예제입니다.", quizAnswer: "정답", unreadCount: 10)
 }
 
 extension FixedNotice {
