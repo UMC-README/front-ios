@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MyPageView: View {
     
-    var profileList: [User] = [.stub1, .stub2, .stub3, .stub4]
+//    var profileList: [User] = [.stub01, .stub02, .stub03, .stub04]
     
     var body: some View {
         ScrollView {
@@ -75,13 +75,17 @@ struct MyPageView: View {
                 .foregroundStyle(Color.txtCaption)
             
             
-            if profileList.isEmpty {
-                EmptyView(content: "등록된 공지방 프로필이 없습니다.", backgroundColor: Color.primaryLight)
-            } else {
-                ForEach(profileList) { item in
-                    roomProfileItem(nickname: item.name ?? "", roomName: item.name ?? "")
-                }
-            }
+//            if profileList.isEmpty {
+//                EmptyView(content: "등록된 공지방 프로필이 없습니다.", backgroundColor: Color.primaryLight)
+//            } else {
+//                ForEach(profileList) { item in
+//                    roomProfileItem(nickname: item.result?.nickname ?? "", roomName: item.result.roomName ?? "")
+//                }
+                
+//                ForEach(profileList) { item in
+//                    roomProfileItem(nickname: item.result?.nickname ?? "", roomName: item.result. ?? "")
+//                }
+//            }
         }
     }
     
