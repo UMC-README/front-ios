@@ -83,8 +83,9 @@ class MainViewModel {
             self.container.navigationRouter.push(to: .penalty)
         
         case .goToCreateRoom:
-            self.container.navigationRouter.push(to: .createRoom)
-            
+            if let userId = self.myUser?.result?.userID {
+                self.container.navigationRouter.push(to: .createRoom(userId: userId))
+            }
         }
     }
 }
