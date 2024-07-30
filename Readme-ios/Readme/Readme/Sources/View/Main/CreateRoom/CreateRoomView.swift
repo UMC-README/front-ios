@@ -29,7 +29,6 @@ struct CreateRoomView: View {
             }
             .task {
                 await createRoomViewModel.uploadRoomImage(pickerItem: selectedImage)
-                print("hi")
             }
             
             HStack {

@@ -17,7 +17,7 @@ extension APIConstants {
     static var baseHeader: Dictionary<String, String> {
         [
             contentType : APIHeaderManager.shared.contentType,
-            host : APIHeaderManager.shared.scoopHost,
+            host : APIHeaderManager.shared.readmeHost,
         ]
     }
 }
