@@ -8,10 +8,10 @@ import Foundation
 
 // MARK: - RoomRequest
 struct RoomRequest: Codable {
-    let adminID: Int?
-    let adminNickname, roomName, roomPassword, roomImage: String?
-    let inviteURL: String?
-    let maxPenalty: Int?
+    let adminID: Int
+    let adminNickname, roomName, roomPassword, roomImage: String
+    let inviteURL: String
+    let maxPenalty: Int
 
     enum CodingKeys: String, CodingKey {
         case adminID = "admin_id"               // 관리자 아이디
