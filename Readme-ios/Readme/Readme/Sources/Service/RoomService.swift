@@ -27,3 +27,11 @@ class RoomService: RoomServiceType {
     }
     
 }
+
+class StubRoomService: RoomServiceType {
+    func getAllNotice(roomId: Int) {
+        
+    }
+    
+    
+}
