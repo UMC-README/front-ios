@@ -13,8 +13,6 @@ import SwiftUI
 
 protocol UserServiceType {
     func uploadImage(data: Data?) async throws -> ImageURL
-//    func uploadImage(completion: @escaping (Result <ImageURL, ServiceError>) -> Void)
-//    func uploadImage(data: Data) async throws -> URL
     func getUser(completion: @escaping (Result<User, ServiceError>) -> Void)
     
     
@@ -27,32 +25,44 @@ class UserService: UserServiceType {
     let provider = MoyaProvider<UserTarget>(plugins: [MoyaLoggingPlugin()])
     
     let accessToken: String? = TokenManager.shared.accessToken
+    
+    /// s3 이미지 url 생성
     func uploadImage(data: Data?) async throws -> ImageURL {
-        guard let data = data else { return ImageURL() }
-        var url: ImageURL = .init()
+        var url: ImageURL = .stub01
+        guard let data = data else { return url }
         
-        provider.request(.s3Upload(data: data, accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJwcm92aWRlciI6IlJFQURNRSIsImlhdCI6MTcyMjI2OTM5MSwiZXhwIjoxNzIyMjgwMTkxfQ.RbtGWydu2xV-Avo8Vo-3OG0e7H2SFHeHQdRmpoMu8XU"), completion: { result in
-            
-            switch result {
-            case let .success(response):
-                do {
-                    let response = try self.jsonDecoder.decode(ImageURL.self, from: response.data)
-                    url = response
-                } catch {
-                    
+        
+        guard let accessToken = accessToken else {
+            print("토큰이 존재하지 않습니다.")
+            return .stub01
+        }
+            provider.request(.s3Upload(data: data, accessToken: accessToken), completion: { result in
+                print("data \(data)")
+                switch result {
+                case .success(let response):
+                    do {
+                        let decodedResponse = try JSONDecoder().decode(ImageURL.self, from: response.data)
+                        print("response \(decodedResponse)")
+                        print("성공")
+                    } catch {
+                        print("s3 이미지 링크 생성 실패 \(error.localizedDescription)")
+                    }
+                case .failure(let error):
+                    print("s3 이미지 링크 생성 네트워크 오류 \(error.localizedDescription)")
                 }
-            case let .failure(error):
-                url = ImageURL.stub01
-            
-            }
-        })
-        
+            })
         return url
     }
     
     /// 내 프로필 조회
     func getUser(completion: @escaping (Result<User, ServiceError>) -> Void) {
-        provider.request(.getUser(accessToken: "")) { result in
+        
+        guard let accessToken = accessToken else {
+            print("토큰이 존재하지 않습니다.")
+            return
+        }
+        
+        provider.request(.getUser(accessToken: accessToken)) { result in
             switch result {
             case let .success(response):
                 do {
@@ -67,8 +77,15 @@ class UserService: UserServiceType {
         }
     }
     
+    /// 고정된 공지 조회
     func getFixedNotice(completion: @escaping (Result<FixedNotice, ServiceError>) -> Void) {
-        provider.request(.getFixedNotice(accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJwcm92aWRlciI6IlJFQURNRSIsImlhdCI6MTcyMjI2OTM5MSwiZXhwIjoxNzIyMjgwMTkxfQ.RbtGWydu2xV-Avo8Vo-3OG0e7H2SFHeHQdRmpoMu8XU")) { result in
+        
+        guard let accessToken = accessToken else {
+            print("토큰이 존재하지 않습니다.")
+            return
+        }
+        
+        provider.request(.getFixedNotice(accessToken: accessToken)) { result in
             switch result {
             case let .success(response):
                 do {
@@ -82,7 +99,6 @@ class UserService: UserServiceType {
             }
         }
     }
-    
 }
 
 class StubUserService: UserServiceType {
@@ -99,21 +115,3 @@ class StubUserService: UserServiceType {
         
     }
 }
-
- 
-        
-//        let response = provider.request(.profile(accessToken: "")) { result in
-//            switch result {
-//            case .success(let response):
-//                do {
-//                    let user = try JSONDecoder().decode(User.self, from: response.data)
-//                    completion(.success(user))
-//                } catch let error {
-//                    completion(.failure(error))
-//                }
-//            case .failure(let error):
-//                completion(.failure(error))
-//            }
-//        }
-//    }
-//}
