@@ -33,8 +33,8 @@ extension AdminTarget: BaseTargetType {
     
     var task: Moya.Task {
         switch self {
-        case .createRoom(let roomRequest, let accessToken):
-            let parameters : [String : Any] = [:]
+        case .createRoom(let roomRequest, _):
+//            let parameters : [String : Any] = [:]
             return .requestJSONEncodable(roomRequest)
         }
     }

@@ -33,7 +33,8 @@ extension RoomTarget: BaseTargetType {
     
     var task: Moya.Task {
         switch self {
-        case .getAllNotice(_, let accessToken):
+        case .getAllNotice(_, _):
+            // TODO: roomID 수정
             let parameters : [String : Any] = [:]
             return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
         }
