@@ -81,6 +81,11 @@
 		6C882AB72C4D6B4D00AE5734 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C882AB62C4D6B4D00AE5734 /* User.swift */; };
 		6C882ABA2C4D6F1600AE5734 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C882AB92C4D6F1600AE5734 /* AuthenticationService.swift */; };
 		6C882ABD2C4D71B900AE5734 /* AuthenticatedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C882ABC2C4D71B900AE5734 /* AuthenticatedView.swift */; };
+		6CA418A32C5950A800AFC116 /* ConfirmButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA418A22C5950A800AFC116 /* ConfirmButtonStyle.swift */; };
+		6CF7CD352C58CEE100D6D4D8 /* TokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF7CD342C58CEE100D6D4D8 /* TokenManager.swift */; };
+		6CF7CD382C58D36500D6D4D8 /* RoomRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF7CD372C58D36500D6D4D8 /* RoomRequest.swift */; };
+		6CF7CD3B2C58D70900D6D4D8 /* AdminService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF7CD3A2C58D70900D6D4D8 /* AdminService.swift */; };
+		6CF7CD3D2C58D7AB00D6D4D8 /* AdminTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF7CD3C2C58D7AB00D6D4D8 /* AdminTarget.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -154,6 +159,11 @@
 		6C882AB62C4D6B4D00AE5734 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		6C882AB92C4D6F1600AE5734 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
 		6C882ABC2C4D71B900AE5734 /* AuthenticatedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticatedView.swift; sourceTree = "<group>"; };
+		6CA418A22C5950A800AFC116 /* ConfirmButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmButtonStyle.swift; sourceTree = "<group>"; };
+		6CF7CD342C58CEE100D6D4D8 /* TokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenManager.swift; sourceTree = "<group>"; };
+		6CF7CD372C58D36500D6D4D8 /* RoomRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomRequest.swift; sourceTree = "<group>"; };
+		6CF7CD3A2C58D70900D6D4D8 /* AdminService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminService.swift; sourceTree = "<group>"; };
+		6CF7CD3C2C58D7AB00D6D4D8 /* AdminTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminTarget.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -217,6 +227,7 @@
 			children = (
 				6C1927E42C4E35CF00669E23 /* DefaultButtonStyle.swift */,
 				6C75A7782C52321500EF396E /* MyInfoButtonStyle.swift */,
+				6CA418A22C5950A800AFC116 /* ConfirmButtonStyle.swift */,
 			);
 			path = ButtonStyle;
 			sourceTree = "<group>";
@@ -243,6 +254,7 @@
 			children = (
 				6C43ECEC2C53BE8D000582AF /* UserTarget.swift */,
 				6C621DD02C555FC90007999B /* RoomTarget.swift */,
+				6CF7CD3C2C58D7AB00D6D4D8 /* AdminTarget.swift */,
 				6C43ECE72C53B2C1000582AF /* API */,
 				6C43ECCC2C5398C0000582AF /* Foundation */,
 				6C43ECC92C539753000582AF /* ReadmeAPI */,
@@ -487,10 +499,8 @@
 		6C882A992C4D1EC500AE5734 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				6C882AB62C4D6B4D00AE5734 /* User.swift */,
-				6C55BB632C4FBBB800A3C357 /* Room.swift */,
-				6C05F7202C516CC8008FFE7E /* Notice.swift */,
-				6C621DE02C5804FE0007999B /* ImageURL.swift */,
+				6CF7CD392C58D58F00D6D4D8 /* Response */,
+				6CF7CD362C58D35B00D6D4D8 /* Request */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -525,6 +535,7 @@
 		6C882AA72C4D23A300AE5734 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				6CF7CD332C58CED800D6D4D8 /* Token */,
 				6C621DDD2C5800BB0007999B /* PhotoPicker */,
 				6C43ECD62C539981000582AF /* Log */,
 				6C882AA82C4D2FB100AE5734 /* Services.swift */,
@@ -532,6 +543,7 @@
 				6C882AB92C4D6F1600AE5734 /* AuthenticationService.swift */,
 				6C43ECEA2C53BC3C000582AF /* UserService.swift */,
 				6C621DCE2C555F760007999B /* RoomService.swift */,
+				6CF7CD3A2C58D70900D6D4D8 /* AdminService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -551,6 +563,33 @@
 				6C1927D42C4E252E00669E23 /* AuthenticationViewModel.swift */,
 			);
 			path = Authentification;
+			sourceTree = "<group>";
+		};
+		6CF7CD332C58CED800D6D4D8 /* Token */ = {
+			isa = PBXGroup;
+			children = (
+				6CF7CD342C58CEE100D6D4D8 /* TokenManager.swift */,
+			);
+			path = Token;
+			sourceTree = "<group>";
+		};
+		6CF7CD362C58D35B00D6D4D8 /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				6CF7CD372C58D36500D6D4D8 /* RoomRequest.swift */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		6CF7CD392C58D58F00D6D4D8 /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				6C882AB62C4D6B4D00AE5734 /* User.swift */,
+				6C55BB632C4FBBB800A3C357 /* Room.swift */,
+				6C05F7202C516CC8008FFE7E /* Notice.swift */,
+				6C621DE02C5804FE0007999B /* ImageURL.swift */,
+			);
+			path = Response;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -651,6 +690,7 @@
 				6C43ECDE2C5399C7000582AF /* Log.swift in Sources */,
 				6C75A7752C52238500EF396E /* NavigationRouter.swift in Sources */,
 				6C1927E82C4E492800669E23 /* DefaultTextFieldStyle.swift in Sources */,
+				6CA418A32C5950A800AFC116 /* ConfirmButtonStyle.swift in Sources */,
 				6C882AA92C4D2FB100AE5734 /* Services.swift in Sources */,
 				6C621DD72C5632DB0007999B /* MyPageViewModel.swift in Sources */,
 				6C882A892C4D180600AE5734 /* ReadmeApp.swift in Sources */,
@@ -668,6 +708,7 @@
 				6C55BB672C4FC08200A3C357 /* StateType.swift in Sources */,
 				6C43ECCE2C5398CA000582AF /* BaseTargetType.swift in Sources */,
 				6C43ECE22C53B211000582AF /* Phase.swift in Sources */,
+				6CF7CD382C58D36500D6D4D8 /* RoomRequest.swift in Sources */,
 				6C5DCC902C4E542C007E59E5 /* TextField+Extension.swift in Sources */,
 				6C2CE89A2C52B8A30066DA03 /* NoticeDetailView.swift in Sources */,
 				6C43ECD02C5398E3000582AF /* APIConstants.swift in Sources */,
@@ -678,6 +719,7 @@
 				6C43ECD82C539989000582AF /* MoyaLoggingPlugin.swift in Sources */,
 				6C05F71F2C51673A008FFE7E /* NoticeType.swift in Sources */,
 				6C55BB622C4FAD8C00A3C357 /* RoomItemView.swift in Sources */,
+				6CF7CD352C58CEE100D6D4D8 /* TokenManager.swift in Sources */,
 				6C2CE89C2C52BCE80066DA03 /* MainViewModel.swift in Sources */,
 				6C621DD12C555FC90007999B /* RoomTarget.swift in Sources */,
 				6C05F7212C516CC8008FFE7E /* Notice.swift in Sources */,
@@ -698,8 +740,10 @@
 				6C75A7772C52270500EF396E /* NavigationRoutingView.swift in Sources */,
 				6C621DDA2C57F8730007999B /* CreateRoomView.swift in Sources */,
 				6C882ABA2C4D6F1600AE5734 /* AuthenticationService.swift in Sources */,
+				6CF7CD3D2C58D7AB00D6D4D8 /* AdminTarget.swift in Sources */,
 				6C43ECDC2C5399B8000582AF /* Extension+OSLog.swift in Sources */,
 				6C43ECE62C53B28D000582AF /* ErrorView.swift in Sources */,
+				6CF7CD3B2C58D70900D6D4D8 /* AdminService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

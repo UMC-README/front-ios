@@ -46,7 +46,7 @@ extension UserTarget: BaseTargetType {
         switch self {
             
         case .s3Upload(let data, _):
-            let imageData = MultipartFormData(provider: .data(data!), name: "file", fileName: "image.jpeg", mimeType: "image")
+            let imageData = MultipartFormData(provider: .data(data!), name: "file", fileName: "image.jpeg", mimeType: "image/jpg")
             let multipartData = [imageData]
 
             return .uploadMultipart(multipartData)

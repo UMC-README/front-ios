@@ -20,9 +20,18 @@ class RoomService: RoomServiceType {
     private let jsonDecoder = JSONDecoder()
     let provider = MoyaProvider<RoomTarget>(plugins: [MoyaLoggingPlugin()])
     
+    let accessToken: String? = TokenManager.shared.accessToken
+    
     func getAllNotice(roomId: Int) {
       
     }
+    
+}
 
+class StubRoomService: RoomServiceType {
+    func getAllNotice(roomId: Int) {
+        
+    }
+    
     
 }

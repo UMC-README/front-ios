@@ -45,20 +45,22 @@ class MainViewModel {
 //        }
 //    }
 //    
+    func getUser() async {
+        do {
+            let user = try await container.services.userService.getUser()
+            myUser = user
+            print(myUser)
+        } catch {
+            Log.network("Main VM - getUser() 에러", error)
+        }
+    }
+    
     func send(action: Action) {
         switch action {
         case .load:
             phase = .loading
             
-//            container.services.userService.getUser(completion: { result in
-//                switch result {
-//                case .success(let user):
-//                    print("Success MainVM - load() 프로필 조회 성공")
-//                    self.myUser = user
-//                case .failure(let error):
-//                    Log.network("Failure MainVM - load() 프로필 조회 실패)", error.localizedDescription)
-//                }
-//            })
+            
             
             container.services.userService.getFixedNotice(completion: { result in
                 switch result {
@@ -81,8 +83,9 @@ class MainViewModel {
             self.container.navigationRouter.push(to: .penalty)
         
         case .goToCreateRoom:
-            self.container.navigationRouter.push(to: .createRoom)
-            
+            if let userId = self.myUser?.result?.userID {
+                self.container.navigationRouter.push(to: .createRoom(userId: userId))
+            }
         }
     }
 }

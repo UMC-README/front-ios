@@ -24,8 +24,8 @@ struct NavigationRoutingView: View {
             Text("submit")
         case let .room(roomId):
             Text("공지방 자세히 보기 \(roomId)")
-        case let .createRoom:
-            CreateRoomView(createRoomViewModel: .init(container: container) )
+        case let .createRoom(userId):
+            CreateRoomView(createRoomViewModel: .init(container: container), userId: userId )
         }
     }
 }

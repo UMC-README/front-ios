@@ -14,9 +14,9 @@ struct RoomView: View {
     
     
     var example: [Notice] = [
-        .init(title: "공지방 예시", content: "공지글 내용 예시입니다. 공지글 내용 예시입니다. 공지글 내용 예시입니다. 공지글 내용 예시입니다.", type: .mission),
-        .init(title: "공지방 예시", content: "공지글 내용 예시입니다. 공지글 내용 예시입니다. 공지글 내용 예시입니다. 공지글 내용 예시입니다.", type: .quiz),
-        .init(title: "공지방 예시", content: "공지글 내용 예시입니다. 공지글 내용 예시입니다. 공지글 내용 예시입니다. 공지글 내용 예시입니다.", type: .mission),
+        .stub1,
+        .stub1,
+        .stub1,
     
     
     ]
