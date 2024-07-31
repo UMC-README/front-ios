@@ -9,7 +9,7 @@ import SwiftUI
 
 struct NoticePreviewView: View {
     
-    let notice: Notice
+    let notice: NoticeResponse
     
     var body: some View {
         VStack(spacing: 8) {

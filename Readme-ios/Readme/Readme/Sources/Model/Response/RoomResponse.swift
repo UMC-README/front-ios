@@ -8,7 +8,7 @@
 import Foundation
 
 /// 공지방 Model
-struct Room: Codable, Identifiable {
+struct RoomResponse: Codable, Identifiable {
     let id = UUID().uuidString
     let adminID: String?            /// 관리자 ID
     let adminNickname: String?      /// 관리자 닉네임
@@ -34,28 +34,28 @@ struct Room: Codable, Identifiable {
     
 }
 
-extension Room {
-    static var stub1: Room {
+extension RoomResponse {
+    static var stub1: RoomResponse {
         .init(adminID: "admin01", adminNickname: "admin01", roomName: "roomName01", roomPassword: "roompassword", roomImage: "", roomInviteUrl: "", maxPenalty: 10, state: .exist)
     }
     
-    static var stub2: Room {
+    static var stub2: RoomResponse {
         .init(adminID: "admin01", adminNickname: "admin01", roomName: "roomName01", roomPassword: "roompassword", roomImage: "", roomInviteUrl: "", maxPenalty: 10, state: .exist)
     }
     
-    static var stub3: Room {
+    static var stub3: RoomResponse {
         .init(adminID: "admin01", adminNickname: "admin01", roomName: "roomName01", roomPassword: "roompassword", roomImage: "", roomInviteUrl: "", maxPenalty: 10, state: .exist)
     }
     
-    static var stub4: Room {
+    static var stub4: RoomResponse {
         .init(adminID: "admin01", adminNickname: "admin01", roomName: "roomName01", roomPassword: "roompassword", roomImage: "", roomInviteUrl: "", maxPenalty: 10, state: .exist)
     }
     
-    static var stub5: Room {
+    static var stub5: RoomResponse {
         .init(adminID: "admin01", adminNickname: "admin01", roomName: "roomName01", roomPassword: "roompassword", roomImage: "", roomInviteUrl: "", maxPenalty: 10, state: .exist)
     }
     
-    static var stub6: Room {
+    static var stub6: RoomResponse {
         .init(adminID: "admin01", adminNickname: "admin01", roomName: "roomName01", roomPassword: "roompassword", roomImage: "", roomInviteUrl: "", maxPenalty: 10, state: .exist)
     }
     
