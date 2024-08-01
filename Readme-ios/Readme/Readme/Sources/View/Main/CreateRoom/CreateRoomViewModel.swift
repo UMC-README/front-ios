@@ -45,14 +45,17 @@ class CreateRoomViewModel {
     }
     
     /// 공지방 모델 생성
-    func createRoomModel(adminID: Int, adminNickname: String, roomName: String, roomPassword: String, roomImage: String?, inviteURL: String, maxPenalty: Int) {
-        self.roomRequest = .init(adminID: adminID, adminNickname: adminNickname, roomName: roomName, roomPassword: roomPassword, roomImage: roomImage!, inviteURL: inviteURL, maxPenalty: maxPenalty)
+    func createRoomModel(adminNickname: String, roomName: String, roomPassword: String, roomImage: String?, maxPenalty: Int) {
+        self.roomRequest = .init(adminNickname: adminNickname, roomName: roomName, roomPassword: roomPassword, roomImage: roomImage!, maxPenalty: maxPenalty)
+            
     }
     
     /// 공지방 생성
     func createRoom() async {
+        print("CreateRoomVM createRoom()")
         if let roomRequest = roomRequest {
             self.container.services.adminService.createRoom(roomRequest: roomRequest)
+            print("CreateRoomVM 공지방 생성 성공")
         }
     }
     

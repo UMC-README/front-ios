@@ -172,12 +172,13 @@ struct CreateRoomView: View {
         Button {
             Task {
                 createRoomViewModel.createRoomModel(
-                    adminID: userId,
+//                    adminID: userId,
+//                    adminID: 1,
                     adminNickname: adminName,
                     roomName: roomName,
                     roomPassword: roomPassword,
                     roomImage: createRoomViewModel.photoURL,
-                    inviteURL: "text.com",
+//                    inviteURL: "text.com",
                     maxPenalty: Int(penalty)!
                 )
                 
