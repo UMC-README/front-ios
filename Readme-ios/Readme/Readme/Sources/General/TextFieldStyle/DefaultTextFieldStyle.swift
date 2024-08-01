@@ -22,6 +22,7 @@ struct DefaultTextFieldStyle: TextFieldStyle {
             .padding(.leading, 18)
             .frame(maxWidth: .infinity)
             .background(Color.primaryLight)
+            .foregroundStyle(Color.txtDefault)
             .clipShape(RoundedRectangle(cornerRadius: 8))
             .overlay {
                 RoundedRectangle(cornerRadius: 8)

@@ -9,7 +9,11 @@ import Foundation
 import Moya
 
 enum UserTarget {
-    case s3Upload(data: Data?, accessToken: String)
+    case s3Upload(data: Data?, accessToken: String)     /// s3에 이미지 업로드
+    case createCode(email: String)                       /// 이메일 인증코드 생성
+    case confirmCode(email: String, code: String)       /// 이메일 인증코드 확인
+    case signUp(authRequest: AuthRequest)               /// 회원가입
+    case signIn(email: String, password: String)        /// 로그인
     case getUser(accessToken: String)   // 내 프로필 조회
     case getFixedNotice(accessToken: String)    // 고정 공지 조회
 }
@@ -24,6 +28,18 @@ extension UserTarget: BaseTargetType {
         case .s3Upload:
             return UserAPI.imageUpload.apiDesc
             
+        case .createCode:
+            return UserAPI.createCode.apiDesc
+        
+        case .confirmCode:
+            return UserAPI.confirmCode.apiDesc
+        
+        case .signUp:
+            return UserAPI.signup.apiDesc
+            
+        case .signIn:
+            return UserAPI.signin.apiDesc
+            
         case .getUser:
             return UserAPI.user.apiDesc
             
@@ -37,6 +53,12 @@ extension UserTarget: BaseTargetType {
         case .s3Upload:
             return .post
             
+        case .createCode,
+                .confirmCode,
+                .signUp,
+                .signIn:
+            return .post
+            
         case .getUser, .getFixedNotice:
             return .get
         }
@@ -48,12 +70,37 @@ extension UserTarget: BaseTargetType {
         case .s3Upload(let data, _):
             let imageData = MultipartFormData(provider: .data(data!), name: "file", fileName: "image.jpeg", mimeType: "image/jpg")
             let multipartData = [imageData]
-
             return .uploadMultipart(multipartData)
             
+        case .createCode(let email):
+            let parameters : [String : Any] = [
+                "email" : email
+            ]
+            return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
+            
+        case .confirmCode(let email, let code):
+            let parameters : [String : Any] = [
+                "email" : email,
+                "code" : code
+            ]
+            return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
+            
+        case .signUp(let authRequest):
+            return .requestJSONEncodable(authRequest)
+            
+        case .signIn(let email, let password):
+            let parameters: [String : Any] = [
+                "email" : email,
+                "password" : password
+            ]
+            return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
+        
+        
         case .getUser(let accessToken), .getFixedNotice(let accessToken):
             let parameters : [String : Any] = [:]
             return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
+            
+            
         }
     }
     
@@ -74,6 +121,27 @@ extension UserTarget: BaseTargetType {
                 "Authorization": "Bearer \(token)",
 
             ]
+            
+        case .createCode(_):
+            return [
+                "Content-Type": "application/json"
+            ]
+            
+        case .confirmCode(_, _):
+            return [
+                "Content-Type": "application/json"
+            ]
+            
+        case .signUp(_):
+            return [
+                "Content-Type": "application/json"
+            ]
+            
+        case .signIn(_, _):
+            return [
+                "Content-Type": "application/json"
+            ]
+            
         }
     }
 }

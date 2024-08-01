@@ -24,6 +24,8 @@ class AuthenticationViewModel: ObservableObject {
     var isLoading = false
     
     var userId: String?
+    var userEmail: String?
+    var userPassword: String?
     
     private var container: DIContainer
     
@@ -35,15 +37,16 @@ class AuthenticationViewModel: ObservableObject {
 extension AuthenticationViewModel {
     
     func signinWithEmail() async {
-        print("signinWithEmail()")
-        if let result = try? await container.services.authService.signIn() {
-            if result {
-                print(TokenManager.shared.accessToken)
+        print("signinWithEmail(⭐️ 로그인을 시작합니다. \(userEmail), \(userPassword)")
+        if let result =
+            try? await container.services.authService.signIn(
+                email: userEmail!, password: userPassword!
+            ) {
+            TokenManager.shared.accessToken = result.result?.accessToken
+                print(" ⭐️ Access Token : \(TokenManager.shared.accessToken)")
                 authentificationState = .authenticated
                 print("- 로그인 성공")
-            } else {
-                print("- 로그인 실패")
-            }
+            
         }
     }
 }

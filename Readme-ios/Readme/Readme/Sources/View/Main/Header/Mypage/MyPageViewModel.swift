@@ -17,8 +17,8 @@ class MyPageViewModel {
     }
     
     
-    var user: User?             // 기본 프로필
-    var roomUser: [User]?       // 공지방 프로필 목록
+    var user: UserResponse?             // 기본 프로필
+    var roomUser: [UserResponse]?       // 공지방 프로필 목록
     var phase: Phase = .notRequested
     
     var container: DIContainer

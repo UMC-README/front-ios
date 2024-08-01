@@ -21,7 +21,7 @@ class MainViewModel {
 //        case goToNotice(Notice)
     }
     
-    var myUser: User?
+    var myUser: UserResponse?
     var fixedNotice: FixedNotice?
     var phase: Phase = .notRequested
     
