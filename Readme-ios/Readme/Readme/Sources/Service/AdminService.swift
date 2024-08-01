@@ -20,10 +20,12 @@ class AdminService: AdminServiceType {
     
     let provider = MoyaProvider<AdminTarget>(plugins: [MoyaLoggingPlugin()])
     
-    let accessToken: String? = TokenManager.shared.accessToken
+    
     
     /// 공지방 생성
     func createRoom(roomRequest: RoomRequest) {
+        
+        let accessToken: String? = TokenManager.shared.accessToken
         
         guard let accessToken = accessToken else {
             print("토큰이 존재하지 않습니다.")
@@ -34,7 +36,9 @@ class AdminService: AdminServiceType {
             switch result {
                 case let .success(response):
                     if let responseString = String(data: response.data, encoding: .utf8) {
-                        print(responseString)
+//                        print(responseString)
+                        print("data : \(response.data)")
+                        print("AdminService 공지방 생성 성공")
                     } else {
                         print("AdminService 공지방 생성 실패")
                     }

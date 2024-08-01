@@ -65,6 +65,8 @@ struct SignInIntroView: View {
     var signinButtonView: some View {
         Button {
             Task {
+                authViewModel.userEmail = email
+                authViewModel.userPassword = password
                 await authViewModel.signinWithEmail()
             }
         } label: {

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Notice: Identifiable, Codable {
+struct NoticeResponse: Identifiable, Codable {
     let id = UUID().uuidString
     let title: String?
     let content: String?
@@ -41,8 +41,8 @@ struct FixedNoticeResult: Identifiable, Codable {
     var endDate: String?
 }
 
-extension Notice {
-    static var stub1: Notice = .init(title: "title01", content: "공지글 내용 예제입니다. 공지글 내용 예제입니다. 공지글 내용 예제입니다. 공지글 내용 예제입니다. 공지글 내용 예제입니다. 공지글 내용 예제입니다. 공지글 내용 예제입니다.", type: .mission, startDate: "99.99.99", endDate: "99.99.99", commentCount: 10, question: "공지글 퀴즈 예제입니다.", quizAnswer: "정답", unreadCount: 10)
+extension NoticeResponse {
+    static var stub1: NoticeResponse = .init(title: "title01", content: "공지글 내용 예제입니다. 공지글 내용 예제입니다. 공지글 내용 예제입니다. 공지글 내용 예제입니다. 공지글 내용 예제입니다. 공지글 내용 예제입니다. 공지글 내용 예제입니다.", type: .mission, startDate: "99.99.99", endDate: "99.99.99", commentCount: 10, question: "공지글 퀴즈 예제입니다.", quizAnswer: "정답", unreadCount: 10)
 }
 
 extension FixedNotice {

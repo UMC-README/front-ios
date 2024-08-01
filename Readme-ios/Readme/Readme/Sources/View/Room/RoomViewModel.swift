@@ -15,9 +15,9 @@ class RoomViewModel: ObservableObject {
     }
     
     var roomId: Int
-    var myUser: User?
+    var myUser: UserResponse?
     var phase: Phase = .notRequested
-    var notice: [Notice] = []
+    var notice: [NoticeResponse] = []
     
     
     private var container: DIContainer
