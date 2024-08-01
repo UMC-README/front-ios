@@ -47,7 +47,7 @@ public enum UserAPI {
             return "/user/signup"
             
         case .signin:       /// 로그인
-            return "/user/signin"
+            return "/user/login"
             
         case .user:         /// 내 프로필 조회
             return "/user"
