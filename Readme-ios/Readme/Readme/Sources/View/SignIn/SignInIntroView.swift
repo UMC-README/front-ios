@@ -63,6 +63,15 @@ struct SignInIntroView: View {
     
     @ViewBuilder
     var signinButtonView: some View {
+        
+        Button {
+            Task {
+                await authViewModel.signinWithKakao()
+            }
+        } label: {
+            Text("카카오 로그인")
+        }
+        
         Button {
             Task {
                 authViewModel.userEmail = email

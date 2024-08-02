@@ -14,7 +14,7 @@ enum UserTarget {
     case confirmCode(email: String, code: String)       /// 이메일 인증코드 확인
     case signUp(authRequest: AuthRequest)               /// 회원가입
     case signIn(email: String, password: String)        /// 로그인
-    case getUser(accessToken: String)   // 내 프로필 조회
+    case kakaoSignIn(code: String)                      /// 카카오 로그인
     case getFixedNotice(accessToken: String)    // 고정 공지 조회
 }
 
@@ -40,6 +40,9 @@ extension UserTarget: BaseTargetType {
         case .signIn:
             return UserAPI.signin.apiDesc
             
+        case .kakaoSignIn:
+            return UserAPI.kakaoSignin.apiDesc
+            
         case .getUser:
             return UserAPI.user.apiDesc
             
@@ -57,6 +60,7 @@ extension UserTarget: BaseTargetType {
                 .confirmCode,
                 .signUp,
                 .signIn:
+                .kakaoSignIn:
             return .post
             
         case .getUser, .getFixedNotice:
@@ -94,7 +98,13 @@ extension UserTarget: BaseTargetType {
                 "password" : password
             ]
             return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
-        
+            
+        case .kakaoSignIn(let code):
+            let parameters: [String : Any] = [
+                "code" : code,
+                "platform": "ios"
+            ]
+            return .requestParameters(parameters: parameters, encoding: URLEncoding.queryString)
         
         case .getUser(let accessToken), .getFixedNotice(let accessToken):
             let parameters : [String : Any] = [:]
@@ -142,6 +152,10 @@ extension UserTarget: BaseTargetType {
                 "Content-Type": "application/json"
             ]
             
+        case .kakaoSignIn(_):
+            return [
+                "Content-Type": "application/json"
+            ]
         }
     }
 }
