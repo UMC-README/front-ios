@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		6C05F71D2C516232008FFE7E /* NoticePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C05F71C2C516232008FFE7E /* NoticePreviewView.swift */; };
 		6C05F71F2C51673A008FFE7E /* NoticeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C05F71E2C51673A008FFE7E /* NoticeType.swift */; };
-		6C05F7212C516CC8008FFE7E /* NoticeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C05F7202C516CC8008FFE7E /* NoticeResponse.swift */; };
+		6C05F7212C516CC8008FFE7E /* Notice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C05F7202C516CC8008FFE7E /* Notice.swift */; };
 		6C05F7232C517B41008FFE7E /* NoticeTypeIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C05F7222C517B41008FFE7E /* NoticeTypeIconView.swift */; };
 		6C1927D52C4E252E00669E23 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1927D42C4E252E00669E23 /* AuthenticationViewModel.swift */; };
 		6C1927D72C4E278B00669E23 /* ServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1927D62C4E278B00669E23 /* ServiceError.swift */; };
@@ -43,7 +43,7 @@
 		6C43ECF32C5417EA000582AF /* ReactiveMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 6C43ECF22C5417EA000582AF /* ReactiveMoya */; };
 		6C43ECF52C5417EA000582AF /* RxMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 6C43ECF42C5417EA000582AF /* RxMoya */; };
 		6C55BB622C4FAD8C00A3C357 /* RoomItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C55BB612C4FAD8C00A3C357 /* RoomItemView.swift */; };
-		6C55BB642C4FBBB800A3C357 /* RoomResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C55BB632C4FBBB800A3C357 /* RoomResponse.swift */; };
+		6C55BB642C4FBBB800A3C357 /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C55BB632C4FBBB800A3C357 /* Room.swift */; };
 		6C55BB672C4FC08200A3C357 /* StateType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C55BB662C4FC08200A3C357 /* StateType.swift */; };
 		6C55BB692C4FC0BB00A3C357 /* SubmitStateType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C55BB682C4FC0BB00A3C357 /* SubmitStateType.swift */; };
 		6C55BB6C2C4FC93C00A3C357 /* RecentNoticeItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C55BB6B2C4FC93C00A3C357 /* RecentNoticeItemView.swift */; };
@@ -82,12 +82,12 @@
 		6C882AA92C4D2FB100AE5734 /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C882AA82C4D2FB100AE5734 /* Services.swift */; };
 		6C882AAF2C4D304700AE5734 /* NavigationDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C882AAE2C4D304700AE5734 /* NavigationDestination.swift */; };
 		6C882AB12C4D6B0C00AE5734 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C882AB02C4D6B0C00AE5734 /* DIContainer.swift */; };
-		6C882AB72C4D6B4D00AE5734 /* UserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C882AB62C4D6B4D00AE5734 /* UserResponse.swift */; };
+		6C882AB72C4D6B4D00AE5734 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C882AB62C4D6B4D00AE5734 /* User.swift */; };
 		6C882ABA2C4D6F1600AE5734 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C882AB92C4D6F1600AE5734 /* AuthenticationService.swift */; };
 		6C882ABD2C4D71B900AE5734 /* AuthenticatedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C882ABC2C4D71B900AE5734 /* AuthenticatedView.swift */; };
 		6CA418A32C5950A800AFC116 /* ConfirmButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA418A22C5950A800AFC116 /* ConfirmButtonStyle.swift */; };
 		6CA418A52C5A722000AFC116 /* AuthRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA418A42C5A722000AFC116 /* AuthRequest.swift */; };
-		6CA418A72C5A762800AFC116 /* AuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA418A62C5A762800AFC116 /* AuthResponse.swift */; };
+		6CA418A72C5A762800AFC116 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA418A62C5A762800AFC116 /* Auth.swift */; };
 		6CF7CD352C58CEE100D6D4D8 /* TokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF7CD342C58CEE100D6D4D8 /* TokenManager.swift */; };
 		6CF7CD382C58D36500D6D4D8 /* RoomRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF7CD372C58D36500D6D4D8 /* RoomRequest.swift */; };
 		6CF7CD3B2C58D70900D6D4D8 /* AdminService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF7CD3A2C58D70900D6D4D8 /* AdminService.swift */; };
@@ -97,7 +97,7 @@
 /* Begin PBXFileReference section */
 		6C05F71C2C516232008FFE7E /* NoticePreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticePreviewView.swift; sourceTree = "<group>"; };
 		6C05F71E2C51673A008FFE7E /* NoticeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeType.swift; sourceTree = "<group>"; };
-		6C05F7202C516CC8008FFE7E /* NoticeResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeResponse.swift; sourceTree = "<group>"; };
+		6C05F7202C516CC8008FFE7E /* Notice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notice.swift; sourceTree = "<group>"; };
 		6C05F7222C517B41008FFE7E /* NoticeTypeIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeTypeIconView.swift; sourceTree = "<group>"; };
 		6C1927D42C4E252E00669E23 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		6C1927D62C4E278B00669E23 /* ServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceError.swift; sourceTree = "<group>"; };
@@ -126,7 +126,7 @@
 		6C43ECEA2C53BC3C000582AF /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		6C43ECEC2C53BE8D000582AF /* UserTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTarget.swift; sourceTree = "<group>"; };
 		6C55BB612C4FAD8C00A3C357 /* RoomItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomItemView.swift; sourceTree = "<group>"; };
-		6C55BB632C4FBBB800A3C357 /* RoomResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomResponse.swift; sourceTree = "<group>"; };
+		6C55BB632C4FBBB800A3C357 /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
 		6C55BB662C4FC08200A3C357 /* StateType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateType.swift; sourceTree = "<group>"; };
 		6C55BB682C4FC0BB00A3C357 /* SubmitStateType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitStateType.swift; sourceTree = "<group>"; };
 		6C55BB6B2C4FC93C00A3C357 /* RecentNoticeItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentNoticeItemView.swift; sourceTree = "<group>"; };
@@ -164,12 +164,12 @@
 		6C882AA82C4D2FB100AE5734 /* Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
 		6C882AAE2C4D304700AE5734 /* NavigationDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationDestination.swift; sourceTree = "<group>"; };
 		6C882AB02C4D6B0C00AE5734 /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
-		6C882AB62C4D6B4D00AE5734 /* UserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserResponse.swift; sourceTree = "<group>"; };
+		6C882AB62C4D6B4D00AE5734 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		6C882AB92C4D6F1600AE5734 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
 		6C882ABC2C4D71B900AE5734 /* AuthenticatedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticatedView.swift; sourceTree = "<group>"; };
 		6CA418A22C5950A800AFC116 /* ConfirmButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmButtonStyle.swift; sourceTree = "<group>"; };
 		6CA418A42C5A722000AFC116 /* AuthRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRequest.swift; sourceTree = "<group>"; };
-		6CA418A62C5A762800AFC116 /* AuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
+		6CA418A62C5A762800AFC116 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		6CF7CD342C58CEE100D6D4D8 /* TokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenManager.swift; sourceTree = "<group>"; };
 		6CF7CD372C58D36500D6D4D8 /* RoomRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomRequest.swift; sourceTree = "<group>"; };
 		6CF7CD3A2C58D70900D6D4D8 /* AdminService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminService.swift; sourceTree = "<group>"; };
@@ -599,11 +599,11 @@
 		6CF7CD392C58D58F00D6D4D8 /* Response */ = {
 			isa = PBXGroup;
 			children = (
-				6C882AB62C4D6B4D00AE5734 /* UserResponse.swift */,
-				6C55BB632C4FBBB800A3C357 /* RoomResponse.swift */,
-				6C05F7202C516CC8008FFE7E /* NoticeResponse.swift */,
+				6C882AB62C4D6B4D00AE5734 /* User.swift */,
+				6C55BB632C4FBBB800A3C357 /* Room.swift */,
+				6C05F7202C516CC8008FFE7E /* Notice.swift */,
 				6C621DE02C5804FE0007999B /* ImageURLResponse.swift */,
-				6CA418A62C5A762800AFC116 /* AuthResponse.swift */,
+				6CA418A62C5A762800AFC116 /* Auth.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -713,14 +713,14 @@
 				6C882AA92C4D2FB100AE5734 /* Services.swift in Sources */,
 				6C621DD72C5632DB0007999B /* MyPageViewModel.swift in Sources */,
 				6C882A892C4D180600AE5734 /* ReadmeApp.swift in Sources */,
-				6CA418A72C5A762800AFC116 /* AuthResponse.swift in Sources */,
+				6CA418A72C5A762800AFC116 /* Auth.swift in Sources */,
 				6C55BB702C4FDC7B00A3C357 /* View+Extension.swift in Sources */,
 				6C43ECE92C53B2CD000582AF /* APIHeaderManager.swift in Sources */,
 				6C1927D52C4E252E00669E23 /* AuthenticationViewModel.swift in Sources */,
 				6C43ECCB2C539769000582AF /* BaseAPI.swift in Sources */,
 				6C8701472C54C8D700C6CF97 /* UserAPI.swift in Sources */,
 				6C43ECDA2C5399A9000582AF /* Extension+Log.swift in Sources */,
-				6C882AB72C4D6B4D00AE5734 /* UserResponse.swift in Sources */,
+				6C882AB72C4D6B4D00AE5734 /* User.swift in Sources */,
 				6C5DCC8E2C4E53F3007E59E5 /* MaxLengthModifier.swift in Sources */,
 				6C43ECE42C53B262000582AF /* LoadingView.swift in Sources */,
 				6C882ABD2C4D71B900AE5734 /* AuthenticatedView.swift in Sources */,
@@ -735,7 +735,7 @@
 				6C882AA52C4D1FFC00AE5734 /* Font+Extension.swift in Sources */,
 				6C43ECEB2C53BC3C000582AF /* UserService.swift in Sources */,
 				6C8701492C54DF0E00C6CF97 /* RoomAPI.swift in Sources */,
-				6C55BB642C4FBBB800A3C357 /* RoomResponse.swift in Sources */,
+				6C55BB642C4FBBB800A3C357 /* Room.swift in Sources */,
 				6C43ECD82C539989000582AF /* MoyaLoggingPlugin.swift in Sources */,
 				6C59C2A42C5CAECC0093A7FA /* AppDelegate.swift in Sources */,
 				6C05F71F2C51673A008FFE7E /* NoticeType.swift in Sources */,
@@ -744,7 +744,7 @@
 				6C2CE89C2C52BCE80066DA03 /* MainViewModel.swift in Sources */,
 				6C59C2A62C5CB58C0093A7FA /* SceneDelegate.swift in Sources */,
 				6C621DD12C555FC90007999B /* RoomTarget.swift in Sources */,
-				6C05F7212C516CC8008FFE7E /* NoticeResponse.swift in Sources */,
+				6C05F7212C516CC8008FFE7E /* Notice.swift in Sources */,
 				6C8701512C54EDFE00C6CF97 /* ObservableObjectSettable.swift in Sources */,
 				6C87015A2C54F0DF00C6CF97 /* PenaltyView.swift in Sources */,
 				6C621DD52C56287B0007999B /* EmptyView.swift in Sources */,

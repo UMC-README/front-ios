@@ -20,7 +20,7 @@ import Foundation
 
 // MARK: - User
 struct UserResponse: Codable, Identifiable {
-    let id = UUID().uuidString
+    var id = UUID().uuidString
     let status: Int?
     let isSuccess: Bool?
     let code: Int?
@@ -30,7 +30,7 @@ struct UserResponse: Codable, Identifiable {
 
 // MARK: - Result
 struct UserResult: Codable, Identifiable {
-    let id = UUID().uuidString
+    var id = UUID().uuidString
     let userID: Int?
     let name, nickname, email, profileImage: String?
 

@@ -24,6 +24,7 @@ struct MainView: View {
         .task {
             mainViewModel.send(action: .load)
             await mainViewModel.getUser()
+            await mainViewModel.getCreateRoom()
         }
         
     }
@@ -182,11 +183,10 @@ struct MainView: View {
                 }
             }
             LazyVGrid(columns: columns) {
-                RoomItemView(time: "30분", roomName: "공지방", nickname: "닉네임")
-                RoomItemView(time: "30분", roomName: "공지방공지방공지방공지방공지방공지방공지방공지방공지방", nickname: "닉네임닉네임닉네임닉네임닉네임닉네임닉네임닉네임닉네임")
-                RoomItemView(time: "30분", roomName: "공지방", nickname: "닉네임")
-                RoomItemView(time: "30분", roomName: "공지방", nickname: "닉네임")
-                RoomItemView(time: "30분", roomName: "공지방", nickname: "닉네임")
+                
+                ForEach(mainViewModel.myCreateRoom?.result ?? []) { item in
+                    RoomItemView(time: "30분", roomName: item.roomName ?? "", nickname: item.nickname ?? "")
+                }
             }
         }
     }

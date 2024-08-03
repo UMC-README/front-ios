@@ -16,6 +16,7 @@ enum UserTarget {
     case signIn(email: String, password: String)        /// 로그인
     case kakaoSignIn(code: String)                      /// 카카오 로그인
     case getFixedNotice(accessToken: String)    // 고정 공지 조회
+    case getCreateRoom(page: Int, pageSize: Int, accessToken: String)   /// 내가 생성한 공지방 조회
 }
 
 extension UserTarget: BaseTargetType {
@@ -48,6 +49,10 @@ extension UserTarget: BaseTargetType {
             
         case .getFixedNotice:
             return UserAPI.fixed.apiDesc
+            
+        case .getCreateRoom:
+            return UserAPI.createRoom.apiDesc
+            
         }
     }
     
@@ -64,6 +69,7 @@ extension UserTarget: BaseTargetType {
             return .post
             
         case .getUser, .getFixedNotice:
+                .getCreateRoom,
             return .get
         }
     }
@@ -110,6 +116,12 @@ extension UserTarget: BaseTargetType {
             let parameters : [String : Any] = [:]
             return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
             
+        case .getCreateRoom(let page, let pageSize, _):
+            let parameters: [String : Any] = [
+                "page" : page,
+                "pageSize" : pageSize,
+            ]
+            return .requestParameters(parameters: parameters, encoding: URLEncoding.queryString)
             
         }
     }
@@ -156,6 +168,15 @@ extension UserTarget: BaseTargetType {
             return [
                 "Content-Type": "application/json"
             ]
+        
+        case .getCreateRoom(_, _, let accessToken):
+            token = accessToken
+            
+            return [
+                "Content-Type": "application/json",
+                "Authorization" : "Bearer \(token)"
+            ]
+            
         }
     }
 }

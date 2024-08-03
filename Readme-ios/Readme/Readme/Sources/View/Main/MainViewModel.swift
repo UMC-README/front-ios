@@ -23,6 +23,7 @@ class MainViewModel {
     
     var myUser: UserResponse?
     var fixedNotice: FixedNotice?
+    var myCreateRoom: RoomLiteResponse?
     var phase: Phase = .notRequested
     
     
@@ -52,6 +53,18 @@ class MainViewModel {
             print(myUser)
         } catch {
             Log.network("Main VM - getUser() 에러", error)
+        }
+    }
+    
+    /// 내가 생성한 공지방
+    func getCreateRoom() async {
+        do {
+            let createRoom = try await container.services.userService.getCreateRoom()
+            myCreateRoom = createRoom
+            print(myCreateRoom)
+        } catch {
+            myCreateRoom = .stub01
+            Log.network("Main VM - getCreateRoom() 에러", error)
         }
     }
     
