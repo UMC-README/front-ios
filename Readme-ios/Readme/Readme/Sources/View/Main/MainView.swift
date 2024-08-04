@@ -10,23 +10,22 @@ import SwiftUI
 struct MainView: View {
     
     @EnvironmentObject var container: DIContainer
-    var mainViewModel: MainViewModel
+    @StateObject var mainViewModel: MainViewModel
     
     var body: some View {
         NavigationStack(path: $container.navigationRouter.destinations) {
             mainContentView
+                    .task {
+                        mainViewModel.send(action: .load)
+                        await mainViewModel.getUser()
+                        await mainViewModel.getCreateRoom()
+                    }
                 .navigationDestination(for: NavigationDestination.self) {
-                    NavigationRoutingView(destination: $0)
+                    NavigationRoutingView(container: container, destination: $0)
                 }
                 .navigationTitle("Readme")
                 .navigationBarTitleDisplayMode(.inline)
         }
-        .task {
-            mainViewModel.send(action: .load)
-            await mainViewModel.getUser()
-            await mainViewModel.getCreateRoom()
-        }
-        
     }
     
     /// 메인 콘텐츠
@@ -177,6 +176,7 @@ struct MainView: View {
                 title("생성한 공지방")
                 Spacer()
                 Button {
+                    print("공지방 생성하러 가기")
                     mainViewModel.send(action: .goToCreateRoom)
                 } label: {
                     Image(systemName: "plus")

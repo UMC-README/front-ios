@@ -10,7 +10,7 @@ import SwiftUI
 import PhotosUI
 
 @Observable
-class MainViewModel {
+class MainViewModel: ObservableObject {
     enum Action {
         case load
         case goToSetting
@@ -19,39 +19,30 @@ class MainViewModel {
         case goToCreateRoom
 //        case goToRoom(Room)
 //        case goToNotice(Notice)
+    
     }
     
     var myUser: UserResponse?
     var fixedNotice: FixedNotice?
     var myCreateRoom: RoomLiteResponse?
+    var myJoinRoom: RoomLiteResponse?
     var phase: Phase = .notRequested
     
     
     private var container: DIContainer
-//    private var subsriptions = Set<AnyCancellable>()
     
     init(container: DIContainer) {
         self.container = container
     }
     
-//    func uploadRoomImage(pickerItem: PhotosPickerItem?) async {
-//        guard let pickerItem else { return }
-//        
-//        do {
-//            let data = try await container.services.photoPickerService.loadTransferable(from: pickerItem)
-//            let url = try await container.services.userService.uploadImage(data: data)
-//            print(url)
-//        } catch {
-//            print("MainVM uploadRoomImage url 생성 실패")
-//        }
-//    }
-//    
+
+    /// 유저 프로필 정보
     func getUser() async {
         do {
             let user = try await container.services.userService.getUser()
             myUser = user
-            print(myUser)
         } catch {
+            myUser = .stub01
             Log.network("Main VM - getUser() 에러", error)
         }
     }
@@ -61,7 +52,7 @@ class MainViewModel {
         do {
             let createRoom = try await container.services.userService.getCreateRoom()
             myCreateRoom = createRoom
-            print(myCreateRoom)
+//            print(myCreateRoom)
         } catch {
             myCreateRoom = .stub01
             Log.network("Main VM - getCreateRoom() 에러", error)
@@ -84,7 +75,7 @@ class MainViewModel {
     func send(action: Action) {
         switch action {
         case .load:
-            phase = .loading
+//            phase = .loading
             
             
             
@@ -95,6 +86,7 @@ class MainViewModel {
                     self.fixedNotice = notice
                 case .failure(let error):
                     Log.network("MainVM - 고정된 공지글 조회 실패)", error.localizedDescription)
+                    self.fixedNotice = .stub1
                 }
                 
             })
