@@ -19,6 +19,7 @@ protocol UserServiceType {
     
     func getFixedNotice(completion: @escaping (Result<FixedNotice, ServiceError>) -> Void)
     func getFixedNotice() async throws -> FixedNotice
+    func getCreateRoom() async throws -> RoomLiteResponse
     func getJoinRoom() async throws -> RoomLiteResponse
 }
 
@@ -169,18 +170,38 @@ class UserService: UserServiceType {
         
         return notice
     }
-}
-
-class StubUserService: UserServiceType {
-
-    func uploadImage(data: Data?) async throws -> ImageURLResponse {
-        return ImageURLResponse.stub01
+    
+    /// 내가 생성한 공지방 조회
+    func getCreateRoom() async throws -> RoomLiteResponse {
+        let accessToken: String? = TokenManager.shared.accessToken
+        
+        guard let accessToken = accessToken else {
+            print("토큰이 존재하지 않습니다.")
+            return .stub01
+        }
+        
+        return try await withCheckedThrowingContinuation { continuation in
+            provider.request(.getCreateRoom(page: 1, pageSize: 6, accessToken: accessToken), completion: { result in
+                switch result {
+                case let .success(response):
+                    do {
+                        let response = try self.jsonDecoder.decode(RoomLiteResponse.self, from: response.data)
+                        print("UserService - 내가 생성한 공지방 생성 성공")
+                        continuation.resume(returning: response)
+                    } catch {
+                        Log.network("UserService - 내가 생성한 공지방 생성 실패", error.localizedDescription)
+                        continuation.resume(throwing: error)
+                    }
+                    
+                case let .failure(error):
+                    Log.network("UserService - 내가 생성한 공지방 생성 네트워킹 에러", error.localizedDescription)
+                    continuation.resume(throwing: error)
+                }
+                
+            })
+        }
     }
-    
-//    func getUser(completion: @escaping (Result<UserResponse, ServiceError>) -> Void) {
-//      
-//    }
-    
+        
     /// 내가 입장한 공지방 조회
     func getJoinRoom() async throws -> RoomLiteResponse {
         let accessToken: String? = TokenManager.shared.accessToken
