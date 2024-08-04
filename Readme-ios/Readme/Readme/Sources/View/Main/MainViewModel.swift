@@ -68,6 +68,19 @@ class MainViewModel {
         }
     }
     
+    /// 내가 입장한 공지방
+    func getJoinRoom() async {
+        do {
+            let createRoom = try await container.services.userService.getJoinRoom()
+            myJoinRoom = myJoinRoom
+//            print(myCreateRoom)
+        } catch {
+            myJoinRoom = .stub01
+            Log.network("Main VM - getJoinRoom() 에러", error)
+        }
+    }
+    
+    
     func send(action: Action) {
         switch action {
         case .load:
