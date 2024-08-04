@@ -37,7 +37,7 @@ class AdminService: AdminServiceType {
                 case let .success(response):
                     if let responseString = String(data: response.data, encoding: .utf8) {
 //                        print(responseString)
-                        print("data : \(response.data)")
+                        print("data : \(responseString.data)")
                         print("AdminService 공지방 생성 성공")
                     } else {
                         print("AdminService 공지방 생성 실패")

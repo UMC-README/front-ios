@@ -16,6 +16,7 @@ public enum UserAPI {
     case confirmCode            /// 이메일 인증코드 확인
     case signup                 /// 회원가입
     case signin                 /// 로그인
+    case kakaoSignin            /// 카카오 로그인
     case user                   /// 내 프로필 조회
     case fixed                  /// 고정된 공지글 조회
     case recent                 /// 최근 공지글 목록 조회
@@ -48,6 +49,9 @@ public enum UserAPI {
             
         case .signin:       /// 로그인
             return "/user/login"
+            
+        case .kakaoSignin:  /// 카카오 로그인
+            return "/user/login/kakao"
             
         case .user:         /// 내 프로필 조회
             return "/user"

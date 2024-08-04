@@ -49,4 +49,23 @@ extension AuthenticationViewModel {
             
         }
     }
+    
+    func signinWithKakao() async {
+        
+        guard let code: String = try? await container.services.authService.getKakaoCode() else {
+            print("kakao code 생성 실패")
+            return 
+        }
+        
+        print("signinWithKakao(⭐️ 로그인을 시작합니다. \(code)")
+        if let result =
+            try? await container.services.authService.signInKakao(code: code)
+             {
+            TokenManager.shared.accessToken = result.result?.accessToken
+                print(" ⭐️ Access Token : \(TokenManager.shared.accessToken)")
+                authentificationState = .authenticated
+                print("- 로그인 성공")
+            
+        }
+    }
 }

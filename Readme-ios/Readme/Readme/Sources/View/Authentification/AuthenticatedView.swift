@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import KakaoSDKCommon
+import KakaoSDKAuth
 
 struct AuthenticatedView: View {
     @EnvironmentObject var container: DIContainer
@@ -16,6 +18,11 @@ struct AuthenticatedView: View {
             case .unauthenticated:
                 SignInIntroView()
                     .environmentObject(authViewModel)
+                    .onOpenURL(perform: { url in
+                                    if (AuthApi.isKakaoTalkLoginUrl(url)) {
+                                        AuthController.handleOpenUrl(url: url)
+                                    }
+                                })
             case .authenticated:
                 MainView(mainViewModel: .init(container: container))
             }

@@ -26,7 +26,7 @@ struct NoticeResponse: Identifiable, Codable {
 }
 
 struct FixedNotice: Identifiable, Codable {
-    var id = UUID().uuidString
+    let id = UUID().uuidString
     var isSuccess: Bool?
     var code: Int?
     var message: String?
@@ -48,7 +48,7 @@ extension NoticeResponse {
 extension FixedNotice {
 
     static var stub1: FixedNotice =
-        .init(id: "", isSuccess: true, code: 200, message: "성공",
+        .init(isSuccess: true, code: 200, message: "성공",
               result: .init(id: "", postId: 1, title: "stub1 제목", startDate: "00.00.00", endDate: "99.99.99"
               )
         )

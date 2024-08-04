@@ -10,12 +10,15 @@ import Moya
 
 enum UserTarget {
     case s3Upload(data: Data?, accessToken: String)     /// s3에 이미지 업로드
-    case createCode(email: String)                       /// 이메일 인증코드 생성
+    case createCode(email: String)                      /// 이메일 인증코드 생성
     case confirmCode(email: String, code: String)       /// 이메일 인증코드 확인
     case signUp(authRequest: AuthRequest)               /// 회원가입
     case signIn(email: String, password: String)        /// 로그인
-    case getUser(accessToken: String)   // 내 프로필 조회
-    case getFixedNotice(accessToken: String)    // 고정 공지 조회
+    case kakaoSignIn(code: String)                      /// 카카오 로그인
+    case getUser(accessToken: String)                   /// 내 프로필 조회
+    case getFixedNotice(accessToken: String)            /// 고정 공지 조회
+    case getCreateRoom(page: Int, pageSize: Int, accessToken: String)   /// 내가 생성한 공지방 조회
+    case getJoinRoom(page: Int, pageSize: Int, accessToken: String)     /// 내가 입장한 공지방 조회
 }
 
 extension UserTarget: BaseTargetType {
@@ -40,11 +43,20 @@ extension UserTarget: BaseTargetType {
         case .signIn:
             return UserAPI.signin.apiDesc
             
+        case .kakaoSignIn:
+            return UserAPI.kakaoSignin.apiDesc
+            
         case .getUser:
             return UserAPI.user.apiDesc
             
         case .getFixedNotice:
             return UserAPI.fixed.apiDesc
+            
+        case .getCreateRoom:
+            return UserAPI.createRoom.apiDesc
+            
+        case .getJoinRoom:
+            return UserAPI.joinRoom.apiDesc
         }
     }
     
@@ -56,10 +68,14 @@ extension UserTarget: BaseTargetType {
         case .createCode,
                 .confirmCode,
                 .signUp,
-                .signIn:
+                .signIn,
+                .kakaoSignIn:
             return .post
             
-        case .getUser, .getFixedNotice:
+        case .getUser, 
+                .getFixedNotice,
+                .getCreateRoom,
+                .getJoinRoom:
             return .get
         }
     }
@@ -86,20 +102,39 @@ extension UserTarget: BaseTargetType {
             return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
             
         case .signUp(let authRequest):
-            return .requestJSONEncodable(authRequest)
+            return .requestJSONEncodable(authRequest) // -> Request Body 구조체 만들어서 사용
             
         case .signIn(let email, let password):
             let parameters: [String : Any] = [
                 "email" : email,
                 "password" : password
             ]
-            return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
+            return .requestParameters(parameters: parameters, encoding: JSONEncoding.default) // -> 구조체 사용 X
+            
+        case .kakaoSignIn(let code):
+            let parameters: [String : Any] = [
+                "code" : code,
+                "platform": "ios"
+            ]
+            return .requestParameters(parameters: parameters, encoding: URLEncoding.queryString) // ?{q변수명}={값}&{변수명2}={값2}
         
-        
-        case .getUser(let accessToken), .getFixedNotice(let accessToken):
+        case .getUser(_), .getFixedNotice(_):
             let parameters : [String : Any] = [:]
             return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
             
+        case .getCreateRoom(let page, let pageSize, _):
+            let parameters: [String : Any] = [
+                "page" : page,
+                "pageSize" : pageSize,
+            ]
+            return .requestParameters(parameters: parameters, encoding: URLEncoding.queryString)
+            
+        case .getJoinRoom(page: let page, pageSize: let pageSize, accessToken: let accessToken):
+            let parameters: [String : Any] = [
+                "page" : page,
+                "pageSize" : pageSize,
+            ]
+            return .requestParameters(parameters: parameters, encoding: URLEncoding.queryString)
             
         }
     }
@@ -140,6 +175,27 @@ extension UserTarget: BaseTargetType {
         case .signIn(_, _):
             return [
                 "Content-Type": "application/json"
+            ]
+            
+        case .kakaoSignIn(_):
+            return [
+                "Content-Type": "application/json"
+            ]
+        
+        case .getCreateRoom(_, _, let accessToken):
+            token = accessToken
+            
+            return [
+                "Content-Type": "application/json",
+                "Authorization" : "Bearer \(token)"
+            ]
+            
+        case .getJoinRoom(_, _, let accessToken):
+            token = accessToken
+            
+            return [
+                "Content-Type": "application/json",
+                "Authorization" : "Bearer \(token)"
             ]
             
         }
