@@ -64,6 +64,7 @@ class AuthenticationService: AuthenticationServiceType {
         }
     }
     
+    /// 카카오 로그인 토큰 발급
     func getKakaoCode() async throws -> String {
         if UserApi.isKakaoTalkLoginAvailable() {
             return try await withCheckedThrowingContinuation { continuation in
@@ -102,6 +103,7 @@ class AuthenticationService: AuthenticationServiceType {
                     do {
                         let decodedResponse = try JSONDecoder().decode(AuthResponse.self, from: response.data)
                         continuation.resume(returning: decodedResponse)
+                        
                         print("kakao 로그인 response 디코딩 성공")
                     } catch {
                         continuation.resume(throwing: error)
