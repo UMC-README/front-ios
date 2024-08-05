@@ -21,7 +21,7 @@ struct MainView: View {
                         await mainViewModel.getCreateRoom()
                     }
                 .navigationDestination(for: NavigationDestination.self) {
-                    NavigationRoutingView(container: container, destination: $0)
+                    NavigationRoutingView(destination: $0)
                 }
                 .navigationTitle("Readme")
                 .navigationBarTitleDisplayMode(.inline)
@@ -184,7 +184,7 @@ struct MainView: View {
             }
             LazyVGrid(columns: columns) {
                 
-                ForEach(mainViewModel.myCreateRoom?.result ?? []) { item in
+                ForEach(mainViewModel.myCreateRoom?.result?.rooms ?? []) { item in
                     RoomItemView(time: "30분", roomName: item.roomName ?? "", nickname: item.nickname ?? "")
                 }
             }

@@ -40,14 +40,21 @@ struct RoomLiteResponse: Codable, Identifiable {
     let isSuccess: Bool?
     let code: Int?
     let message: String?
-    let result: [RoomLiteResult]?
+    let result: RoomLiteResult?
     
-    struct RoomLiteResult: Codable, Identifiable {
-        let id = UUID().uuidString
-        let roomID: Int?
-        let roomImage: String?
-        let roomName: String?
-        let nickname: String?
+    
+    struct RoomLiteResult: Codable {
+//        let id = UUID().uuidString
+        let rooms: [RoomDatum]?
+        let isNext: Bool?
+        
+        struct RoomDatum: Codable, Identifiable {
+            let id = UUID().uuidString
+            let roomID: Int?
+            let roomImage: String?
+            let roomName: String?
+            let nickname: String?
+        }
     }
 }
 
@@ -83,13 +90,13 @@ extension RoomLiteResponse {
     
     static var stub01: RoomLiteResponse {
         .init(status: 1, isSuccess: true, code: 200, message: "Success!", result:
-                [
+                .init(rooms: [
                     .init(roomID: 1, roomImage: "", roomName: "roomName", nickname: "nickname"),
-                    .init(roomID: 2, roomImage: "", roomName: "roomName", nickname: "nickname"),
-                    .init(roomID: 3, roomImage: "", roomName: "roomName", nickname: "nickname"),
-                    .init(roomID: 4, roomImage: "", roomName: "roomName", nickname: "nickname"),
-                    .init(roomID: 5, roomImage: "", roomName: "roomName", nickname: "nickname"),
-                ]
+                    .init(roomID: 1, roomImage: "", roomName: "roomName", nickname: "nickname"),
+                    .init(roomID: 1, roomImage: "", roomName: "roomName", nickname: "nickname"),
+                    .init(roomID: 1, roomImage: "", roomName: "roomName", nickname: "nickname"),
+                
+                ], isNext: false)
         )
     }
 }
