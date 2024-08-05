@@ -17,16 +17,18 @@ struct RoomView: View {
         .stub1,
         .stub1,
         .stub1,
-    
-    
     ]
     
     var body: some View {
         ScrollView {
             VStack {
+                Text("roomId : \(roomViewModel.roomId)")
                 noticeListView
             }
             .padding(.horizontal, 16)
+            .task {
+                await roomViewModel.getAllPosts()
+            }
         }
     }
     
@@ -34,8 +36,8 @@ struct RoomView: View {
     @ViewBuilder
     var noticeListView: some View {
         VStack {
-            ForEach(example) { notice in
-                NoticePreviewView(notice: notice)
+            ForEach(roomViewModel.postLiteResponse?.result?.postData ?? []) { post in
+                NoticePreviewView(post: post)
             }
         }
     }

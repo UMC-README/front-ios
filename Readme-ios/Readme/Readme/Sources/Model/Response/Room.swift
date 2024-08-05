@@ -59,7 +59,8 @@ struct RoomLiteResponse: Codable, Identifiable {
         
         struct RoomDatum: Codable, Identifiable {
             let id = UUID().uuidString
-            let adminID: Int?
+            let roomId: Int?
+            let adminId: Int?
             let adminNickname: String?
             let roomName: String?
             let roomPassword: String?
@@ -72,8 +73,8 @@ struct RoomLiteResponse: Codable, Identifiable {
             let latestPostTime: String?
 
             enum CodingKeys: String, CodingKey {
-                case id = "id"
-                case adminID = "admin_id"
+                case roomId = "id"
+                case adminId = "admin_id"
                 case adminNickname = "admin_nickname"
                 case roomName = "room_name"
                 case roomPassword = "room_password"
@@ -134,7 +135,7 @@ extension RoomLiteResponse {
     static var stub01: RoomLiteResponse {
         .init(status: 1, isSuccess: true, code: 200, message: "Success!", result:
                 .init(rooms: [
-                    .init(adminID: 1, adminNickname: "nickname", roomName: "roomNBame", roomPassword: "", roomImage: "", roomInviteURL: "", maxPenalty: 1, state: "", createdAt: "", updatedAt: "", latestPostTime: "")
+                    .init(roomId: 1, adminId: 1, adminNickname: "nickname", roomName: "roomNBame", roomPassword: "", roomImage: "", roomInviteURL: "", maxPenalty: 1, state: "", createdAt: "", updatedAt: "", latestPostTime: "")
                 
                 ], isNext: false)
         )

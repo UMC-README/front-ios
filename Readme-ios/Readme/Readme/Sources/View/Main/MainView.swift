@@ -111,7 +111,7 @@ struct MainView: View {
             Rectangle()
                 .frame(width: 14, height: 14)
             VStack(alignment: .leading, spacing: 8) {
-                Text((mainViewModel.fixedNotice?.result?.title ?? FixedNotice.stub1.result?.title)!)
+                Text((mainViewModel.fixedNotice?.result?.title ?? FixedPost.stub1.result?.title)!)
                     .font(.pretendardBold16)
                     .foregroundStyle(Color.txtDefault)
                 Text("공지글 날짜")
@@ -186,9 +186,13 @@ struct MainView: View {
                 
                 ForEach(mainViewModel.myCreateRoom?.result?.rooms ?? []) { item in
                     RoomItemView(time: "30분", roomName: item.roomName ?? "", nickname: item.adminNickname ?? "")
-                    let _ = print("roomName : \(item.roomName)")
-                    let _ = print("roomName : \(item.adminNickname)")
+                        .onTapGesture {
+                            mainViewModel.send(action: .goToRoom(item.roomId ?? 1))
+                        }
+//                    let _ = print("roomName : \(item.roomName)")
+//                    let _ = print("roomName : \(item.adminNickname)")
                 }
+                
             }
         }
     }
