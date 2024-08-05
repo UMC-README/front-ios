@@ -17,7 +17,7 @@ class RoomViewModel: ObservableObject {
     var roomId: Int
     var myUser: UserResponse?
     var phase: Phase = .notRequested
-    var notice: [NoticeResponse] = []
+    var postLiteResponse: PostLiteResponse?
     
     
     private var container: DIContainer
@@ -28,11 +28,22 @@ class RoomViewModel: ObservableObject {
         self.roomId = roomId
     }
     
-    func send(action: Action) {
-        switch action {
-        case .getAllNotice(let roomId):
-            break
-        
+//    func send(action: Action) {
+//        switch action {
+//        case .getAllNotice(let roomId):
+//            
+//        
+//        }
+//    }
+    
+    func getAllPosts() async {
+        do {
+            let posts = try await container.services.roomService.getAllNotice(roomId: roomId)
+            self.postLiteResponse = posts
+            print("\(roomId) 공지글 전체 조회!!!!!!!")
+        } catch {
+            self.postLiteResponse = .stub1
+            Log.network("Room VM - getAllPosts() 에러", error)
         }
     }
 }

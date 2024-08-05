@@ -9,27 +9,27 @@ import SwiftUI
 
 struct NoticePreviewView: View {
     
-    let notice: NoticeResponse
+    let post: PostDatum
     
     var body: some View {
         VStack(spacing: 8) {
             HStack {
                 
-                NoticeTypeIconView(type: notice.type ?? .mission)
+                NoticeTypeIconView(type: post.postType ?? .mission)
                 Spacer()
                 Text("댓글 버튼 개수")
                 Text("버튼")
             }
             
-            Text("Title")
+            Text(post.postTitle ?? "title error")
                 .font(.pretendardBold18)
                 .foregroundStyle(Color.txtDefault)
                 .frame(maxWidth: .infinity, alignment: .leading)
             
             HStack {
-                Text("yy.MM.dd HH:MM")
+                Text(post.startDate ?? "")
                 Text("-")
-                Text("yy.MM.dd HH:MM")
+                Text(post.endDate ?? "")
             }
             .foregroundStyle(Color.primaryNormal)
             .font(.pretendardRegular12)
@@ -58,7 +58,7 @@ struct NoticePreviewView: View {
 
 struct PostPreviewView_Previews: PreviewProvider {
     static var previews: some View {
-        NoticePreviewView(notice: .stub1)
+        NoticePreviewView(post: .init(postId: 1, postType: .mission, postTitle: "", postBody: "", postImage: "", startDate: "", endDate: "", commentCount: 2, submitState: ""))
             .previewLayout(.sizeThatFits)
     }
 }

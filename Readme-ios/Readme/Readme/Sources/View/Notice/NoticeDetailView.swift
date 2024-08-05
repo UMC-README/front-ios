@@ -9,7 +9,7 @@ import SwiftUI
 
 struct NoticeDetailView: View {
     
-    var notice: NoticeResponse = NoticeResponse.stub1
+    var notice: PostResponse = PostResponse.stub1
     
     // TODO: Comment
     

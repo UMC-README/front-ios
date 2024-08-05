@@ -13,7 +13,7 @@ struct RoomView: View {
     @StateObject var roomViewModel: RoomViewModel
     
     
-    var example: [NoticeResponse] = [
+    var example: [PostResponse] = [
         .stub1,
         .stub1,
         .stub1,

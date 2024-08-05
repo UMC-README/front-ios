@@ -17,13 +17,13 @@ class MainViewModel: ObservableObject {
         case goToAdmit
         case goToPenalty
         case goToCreateRoom
-//        case goToRoom(Room)
+        case goToRoom(Int)
 //        case goToNotice(Notice)
     
     }
     
     var myUser: UserResponse?
-    var fixedNotice: FixedNotice?
+    var fixedNotice: FixedPost?
     var myCreateRoom: RoomLiteResponse?
     var myJoinRoom: RoomLiteResponse?
     var phase: Phase = .notRequested
@@ -75,10 +75,7 @@ class MainViewModel: ObservableObject {
     func send(action: Action) {
         switch action {
         case .load:
-//            phase = .loading
-            
-            
-            
+//            phase = .loadin
             container.services.userService.getFixedNotice(completion: { result in
                 switch result {
                 case .success(let notice):
@@ -104,6 +101,8 @@ class MainViewModel: ObservableObject {
             if let userId = self.myUser?.result?.userID {
                 self.container.navigationRouter.push(to: .createRoom(userId: userId))
             }
+        case .goToRoom(let roomId):
+            self.container.navigationRouter.push(to: .room(roomId: roomId))
         }
     }
 }
