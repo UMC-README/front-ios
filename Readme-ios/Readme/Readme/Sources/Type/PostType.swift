@@ -8,7 +8,7 @@
 import SwiftUI
 
 /// 공지글 종류
-enum NoticeType: String, Codable {
+enum PostType: String, Codable {
     case mission = "미션"
     case quiz = "퀴즈"
     
