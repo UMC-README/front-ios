@@ -185,7 +185,9 @@ struct MainView: View {
             LazyVGrid(columns: columns) {
                 
                 ForEach(mainViewModel.myCreateRoom?.result?.rooms ?? []) { item in
-                    RoomItemView(time: "30분", roomName: item.roomName ?? "", nickname: item.nickname ?? "")
+                    RoomItemView(time: "30분", roomName: item.roomName ?? "", nickname: item.adminNickname ?? "")
+                    let _ = print("roomName : \(item.roomName)")
+                    let _ = print("roomName : \(item.adminNickname)")
                 }
             }
         }

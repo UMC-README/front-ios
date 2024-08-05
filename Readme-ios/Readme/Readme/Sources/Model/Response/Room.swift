@@ -48,12 +48,43 @@ struct RoomLiteResponse: Codable, Identifiable {
         let rooms: [RoomDatum]?
         let isNext: Bool?
         
+//        struct RoomDatum: Codable, Identifiable {
+//            let id = UUID().uuidString
+//            let roomID: Int?
+//            let roomImage: String?
+//            let roomName: String?
+//            let nickname: String?
+//        }
+        
+        
         struct RoomDatum: Codable, Identifiable {
             let id = UUID().uuidString
-            let roomID: Int?
-            let roomImage: String?
+            let adminID: Int?
+            let adminNickname: String?
             let roomName: String?
-            let nickname: String?
+            let roomPassword: String?
+            let roomImage: String?
+            let roomInviteURL: String?
+            let maxPenalty: Int?
+            let state: String?
+            let createdAt: String?
+            let updatedAt: String?
+            let latestPostTime: String?
+
+            enum CodingKeys: String, CodingKey {
+                case id = "id"
+                case adminID = "admin_id"
+                case adminNickname = "admin_nickname"
+                case roomName = "room_name"
+                case roomPassword = "room_password"
+                case roomImage = "room_image"
+                case roomInviteURL = "room_invite_url"
+                case maxPenalty = "max_penalty"
+                case state = "state"
+                case createdAt = "created_at"
+                case updatedAt = "updated_at"
+                case latestPostTime = "latest_post_time"
+            }
         }
     }
 }
@@ -88,15 +119,25 @@ extension RoomResponse {
 
 extension RoomLiteResponse {
     
+//    static var stub01: RoomLiteResponse {
+//        .init(status: 1, isSuccess: true, code: 200, message: "Success!", result:
+//                .init(rooms: [
+//                    .init(roomID: 1, roomImage: "", roomName: "roomName", nickname: "nickname"),
+//                    .init(roomID: 1, roomImage: "", roomName: "roomName", nickname: "nickname"),
+//                    .init(roomID: 1, roomImage: "", roomName: "roomName", nickname: "nickname"),
+//                    .init(roomID: 1, roomImage: "", roomName: "roomName", nickname: "nickname"),
+//                
+//                ], isNext: false)
+//        )
+//    }
+     
     static var stub01: RoomLiteResponse {
         .init(status: 1, isSuccess: true, code: 200, message: "Success!", result:
                 .init(rooms: [
-                    .init(roomID: 1, roomImage: "", roomName: "roomName", nickname: "nickname"),
-                    .init(roomID: 1, roomImage: "", roomName: "roomName", nickname: "nickname"),
-                    .init(roomID: 1, roomImage: "", roomName: "roomName", nickname: "nickname"),
-                    .init(roomID: 1, roomImage: "", roomName: "roomName", nickname: "nickname"),
+                    .init(adminID: 1, adminNickname: "nickname", roomName: "roomNBame", roomPassword: "", roomImage: "", roomInviteURL: "", maxPenalty: 1, state: "", createdAt: "", updatedAt: "", latestPostTime: "")
                 
                 ], isNext: false)
         )
     }
+    
 }
