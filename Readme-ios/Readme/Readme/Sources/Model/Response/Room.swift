@@ -8,8 +8,8 @@
 import Foundation
 
 /// 공지방 Model
-struct RoomResponse: Codable, Identifiable {
-    let id = UUID().uuidString
+struct RoomResponse: Codable{
+//    let id = UUID().uuidString
     let adminID: String?            /// 관리자 ID
     let adminNickname: String?      /// 관리자 닉네임
     let roomName: String?           /// 공지방 이름
@@ -34,61 +34,38 @@ struct RoomResponse: Codable, Identifiable {
     
 }
 
-struct RoomLiteResponse: Codable, Identifiable {
-    let id = UUID().uuidString
-    let status: Int?
+struct RoomLiteResponse: Codable {
+//    let id = UUID().uuidString
     let isSuccess: Bool?
     let code: Int?
     let message: String?
     let result: RoomLiteResult?
     
-    
     struct RoomLiteResult: Codable {
-//        let id = UUID().uuidString
         let rooms: [RoomDatum]?
         let isNext: Bool?
-        
-//        struct RoomDatum: Codable, Identifiable {
-//            let id = UUID().uuidString
-//            let roomID: Int?
-//            let roomImage: String?
-//            let roomName: String?
-//            let nickname: String?
-//        }
-        
         
         struct RoomDatum: Codable, Identifiable {
             let id = UUID().uuidString
             let roomId: Int?
-            let adminId: Int?
-            let adminNickname: String?
             let roomName: String?
-            let roomPassword: String?
             let roomImage: String?
-            let roomInviteURL: String?
-            let maxPenalty: Int?
             let state: String?
-            let createdAt: String?
-            let updatedAt: String?
             let latestPostTime: String?
-
+            
             enum CodingKeys: String, CodingKey {
                 case roomId = "id"
-                case adminId = "admin_id"
-                case adminNickname = "admin_nickname"
-                case roomName = "room_name"
-                case roomPassword = "room_password"
-                case roomImage = "room_image"
-                case roomInviteURL = "room_invite_url"
-                case maxPenalty = "max_penalty"
+                case roomName = "roomName"
+                case roomImage = "roomImage"
                 case state = "state"
-                case createdAt = "created_at"
-                case updatedAt = "updated_at"
-                case latestPostTime = "latest_post_time"
+                case latestPostTime = "latestPostTime"
             }
         }
     }
 }
+
+
+
 
 
 extension RoomResponse {
@@ -133,9 +110,9 @@ extension RoomLiteResponse {
 //    }
      
     static var stub01: RoomLiteResponse {
-        .init(status: 1, isSuccess: true, code: 200, message: "Success!", result:
+        .init(isSuccess: true, code: 200, message: "Success!", result:
                 .init(rooms: [
-                    .init(roomId: 1, adminId: 1, adminNickname: "nickname", roomName: "roomNBame", roomPassword: "", roomImage: "", roomInviteURL: "", maxPenalty: 1, state: "", createdAt: "", updatedAt: "", latestPostTime: "")
+//                    .init(roomId: 1, nickname: "nickname ex", roomName: "roomName ex", roomImage: "", state: "", latestPostTime: "")
                 
                 ], isNext: false)
         )

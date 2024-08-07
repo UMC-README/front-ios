@@ -185,18 +185,15 @@ struct MainView: View {
             LazyVGrid(columns: columns) {
                 
                 ForEach(mainViewModel.myCreateRoom?.result?.rooms ?? []) { item in
-                    RoomItemView(time: "30분", roomName: item.roomName ?? "", nickname: item.adminNickname ?? "")
+                    RoomItemView(time: "30", roomName: item.roomName ?? "", nickname: item.roomName ?? "")
                         .onTapGesture {
                             mainViewModel.send(action: .goToRoom(item.roomId ?? 1))
                         }
-//                    let _ = print("roomName : \(item.roomName)")
-//                    let _ = print("roomName : \(item.adminNickname)")
                 }
-                
             }
         }
     }
-    
+
     /// 입장한 공지방
     @ViewBuilder
     var enteredRoomView: some View {
