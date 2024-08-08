@@ -14,12 +14,20 @@ struct MainView: View {
     
     var body: some View {
         NavigationStack(path: $container.navigationRouter.destinations) {
-            mainContentView
+            VStack {
+                mainContentView
                     .task {
                         mainViewModel.send(action: .load)
                         await mainViewModel.getUser()
                         await mainViewModel.getCreateRoom()
+                        await mainViewModel.getJoinRoom()
                     }
+                Button {
+                    mainViewModel.send(action: .goToCreatePost)
+                } label: {
+                    Text("create post")
+                }
+            }
                 .navigationDestination(for: NavigationDestination.self) {
                     NavigationRoutingView(destination: $0)
                 }
@@ -205,11 +213,12 @@ struct MainView: View {
         VStack(alignment: .leading, spacing: 10) {
             title("입장한 공지방")
             LazyVGrid(columns: columns) {
-                RoomItemView(time: "30분", roomName: "공지방", nickname: "닉네임")
-                RoomItemView(time: "30분", roomName: "공지방공지방공지방공지방공지방공지방공지방공지방공지방", nickname: "닉네임닉네임닉네임닉네임닉네임닉네임닉네임닉네임닉네임")
-                RoomItemView(time: "30분", roomName: "공지방", nickname: "닉네임")
-                RoomItemView(time: "30분", roomName: "공지방", nickname: "닉네임")
-                RoomItemView(time: "30분", roomName: "공지방", nickname: "닉네임")
+                ForEach(mainViewModel.myCreateRoom?.result?.rooms ?? []) { item in
+                    RoomItemView(time: "30", roomName: item.roomName ?? "", nickname: item.roomName ?? "")
+                        .onTapGesture {
+                            mainViewModel.send(action: .goToRoom(item.roomId ?? 1))
+                        }
+                }
             }
         }
     }
