@@ -22,7 +22,7 @@ struct RoomView: View {
     var body: some View {
         ScrollView {
             VStack {
-                Text("roomId : \(roomViewModel.roomId)")
+                Text("roomId : \(roomViewModel.roomId ?? 45)")
                 noticeListView
             }
             .padding(.horizontal, 16)
@@ -37,7 +37,7 @@ struct RoomView: View {
     var noticeListView: some View {
         VStack {
             ForEach(roomViewModel.postLiteResponse?.result?.postData ?? []) { post in
-                NoticePreviewView(post: post)
+                PostPreviewView(post: post)
             }
         }
     }
@@ -47,7 +47,7 @@ struct RoomView_Previews: PreviewProvider {
     static let container: DIContainer = .stub
     
     static var previews: some View {
-        RoomView(roomViewModel: .init(container: container, roomId: 1))
+        RoomView(roomViewModel: .init(container: container))
             .environmentObject(container)
     }
 }

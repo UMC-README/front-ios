@@ -52,6 +52,9 @@ struct RoomLiteResponse: Codable {
             let roomImage: String?
             let state: String?
             let latestPostTime: String?
+            let submitCount: Int?
+            let maxPenaltyCount: Int?
+            let penaltyCount: Int?
             
             enum CodingKeys: String, CodingKey {
                 case roomId = "id"
@@ -59,6 +62,9 @@ struct RoomLiteResponse: Codable {
                 case roomImage = "roomImage"
                 case state = "state"
                 case latestPostTime = "latestPostTime"
+                case submitCount = "submitCount"
+                case maxPenaltyCount = "maxPenaltyCount"
+                case penaltyCount = "penaltyCount"
             }
         }
     }

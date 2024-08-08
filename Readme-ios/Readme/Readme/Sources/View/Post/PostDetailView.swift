@@ -1,35 +1,54 @@
 //
-//  PostPreviewView.swift
+//  NoticeDetailView.swift
 //  Readme
 //
-//  Created by Subeen on 7/25/24.
+//  Created by Subeen on 7/26/24.
 //
 
 import SwiftUI
 
-struct NoticePreviewView: View {
+struct PostDetailView: View {
     
-    let post: PostDatum
+    var post: PostResponse = PostResponse.stub1
+    var postID: Int
+   
+    
+    // TODO: Comment
     
     var body: some View {
+        ZStack {
+            Color.backgroundLight.ignoresSafeArea(.all)
+            
+            ScrollView {
+                contentView
+                    .padding(.horizontal, 16)
+            }
+            
+        }
+    }
+    
+    
+    /// 공지글 본문 뷰
+    @ViewBuilder
+    var contentView: some View {
         VStack(spacing: 8) {
             HStack {
                 
-                NoticeTypeIconView(type: post.postType ?? .mission)
+                NoticeTypeIconView(type: post.result?.postType ?? .mission)
                 Spacer()
                 Text("댓글 버튼 개수")
                 Text("버튼")
             }
             
-            Text(post.postTitle ?? "title error")
+            Text(post.result?.postTitle ?? "title error")
                 .font(.pretendardBold18)
                 .foregroundStyle(Color.txtDefault)
                 .frame(maxWidth: .infinity, alignment: .leading)
             
             HStack {
-                Text(post.startDate ?? "")
+                Text("yy.MM.dd HH:MM")
                 Text("-")
-                Text(post.endDate ?? "")
+                Text("yy.MM.dd HH:MM")
             }
             .foregroundStyle(Color.primaryNormal)
             .font(.pretendardRegular12)
@@ -38,10 +57,9 @@ struct NoticePreviewView: View {
             .border(width: 0.33, edges: [.bottom], color: .primaryNormal)
             
             HStack {
-                Text("content")
-                    .frame(maxWidth: .infinity, minHeight: 60, alignment: .topLeading)
+                Text(post.result?.postContent ?? "content error")
+                    .frame(maxWidth: .infinity, alignment: .topLeading)
                     .multilineTextAlignment(.leading)
-                    .lineLimit(3)
                     .font(.pretendardMedium16)
                     .foregroundStyle(Color.txtCaption)
             }
@@ -50,15 +68,18 @@ struct NoticePreviewView: View {
         .background(Color.primaryLight)
         .clipShape(RoundedRectangle(cornerRadius: 8))
     }
+    
+    /// 댓글창 뷰
+    @ViewBuilder
+    var commentView: some View {
+        VStack {
+            Text("댓글")
+        }
+    }
 }
 
 //#Preview {
-//    PostPreviewView()
+//    PostDetailView(post)
 //}
 
-struct PostPreviewView_Previews: PreviewProvider {
-    static var previews: some View {
-        NoticePreviewView(post: .init(postId: 1, postType: .mission, postTitle: "", postBody: "", postImage: "", startDate: "", endDate: "", commentCount: 2, submitState: ""))
-            .previewLayout(.sizeThatFits)
-    }
-}
+
