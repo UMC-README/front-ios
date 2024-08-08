@@ -182,7 +182,11 @@ struct CreateRoomView: View {
                     maxPenalty: Int(penalty)!
                 )
                 
-                await createRoomViewModel.createRoom()
+                let createResult = await createRoomViewModel.createRoom()
+                
+                if (createResult) {
+//                    NavigationLinkfi
+                }
             }
         } label: {
             Text("생성하기")

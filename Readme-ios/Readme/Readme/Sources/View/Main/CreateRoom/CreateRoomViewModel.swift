@@ -51,12 +51,15 @@ class CreateRoomViewModel {
     }
     
     /// 공지방 생성
-    func createRoom() async {
+    func createRoom() async -> Bool {
         print("CreateRoomVM createRoom()")
         if let roomRequest = roomRequest {
             self.container.services.adminService.createRoom(roomRequest: roomRequest)
             print("CreateRoomVM 공지방 생성 성공")
+            return true
         }
+        print("CreateRoomVM 공지방 생성 실패")
+        return false
     }
     
 }
