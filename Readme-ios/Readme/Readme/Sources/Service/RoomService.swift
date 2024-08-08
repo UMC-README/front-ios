@@ -51,7 +51,6 @@ class RoomService: RoomServiceType {
             })
         }
     }
-    
 }
 
 class StubRoomService: RoomServiceType {

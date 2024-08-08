@@ -14,17 +14,19 @@ class RoomViewModel: ObservableObject {
         case getAllNotice(roomId: Int)
     }
     
-    var roomId: Int?
+    var roomId: Int
     var myUser: UserResponse?
     var phase: Phase = .notRequested
     var postLiteResponse: PostLiteResponse?
-
+    
+    var isPresentedPostEditView: Bool = false
+    
     private var container: DIContainer
 //    private var subsriptions = Set<AnyCancellable>()
     
-    init(container: DIContainer) {
+    init(container: DIContainer, roomId: Int) {
         self.container = container
-//        self.roomId = roomId
+        self.roomId = roomId
     }
     
 //    func send(action: Action) {
@@ -37,12 +39,16 @@ class RoomViewModel: ObservableObject {
     
     func getAllPosts() async {
         do {
-            guard let roomId = roomId else { return }
+//            guard let roomId = roomId else { return }
             let posts = try await container.services.roomService.getAllNotice(roomId: roomId)
-            self.postLiteResponse = posts
+            postLiteResponse = posts
+            
             print("\(roomId) 공지글 전체 조회!!!!!!!")
+            print("posts \(posts)")
+            
+            
         } catch {
-            self.postLiteResponse = .stub1
+//            self.postLiteResponse = .stub1
             Log.network("Room VM - getAllPosts() 에러", error)
         }
     }
