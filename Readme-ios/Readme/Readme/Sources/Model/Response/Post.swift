@@ -53,7 +53,7 @@ struct PostLiteResponse: Codable {
     let result: PostLiteResult?
     
     struct PostLiteResult: Codable {
-        let postData: [PostDatum]?
+        let data: [PostDatum]?
         let cursorId: Int?
     }
 }
@@ -88,7 +88,7 @@ extension FixedPost {
 
 extension PostLiteResponse {
     static var stub1: PostLiteResponse = .init(isSuccess: true, code: 200, message: "Success!", 
-                                               result: .init(postData: [
+                                               result: .init(data: [
                                                 .init(postId: 1, postType: .quiz, postTitle: "title", postBody: "post body", postImage: "", startDate: "yyyymmmdd", endDate: "yyyymmmdd", commentCount: 23, submitState: "state")
                                                
                                                ], cursorId: 1))
