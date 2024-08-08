@@ -9,8 +9,8 @@ import SwiftUI
 
 /// 공지글 종류
 enum PostType: String, Codable {
-    case mission = "미션"
-    case quiz = "퀴즈"
+    case mission = "MISSION"
+    case quiz = "QUIZ"
     
     var description: String {
         switch self {
