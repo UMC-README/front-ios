@@ -19,7 +19,7 @@ class MainViewModel: ObservableObject {
         case goToCreateRoom
         case goToRoom(Int)
 //        case goToNotice(Notice)
-        case goToCreatePost /// test
+//        case goToCreatePost /// test
     
     }
     
@@ -105,8 +105,8 @@ class MainViewModel: ObservableObject {
         case .goToRoom(let roomId):
             self.container.navigationRouter.push(to: .room(roomId: roomId))
             
-        case .goToCreatePost:
-            self.container.navigationRouter.push(to: .createPost)
+//        case .goToCreatePost:
+//            self.container.navigationRouter.push(to: .createPost)
         }
     }
 }

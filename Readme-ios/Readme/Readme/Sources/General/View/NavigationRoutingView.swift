@@ -22,11 +22,11 @@ struct NavigationRoutingView: View {
         case let .submit:
             Text("submit")
         case let .room(roomId):
-            RoomView(roomViewModel: .init(container: container))
+            RoomView(roomViewModel: .init(container: container, roomId: roomId))
         case let .createRoom(userId):
             CreateRoomView(createRoomViewModel: .init(container: container), userId: userId)
-        case let .createPost:
-            CreatePostView(roomViewModel: .init(container: container))
+//        case let .createPost(roomViewModel):
+//            CreatePostView(roomViewModel: roomViewModel)
         }
     }
 }

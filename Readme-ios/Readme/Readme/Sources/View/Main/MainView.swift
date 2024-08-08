@@ -22,11 +22,6 @@ struct MainView: View {
                         await mainViewModel.getCreateRoom()
                         await mainViewModel.getJoinRoom()
                     }
-                Button {
-                    mainViewModel.send(action: .goToCreatePost)
-                } label: {
-                    Text("create post")
-                }
             }
                 .navigationDestination(for: NavigationDestination.self) {
                     NavigationRoutingView(destination: $0)
