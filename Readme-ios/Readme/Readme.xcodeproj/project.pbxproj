@@ -88,6 +88,8 @@
 		6C882AB72C4D6B4D00AE5734 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C882AB62C4D6B4D00AE5734 /* User.swift */; };
 		6C882ABA2C4D6F1600AE5734 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C882AB92C4D6F1600AE5734 /* AuthenticationService.swift */; };
 		6C882ABD2C4D71B900AE5734 /* AuthenticatedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C882ABC2C4D71B900AE5734 /* AuthenticatedView.swift */; };
+		6C9220A52C667901009E75BD /* SmallDatePickerStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9220A42C667901009E75BD /* SmallDatePickerStyle.swift */; };
+		6C9220A72C6679B2009E75BD /* DateFormattter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9220A62C6679B2009E75BD /* DateFormattter+Extension.swift */; };
 		6CA418A32C5950A800AFC116 /* ConfirmButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA418A22C5950A800AFC116 /* ConfirmButtonStyle.swift */; };
 		6CA418A52C5A722000AFC116 /* AuthRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA418A42C5A722000AFC116 /* AuthRequest.swift */; };
 		6CA418A72C5A762800AFC116 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA418A62C5A762800AFC116 /* Auth.swift */; };
@@ -173,6 +175,8 @@
 		6C882AB62C4D6B4D00AE5734 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		6C882AB92C4D6F1600AE5734 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
 		6C882ABC2C4D71B900AE5734 /* AuthenticatedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticatedView.swift; sourceTree = "<group>"; };
+		6C9220A42C667901009E75BD /* SmallDatePickerStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallDatePickerStyle.swift; sourceTree = "<group>"; };
+		6C9220A62C6679B2009E75BD /* DateFormattter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormattter+Extension.swift"; sourceTree = "<group>"; };
 		6CA418A22C5950A800AFC116 /* ConfirmButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmButtonStyle.swift; sourceTree = "<group>"; };
 		6CA418A42C5A722000AFC116 /* AuthRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRequest.swift; sourceTree = "<group>"; };
 		6CA418A62C5A762800AFC116 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
@@ -236,6 +240,7 @@
 				6C5DCC8F2C4E542C007E59E5 /* TextField+Extension.swift */,
 				6C1927E12C4E315900669E23 /* Color+Extension.swift */,
 				6C55BB6F2C4FDC7B00A3C357 /* View+Extension.swift */,
+				6C9220A62C6679B2009E75BD /* DateFormattter+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -498,6 +503,7 @@
 			children = (
 				6C55BB602C4FAD7700A3C357 /* View */,
 				6C1927E62C4E48FF00669E23 /* TextFieldStyle */,
+				6C9220A32C6678EA009E75BD /* DatePickerStyle */,
 				6C1927E32C4E356700669E23 /* ButtonStyle */,
 				6C882AB02C4D6B0C00AE5734 /* DIContainer.swift */,
 				6C43ECE12C53B211000582AF /* Phase.swift */,
@@ -585,6 +591,14 @@
 				6C1927D42C4E252E00669E23 /* AuthenticationViewModel.swift */,
 			);
 			path = Authentification;
+			sourceTree = "<group>";
+		};
+		6C9220A32C6678EA009E75BD /* DatePickerStyle */ = {
+			isa = PBXGroup;
+			children = (
+				6C9220A42C667901009E75BD /* SmallDatePickerStyle.swift */,
+			);
+			path = DatePickerStyle;
 			sourceTree = "<group>";
 		};
 		6CF7CD332C58CED800D6D4D8 /* Token */ = {
@@ -725,6 +739,7 @@
 				6C882A892C4D180600AE5734 /* ReadmeApp.swift in Sources */,
 				6CA418A72C5A762800AFC116 /* Auth.swift in Sources */,
 				6C55BB702C4FDC7B00A3C357 /* View+Extension.swift in Sources */,
+				6C9220A72C6679B2009E75BD /* DateFormattter+Extension.swift in Sources */,
 				6C43ECE92C53B2CD000582AF /* APIHeaderManager.swift in Sources */,
 				6C1927D52C4E252E00669E23 /* AuthenticationViewModel.swift in Sources */,
 				6C43ECCB2C539769000582AF /* BaseAPI.swift in Sources */,
@@ -767,6 +782,7 @@
 				6C882AB12C4D6B0C00AE5734 /* DIContainer.swift in Sources */,
 				6C05F71D2C516232008FFE7E /* PostPreviewView.swift in Sources */,
 				6C621DDC2C5800800007999B /* PhotoPickerService.swift in Sources */,
+				6C9220A52C667901009E75BD /* SmallDatePickerStyle.swift in Sources */,
 				6C621DCF2C555F760007999B /* RoomService.swift in Sources */,
 				6C1C6BA42C63EBE5002761C3 /* PostRequest.swift in Sources */,
 				6C621DE12C5804FE0007999B /* ImageURLResponse.swift in Sources */,
