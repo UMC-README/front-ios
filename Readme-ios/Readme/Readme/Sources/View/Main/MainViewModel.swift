@@ -63,8 +63,8 @@ class MainViewModel: ObservableObject {
     /// 내가 입장한 공지방
     func getJoinRoom() async {
         do {
-            let createRoom = try await container.services.userService.getJoinRoom()
-            myJoinRoom = myJoinRoom
+            let joinRoom = try await container.services.userService.getJoinRoom()
+            myJoinRoom = joinRoom
 //            print(myCreateRoom)
         } catch {
             myJoinRoom = .stub01
