@@ -9,7 +9,7 @@ import Foundation
 import Moya
 
 enum RoomTarget {
-    case getAllNotice(roomId: String, accessToken: String)   // 내 프로필 조회
+    case getAllNotice(roomId: Int, accessToken: String)   // 내 프로필 조회
 }
 
 extension RoomTarget: BaseTargetType {

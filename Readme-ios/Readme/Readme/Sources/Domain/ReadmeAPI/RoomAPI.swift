@@ -14,17 +14,17 @@ public enum RoomAPI {
     case confirmPassword
     case notComplete(String)
     // TODO: 공지방 검색 추가하기
-    case all(String)
+    case all(Int)
     case fixPost
     case deleteFixPost
-    case post(String)
+    case post(Int)
     case postComment
     case getPostComment
-    case patchPostComment(String)
-    case deletePostComment(String)
-    case getPost(String)
-    case postAnswer(String)
-    case roomPenalty(String)
+    case patchPostComment(Int)
+    case deletePostComment(Int)
+    case getPost(Int)
+    case postAnswer(Int)
+    case roomPenalty(Int)
     
     public var apiDesc: String {
         switch self {

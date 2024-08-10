@@ -9,7 +9,7 @@ import SwiftUI
 
 struct NoticeTypeIconView: View {
     
-    var type: NoticeType
+    var type: PostType
     
     var body: some View {
         Text(type.description)

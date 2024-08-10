@@ -14,14 +14,17 @@ struct MainView: View {
     
     var body: some View {
         NavigationStack(path: $container.navigationRouter.destinations) {
-            mainContentView
+            VStack {
+                mainContentView
                     .task {
                         mainViewModel.send(action: .load)
                         await mainViewModel.getUser()
                         await mainViewModel.getCreateRoom()
+                        await mainViewModel.getJoinRoom()
                     }
+            }
                 .navigationDestination(for: NavigationDestination.self) {
-                    NavigationRoutingView(container: container, destination: $0)
+                    NavigationRoutingView(destination: $0)
                 }
                 .navigationTitle("Readme")
                 .navigationBarTitleDisplayMode(.inline)
@@ -111,7 +114,7 @@ struct MainView: View {
             Rectangle()
                 .frame(width: 14, height: 14)
             VStack(alignment: .leading, spacing: 8) {
-                Text((mainViewModel.fixedNotice?.result?.title ?? FixedNotice.stub1.result?.title)!)
+                Text((mainViewModel.fixedNotice?.result?.title ?? FixedPost.stub1.result?.title)!)
                     .font(.pretendardBold16)
                     .foregroundStyle(Color.txtDefault)
                 Text("공지글 날짜")
@@ -184,13 +187,16 @@ struct MainView: View {
             }
             LazyVGrid(columns: columns) {
                 
-                ForEach(mainViewModel.myCreateRoom?.result ?? []) { item in
-                    RoomItemView(time: "30분", roomName: item.roomName ?? "", nickname: item.nickname ?? "")
+                ForEach(mainViewModel.myCreateRoom?.result?.rooms ?? []) { item in
+                    RoomItemView(time: "30", roomName: item.roomName ?? "", nickname: item.roomName ?? "")
+                        .onTapGesture {
+                            mainViewModel.send(action: .goToRoom(item.roomId ?? 1))
+                        }
                 }
             }
         }
     }
-    
+
     /// 입장한 공지방
     @ViewBuilder
     var enteredRoomView: some View {
@@ -202,11 +208,12 @@ struct MainView: View {
         VStack(alignment: .leading, spacing: 10) {
             title("입장한 공지방")
             LazyVGrid(columns: columns) {
-                RoomItemView(time: "30분", roomName: "공지방", nickname: "닉네임")
-                RoomItemView(time: "30분", roomName: "공지방공지방공지방공지방공지방공지방공지방공지방공지방", nickname: "닉네임닉네임닉네임닉네임닉네임닉네임닉네임닉네임닉네임")
-                RoomItemView(time: "30분", roomName: "공지방", nickname: "닉네임")
-                RoomItemView(time: "30분", roomName: "공지방", nickname: "닉네임")
-                RoomItemView(time: "30분", roomName: "공지방", nickname: "닉네임")
+                ForEach(mainViewModel.myCreateRoom?.result?.rooms ?? []) { item in
+                    RoomItemView(time: "30", roomName: item.roomName ?? "", nickname: item.roomName ?? "")
+                        .onTapGesture {
+                            mainViewModel.send(action: .goToRoom(item.roomId ?? 1))
+                        }
+                }
             }
         }
     }

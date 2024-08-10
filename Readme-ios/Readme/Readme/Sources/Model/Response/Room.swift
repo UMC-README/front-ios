@@ -8,8 +8,8 @@
 import Foundation
 
 /// 공지방 Model
-struct RoomResponse: Codable, Identifiable {
-    let id = UUID().uuidString
+struct RoomResponse: Codable{
+//    let id = UUID().uuidString
     let adminID: String?            /// 관리자 ID
     let adminNickname: String?      /// 관리자 닉네임
     let roomName: String?           /// 공지방 이름
@@ -34,22 +34,44 @@ struct RoomResponse: Codable, Identifiable {
     
 }
 
-struct RoomLiteResponse: Codable, Identifiable {
-    let id = UUID().uuidString
-    let status: Int?
+struct RoomLiteResponse: Codable {
+//    let id = UUID().uuidString
     let isSuccess: Bool?
     let code: Int?
     let message: String?
-    let result: [RoomLiteResult]?
+    let result: RoomLiteResult?
     
-    struct RoomLiteResult: Codable, Identifiable {
-        let id = UUID().uuidString
-        let roomID: Int?
-        let roomImage: String?
-        let roomName: String?
-        let nickname: String?
+    struct RoomLiteResult: Codable {
+        let rooms: [RoomDatum]?
+        let isNext: Bool?
+        
+        struct RoomDatum: Codable, Identifiable {
+            let id = UUID().uuidString
+            let roomId: Int?
+            let roomName: String?
+            let roomImage: String?
+            let state: String?
+            let latestPostTime: String?
+            let submitCount: Int?
+            let maxPenaltyCount: Int?
+            let penaltyCount: Int?
+            
+            enum CodingKeys: String, CodingKey {
+                case roomId = "id"
+                case roomName = "roomName"
+                case roomImage = "roomImage"
+                case state = "state"
+                case latestPostTime = "latestPostTime"
+                case submitCount = "submitCount"
+                case maxPenaltyCount = "maxPenaltyCount"
+                case penaltyCount = "penaltyCount"
+            }
+        }
     }
 }
+
+
+
 
 
 extension RoomResponse {
@@ -81,15 +103,25 @@ extension RoomResponse {
 
 extension RoomLiteResponse {
     
+//    static var stub01: RoomLiteResponse {
+//        .init(status: 1, isSuccess: true, code: 200, message: "Success!", result:
+//                .init(rooms: [
+//                    .init(roomID: 1, roomImage: "", roomName: "roomName", nickname: "nickname"),
+//                    .init(roomID: 1, roomImage: "", roomName: "roomName", nickname: "nickname"),
+//                    .init(roomID: 1, roomImage: "", roomName: "roomName", nickname: "nickname"),
+//                    .init(roomID: 1, roomImage: "", roomName: "roomName", nickname: "nickname"),
+//                
+//                ], isNext: false)
+//        )
+//    }
+     
     static var stub01: RoomLiteResponse {
-        .init(status: 1, isSuccess: true, code: 200, message: "Success!", result:
-                [
-                    .init(roomID: 1, roomImage: "", roomName: "roomName", nickname: "nickname"),
-                    .init(roomID: 2, roomImage: "", roomName: "roomName", nickname: "nickname"),
-                    .init(roomID: 3, roomImage: "", roomName: "roomName", nickname: "nickname"),
-                    .init(roomID: 4, roomImage: "", roomName: "roomName", nickname: "nickname"),
-                    .init(roomID: 5, roomImage: "", roomName: "roomName", nickname: "nickname"),
-                ]
+        .init(isSuccess: true, code: 200, message: "Success!", result:
+                .init(rooms: [
+//                    .init(roomId: 1, nickname: "nickname ex", roomName: "roomName ex", roomImage: "", state: "", latestPostTime: "")
+                
+                ], isNext: false)
         )
     }
+    
 }

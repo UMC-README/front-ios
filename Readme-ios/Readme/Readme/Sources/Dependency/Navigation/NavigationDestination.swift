@@ -14,4 +14,5 @@ enum NavigationDestination: Hashable {
     case submit
     case room(roomId: Int)
     case createRoom(userId: Int)
+//    case createPost
 }

@@ -18,8 +18,8 @@ protocol UserServiceType {
 //    func getRecentNotice() async throws -> [NoticeResponse] /// 최근 공지글 조회
     
     
-    func getFixedNotice(completion: @escaping (Result<FixedNotice, ServiceError>) -> Void)  /// 고정된 공지 조회
-    func getFixedNotice() async throws -> FixedNotice       /// 고정된 공지 조회
+    func getFixedNotice(completion: @escaping (Result<FixedPost, ServiceError>) -> Void)  /// 고정된 공지 조회
+    func getFixedNotice() async throws -> FixedPost       /// 고정된 공지 조회
     
     
     func getCreateRoom() async throws -> RoomLiteResponse
@@ -98,7 +98,7 @@ class UserService: UserServiceType {
     }
     
     /// 고정된 공지 조회
-    func getFixedNotice(completion: @escaping (Result<FixedNotice, ServiceError>) -> Void) {
+    func getFixedNotice(completion: @escaping (Result<FixedPost, ServiceError>) -> Void) {
         
         let accessToken: String? = TokenManager.shared.accessToken
         
@@ -111,7 +111,7 @@ class UserService: UserServiceType {
             switch result {
             case let .success(response):
                 do {
-                    let response = try self.jsonDecoder.decode(FixedNotice.self, from: response.data)
+                    let response = try self.jsonDecoder.decode(FixedPost.self, from: response.data)
                     completion(.success(response))
                 } catch {
                     completion(.failure(ServiceError.error(error)))
@@ -122,11 +122,11 @@ class UserService: UserServiceType {
         }
     }
     
-    func getFixedNotice() async throws -> FixedNotice {
+    func getFixedNotice() async throws -> FixedPost {
         
         let accessToken: String? = TokenManager.shared.accessToken
         
-        var notice: FixedNotice = .stub1
+        var notice: FixedPost = .stub1
         
         guard let accessToken = accessToken else {
             print("토큰이 존재하지 않습니다.")
@@ -137,7 +137,7 @@ class UserService: UserServiceType {
             switch result {
             case let .success(response):
                 do {
-                    let response = try self.jsonDecoder.decode(FixedNotice.self, from: response.data)
+                    let response = try self.jsonDecoder.decode(FixedPost.self, from: response.data)
                     notice = response
                 } catch {
                     Log.network("UserService - getFixedNotice()", error.localizedDescription)
@@ -220,15 +220,15 @@ class StubUserService: UserServiceType {
         return UserResponse.stub01
     }
     
-    func getFixedNotice(completion: @escaping (Result<FixedNotice, ServiceError>) -> Void) {
+    func getFixedNotice(completion: @escaping (Result<FixedPost, ServiceError>) -> Void) {
         
     }
     
-    func getFixedNotice() async throws -> FixedNotice {
-        return FixedNotice.stub1
+    func getFixedNotice() async throws -> FixedPost {
+        return FixedPost.stub1
     }
     
-    func getRecentNotice() async throws -> [NoticeResponse] {
+    func getRecentNotice() async throws -> [PostResponse] {
         return []
     }
     
