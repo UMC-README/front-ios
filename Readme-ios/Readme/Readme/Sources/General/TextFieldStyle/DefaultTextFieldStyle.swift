@@ -28,9 +28,26 @@ struct DefaultTextFieldStyle: TextFieldStyle {
                 RoundedRectangle(cornerRadius: 8)
                     .strokeBorder(Color.primaryLightActive, lineWidth: 0.33)
             }
-        
-
-
     }
 }
 
+struct SmallTextFieldStyle: TextFieldStyle {
+    
+//    var date: Date?
+//    @Binding var isDatePickerVisible: Bool
+    
+    func _body(configuration: TextField<Self._Label>) -> some View {
+        configuration
+            .foregroundStyle(Color.txtDefault)
+            .font(.pretendardMedium16)
+            .padding(.horizontal, 8)
+            .padding(.vertical, 8)
+            .frame(maxWidth: .infinity)
+            .background(Color.primaryLight)
+            .clipShape(RoundedRectangle(cornerRadius: 8))
+            .overlay {
+                RoundedRectangle(cornerRadius: 8)
+                    .strokeBorder(Color.primaryLightActive, lineWidth: 0.33)
+            }
+    }
+}
