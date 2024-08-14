@@ -172,7 +172,7 @@ struct CreateRoomView: View {
         Button {
             Task {
                 createRoomViewModel.createRoomModel(
-//                    adminID: userId,
+                    adminId: userId,
 //                    adminID: 1,
                     adminNickname: adminName,
                     roomName: roomName,
