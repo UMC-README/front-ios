@@ -262,18 +262,22 @@ struct CreatePostView: View {
                 // Date를 String으로 변환
                 let startDateString = startDate != nil ? DateFormatter.customFormatter.string(from: startDate!) : ""
                 let endDateString = endDate != nil ? DateFormatter.customFormatter.string(from: endDate!) : ""
+            
+            print(endDateString)
+            
+            let roomID = roomViewModel.roomId
 
                 // PostRequest 객체 생성
-                let request = roomViewModel.makePostRequest(
-                    roomID: roomID ?? 0,
+            let request = roomViewModel.makePostRequest(
+                    roomID: roomID,
+                    type: type.rawValue,
                     title: title,
                     content: content,
-                    type: type.rawValue,
                     startDate: startDateString,
                     endDate: endDateString,
-                    question: quizOrMission,
-                    userID: roomViewModel.myUser?.result?.userID ?? 0, // 이 부분은 적절하게 수정해야 할 수 있습니다.
-                    imgURLs: [] // 이 부분도 이미지 URL로 교체 필요
+                    question: question,
+                    quizAnswer: answer,
+                    imgURLs: []
                 )
                 print("공지글 작성 request \(request)")
                 // 서버로 요청 보내기
