@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PostPreviewView: View {
     
-    let post: PostDatum
+    let post: Post
     
     var body: some View {
         VStack(spacing: 8) {
@@ -17,7 +17,7 @@ struct PostPreviewView: View {
                 
                 NoticeTypeIconView(type: post.postType ?? .mission)
                 Spacer()
-                Text("댓글 버튼 개수")
+                Text("\(post.commentCount ?? -1)")
                 Text("버튼")
             }
             
@@ -38,7 +38,7 @@ struct PostPreviewView: View {
             .border(width: 0.33, edges: [.bottom], color: .primaryNormal)
             
             HStack {
-                Text("content")
+                Text(post.postBody ?? "")
                     .frame(maxWidth: .infinity, minHeight: 60, alignment: .topLeading)
                     .multilineTextAlignment(.leading)
                     .lineLimit(3)
@@ -52,13 +52,9 @@ struct PostPreviewView: View {
     }
 }
 
-//#Preview {
-//    PostPreviewView()
-//}
-
 struct PostPreviewView_Previews: PreviewProvider {
     static var previews: some View {
-        PostPreviewView(post: .init(postId: 1, postType: .mission, postTitle: "", postBody: "", postImage: "", startDate: "", endDate: "", commentCount: 2, submitState: ""))
+        PostPreviewView(post: .postStub01)
             .previewLayout(.sizeThatFits)
     }
 }

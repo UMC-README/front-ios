@@ -9,10 +9,10 @@ import Foundation
 
 /// 제출 상태 State
 enum SubmitStateType: String, Codable {
-    case complete = "승인"
-    case pending = "검토 중"
-    case reject = "거절"
-    case notComplete = "미제출"
+    case complete = "COMPLETE"
+    case pending = "PENDING"
+    case reject = "REJECT"
+    case notComplete = "NOT_COMPLETE"
     
     var description: String {
         switch self {

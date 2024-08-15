@@ -13,8 +13,6 @@ struct PostResponse: Codable {
     let code: Int?
     let message: String?
     let result: PostResult?
-    
-
 }
 
 struct PostResult: Codable {
@@ -53,22 +51,44 @@ struct PostLiteResponse: Codable {
     let result: PostLiteResult?
     
     struct PostLiteResult: Codable {
-        let data: [PostDatum]?
-        let cursorId: Int?
+        let isRoomAdmin: Bool?
+        let posts: [Post]?
+        let cursorID: Int?
+
+        enum CodingKeys: String, CodingKey {
+            case isRoomAdmin = "isRoomAdmin"
+            case posts = "posts"
+            case cursorID = "cursorId"
+        }
     }
 }
 
-struct PostDatum: Codable, Identifiable {
+// MARK: - Post
+struct Post: Codable, Identifiable {
     let id = UUID().uuidString
-    let postId: Int?
+    let postID: Int?
     let postType: PostType?
     let postTitle: String?
     let postBody: String?
-    let postImage: String?
+    let postImage: [String]?
     let startDate: String?
     let endDate: String?
     let commentCount: Int?
-    let submitState: String?
+    let submitState: SubmitStateType?
+    let unreadCount: Int?
+
+    enum CodingKeys: String, CodingKey {
+        case postID = "postId"
+        case postType = "postType"
+        case postTitle = "postTitle"
+        case postBody = "postBody"
+        case postImage = "postImage"
+        case startDate = "startDate"
+        case endDate = "endDate"
+        case commentCount = "commentCount"
+        case submitState = "submitState"
+        case unreadCount = "unreadCount"
+    }
 }
 
 
@@ -87,9 +107,18 @@ extension FixedPost {
 
 
 extension PostLiteResponse {
-    static var stub1: PostLiteResponse = .init(isSuccess: true, code: 200, message: "Success!", 
-                                               result: .init(data: [
-                                                .init(postId: 1, postType: .quiz, postTitle: "title", postBody: "post body", postImage: "", startDate: "yyyymmmdd", endDate: "yyyymmmdd", commentCount: 23, submitState: "state")
-                                               
-                                               ], cursorId: 1))
+    static var stub1: PostLiteResponse =
+        .init(isSuccess: true, code: 200, message: "Success!",
+              result: .init(isRoomAdmin: true, 
+                            posts: [
+                                .postStub01
+                            ],
+                            cursorID: 1
+              )
+        )
+}
+
+extension Post {
+    static var postStub01: Post =
+        .init(postID: 1, postType: .mission, postTitle: "stub title", postBody: "stub postBody", postImage: [], startDate: "2024.01.01", endDate: "2024.12.31", commentCount: 99, submitState: .complete, unreadCount: 1)
 }

@@ -54,9 +54,9 @@ struct RoomView: View {
         let _ = print("공지글 미리보기 목록 뷰 형성!!!!!!!!")
 //        let _ = print(
         VStack {
-            ForEach(roomViewModel.postLiteResponse?.result?.data ?? []) { post in
+            ForEach(roomViewModel.postLiteResponse?.result?.posts ?? []) { post in
                 PostPreviewView(post: post)
-                let _ = print("\(post)")
+//                let _ = print("\(post)")
             }
         }
     }
