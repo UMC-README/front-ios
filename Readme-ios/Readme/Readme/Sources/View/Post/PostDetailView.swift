@@ -9,9 +9,12 @@ import SwiftUI
 
 struct PostDetailView: View {
     
-    var post: PostResponse = PostResponse.stub1
-    var postID: Int
+//    var post: PostResponse = PostResponse.stub1
+//    var postID: Int
    
+    @EnvironmentObject var container: DIContainer
+    @StateObject var postViewModel: PostViewModel
+//    var postResponse: PostResponse
     
     // TODO: Comment
     
@@ -23,7 +26,9 @@ struct PostDetailView: View {
                 contentView
                     .padding(.horizontal, 16)
             }
-            
+        }
+        .task {
+            await postViewModel.getPost()
         }
     }
     
@@ -34,21 +39,21 @@ struct PostDetailView: View {
         VStack(spacing: 8) {
             HStack {
                 
-                NoticeTypeIconView(type: post.result?.postType ?? .mission)
+                NoticeTypeIconView(type: postViewModel.post?.postType ?? .mission)
                 Spacer()
-                Text("댓글 버튼 개수")
+//                Text("\(postViewModel.post?.commentCount)")
                 Text("버튼")
             }
             
-            Text(post.result?.postTitle ?? "title error")
+            Text(postViewModel.post?.postTitle ?? "title error")
                 .font(.pretendardBold18)
                 .foregroundStyle(Color.txtDefault)
                 .frame(maxWidth: .infinity, alignment: .leading)
             
             HStack {
-                Text("yy.MM.dd HH:MM")
+                Text(postViewModel.post?.startDate ?? "YYYY-MM-DD HH:mm")
                 Text("-")
-                Text("yy.MM.dd HH:MM")
+                Text(postViewModel.post?.endDate ?? "YYYY-MM-DD HH:mm")
             }
             .foregroundStyle(Color.primaryNormal)
             .font(.pretendardRegular12)
@@ -57,16 +62,39 @@ struct PostDetailView: View {
             .border(width: 0.33, edges: [.bottom], color: .primaryNormal)
             
             HStack {
-                Text(post.result?.postContent ?? "content error")
+                Text(postViewModel.post?.postBody ?? "content error")
                     .frame(maxWidth: .infinity, alignment: .topLeading)
                     .multilineTextAlignment(.leading)
                     .font(.pretendardMedium16)
                     .foregroundStyle(Color.txtCaption)
             }
+            
+            HStack {
+                Spacer()
+                
+                Button {
+                    
+                } label: {
+                    Text("공지 확인")
+                        .font(.pretendardRegular16)
+                        .foregroundStyle(Color.basicWhite)
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 6)
+                        .background(Color.primaryNormal)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                }
+            }
         }
         .padding(10)
         .background(Color.primaryLight)
         .clipShape(RoundedRectangle(cornerRadius: 8))
+    }
+    
+    /// 오른쪽 위 버튼 (관리자 / 일반멤버 구분)
+    var settingButton: some View {
+        HStack {
+            
+        }
     }
     
     /// 댓글창 뷰
@@ -78,8 +106,12 @@ struct PostDetailView: View {
     }
 }
 
-//#Preview {
-//    PostDetailView(post)
-//}
-
+struct PostDetailView_Previews: PreviewProvider {
+    static let container: DIContainer = .stub
+    
+    static var previews: some View {
+        PostDetailView(postViewModel: .init(container: container, postId: 1))
+            .environmentObject(container)
+    }
+}
 

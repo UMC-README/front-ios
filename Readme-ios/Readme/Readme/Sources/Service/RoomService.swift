@@ -14,6 +14,7 @@ import SwiftUI
 
 protocol RoomServiceType {
     func getAllNotice(roomId: Int) async throws -> PostLiteResponse
+    func getPost(postId: Int) async throws -> PostResponse
 }
 
 class RoomService: RoomServiceType {
@@ -51,12 +52,47 @@ class RoomService: RoomServiceType {
             })
         }
     }
+    
+    /// 개별 공지글 상세 조회
+    func getPost(postId: Int) async throws -> PostResponse {
+        let accessToken: String? = TokenManager.shared.accessToken
+        
+        guard let accessToken = accessToken else {
+            print("토큰이 존재하지 않습니다.")
+            return .stub1
+        }
+        
+        return try await withCheckedThrowingContinuation { continuation in
+            provider.request(.getPost(postId: postId, accessToken: accessToken), completion: { result in
+                switch result {
+                case let .success(response):
+                    do {
+                        let response = try self.jsonDecoder.decode(PostResponse.self, from: response.data)
+                        print("RoomService - room \(postId)번 개별 공지글 상세 조회 성공")
+//                        print(response)
+                        continuation.resume(returning: response)
+                    } catch {
+                        Log.network("RoomService - room \(postId)번 개별 공지글 상세 조회 실패", error.localizedDescription)
+                        continuation.resume(throwing: error)
+                    }
+                    
+                case let .failure(error):
+                    Log.network("RoomService - room \(postId)번 개별 공지글 상세 조회 네트워킹 에러", error.localizedDescription)
+                    continuation.resume(throwing: error)
+                }
+            })
+        }
+    }
 }
-
+    
+    
 class StubRoomService: RoomServiceType {
     func getAllNotice(roomId: Int) async throws -> PostLiteResponse {
         return .stub1
     }
     
+    func getPost(postId: Int) async throws -> PostResponse {
+        return .stub1
+    }
     
 }

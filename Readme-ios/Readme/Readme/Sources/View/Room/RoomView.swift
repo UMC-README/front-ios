@@ -56,7 +56,15 @@ struct RoomView: View {
         VStack {
             ForEach(roomViewModel.postLiteResponse?.result?.posts ?? []) { post in
                 PostPreviewView(post: post)
-//                let _ = print("\(post)")
+                    .onTapGesture {
+                        print("\(post.postID)번 게시글 클릭")
+                        if let postId = post.postID {
+                            roomViewModel.send(action: .goToPost(postId: post.postID!))
+                        } else {
+                            print("postId를 찾을 수 없습니다.")
+                        }
+                        
+                    }
             }
         }
     }

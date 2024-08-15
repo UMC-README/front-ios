@@ -25,8 +25,8 @@ struct NavigationRoutingView: View {
             RoomView(roomViewModel: .init(container: container, roomId: roomId))
         case let .createRoom(userId):
             CreateRoomView(createRoomViewModel: .init(container: container), userId: userId)
-//        case let .createPost(roomViewModel):
-//            CreatePostView(roomViewModel: roomViewModel)
+        case let .post(postId):
+            PostDetailView(postViewModel: .init(container: container, postId: postId))
         }
     }
 }

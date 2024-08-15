@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PostPreviewView: View {
     
-    let post: Post
+    let post: PostLite
     
     var body: some View {
         VStack(spacing: 8) {

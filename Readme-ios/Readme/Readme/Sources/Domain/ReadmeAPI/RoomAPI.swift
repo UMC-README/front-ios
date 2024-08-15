@@ -22,7 +22,7 @@ public enum RoomAPI {
     case getPostComment
     case patchPostComment(Int)
     case deletePostComment(Int)
-    case getPost(Int)
+//    case getPost(Int)
     case postAnswer(Int)
     case roomPenalty(Int)
     
@@ -58,8 +58,8 @@ public enum RoomAPI {
         case .deletePostComment(let commentId):
             return "/room/post/\(commentId)"
             
-        case .getPost(let postId):
-            return "/room/\(postId)"
+//        case .getPost(let postId):
+//            return "/room/\(postId)"
             
         case .postAnswer(let postId):
             return "/room/\(postId)"

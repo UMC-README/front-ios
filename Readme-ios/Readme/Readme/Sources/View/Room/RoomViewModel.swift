@@ -11,7 +11,7 @@ import Combine
 @Observable
 class RoomViewModel: ObservableObject {
     enum Action {
-        case getAllNotice(roomId: Int)
+        case goToPost(postId: Int)
     }
     
     var roomId: Int
@@ -31,13 +31,16 @@ class RoomViewModel: ObservableObject {
         self.roomId = roomId
     }
     
-//    func send(action: Action) {
-//        switch action {
-//        case .getAllNotice(let roomId):
-//            
-//        
-//        }
-//    }
+    func send(action: Action) {
+        switch action {
+        case .goToPost(let postId):
+            container.navigationRouter.destinations.append(.post(postId: postId))
+            
+        
+            
+        
+        }
+    }
     
     func getAllPosts() async {
         do {
