@@ -13,18 +13,14 @@ struct PostResponse: Codable {
     let code: Int?
     let message: String?
     let result: PostResult?
+
+    struct PostResult: Codable {
+        let post: [PostLite]?
+        let imageURLs: [String]?
+    }
 }
 
-struct PostResult: Codable {
-    let id = UUID().uuidString
-    let postType: PostType?
-    let postTitle: String?
-    let postContent: String?
-    let imgURLs: String?
-    let startDate: String?
-    let endDate: String?
-    let question: String?
-}
+
 
 /// 고정된 공지글
 struct FixedPost: Identifiable, Codable {
@@ -52,7 +48,7 @@ struct PostLiteResponse: Codable {
     
     struct PostLiteResult: Codable {
         let isRoomAdmin: Bool?
-        let posts: [Post]?
+        let posts: [PostLite]?
         let cursorID: Int?
 
         enum CodingKeys: String, CodingKey {
@@ -63,8 +59,8 @@ struct PostLiteResponse: Codable {
     }
 }
 
-// MARK: - Post
-struct Post: Codable, Identifiable {
+// MARK: - PostLite
+struct PostLite: Codable, Identifiable {
     let id = UUID().uuidString
     let postID: Int?
     let postType: PostType?
@@ -92,8 +88,20 @@ struct Post: Codable, Identifiable {
 }
 
 
+
+
 extension PostResponse {
-    static var stub1: PostResponse = .init(isSuccess: true, code: 200, message: "Success", result: .init(postType: .mission, postTitle: "postTitpe", postContent: "postContent", imgURLs: "imgURLs", startDate: "start date", endDate: "end date", question: "question"))
+    static var stub1: PostResponse = .init(
+        isSuccess: true, code: 200, message: "Success!",
+        result: .init(
+            post: [
+                .init(postID: 1, postType: .mission, postTitle: "postTitle", postBody: "postBody", postImage: ["PostImage"], startDate: "2024.01.01 00:00", endDate: "2024.01.31 23:59", commentCount: 99, submitState: .complete, unreadCount: 99)
+            ],
+            imageURLs: [
+                "url"
+            ]
+        )
+    )
 }
 
 extension FixedPost {
@@ -118,7 +126,7 @@ extension PostLiteResponse {
         )
 }
 
-extension Post {
-    static var postStub01: Post =
+extension PostLite {
+    static var postStub01: PostLite =
         .init(postID: 1, postType: .mission, postTitle: "stub title", postBody: "stub postBody", postImage: [], startDate: "2024.01.01", endDate: "2024.12.31", commentCount: 99, submitState: .complete, unreadCount: 1)
 }
