@@ -12,10 +12,10 @@ struct CreatePostView: View {
     @EnvironmentObject var container: DIContainer
     @Environment(\.dismiss) var dismiss
     @ObservedObject var roomViewModel: RoomViewModel
-    var roomID: Int?
-//    var onCompleted: (PostRequest) -> Void
     
+    var roomID: Int?
     let types: [PostType] = [.quiz, .mission]
+    
     @State var type: PostType = .quiz
     
     @State var title: String = ""
@@ -26,7 +26,7 @@ struct CreatePostView: View {
     
     @State var startDate: Date? = nil
     @State var endDate: Date? = nil
-//    @State var endDate: Date = Date()
+
     @State var isStartDateVisible = false
     @State var isEndDateVisible = false
     
@@ -34,16 +34,14 @@ struct CreatePostView: View {
     @State var question: String = ""
     @State var answer: String? = nil
 
-    
     @State var isCompleted: Bool = false
     
     let maxPhotosToSelect = 10
     
     var body: some View {
-        NavigationView { /*TODO: - NavigationStack path type error 수정하기*/
+        NavigationView {
             ZStack {
                 Color.backgroundLight.ignoresSafeArea(.all)
-                //            GeometryReader { geometry in
                 ScrollView {
                     VStack(alignment: .leading, spacing: 16) {
                         
@@ -69,9 +67,9 @@ struct CreatePostView: View {
                 }
             }
         }
-        
     }
     
+    /// 공지글 타입 선택
     @ViewBuilder
     var typeSelectionView: some View {
         HStack {
@@ -95,6 +93,7 @@ struct CreatePostView: View {
         }
     }
     
+    /// 공지글 본문
     @ViewBuilder
     var postContentView: some View {
         
@@ -171,8 +170,7 @@ struct CreatePostView: View {
     
     @MainActor
     func convertDataToImage() {
-//        images.removeAll()
-        
+
         if !selectedImages.isEmpty {
             for item in selectedImages {
                 Task {
@@ -212,7 +210,6 @@ struct CreatePostView: View {
                     .overlay(alignment: .top) {
                         DatePicker("", selection: Binding(get: { startDate ?? Date() }, set: { self.startDate = $0 }))
                             .labelsHidden()
-//                            .datePickerStyle(.compact)
                             .colorMultiply(.clear)
 
                     }
@@ -222,8 +219,7 @@ struct CreatePostView: View {
                     .frame(width: 76, alignment: .leading)
                     .foregroundStyle(Color.txtDefault)
                     .font(.pretendardBold16)
-                    
-//                Text(endDate.map { DateFormatter.customFormatter.string(from: $0) } ?? "yyyy.MM.dd HH:mm")
+                
                 Text(endDate.map { DateFormatter.customFormatter.string(from: $0) } ?? "YYYY.MM.dd")    // 시간 안 받음.
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .foregroundStyle((endDate != nil) ? Color.txtDefault : Color.txtEmpty)
@@ -240,13 +236,11 @@ struct CreatePostView: View {
                     .overlay(alignment: .top) {
                         DatePicker("", selection: Binding(get: { endDate ?? Date() }, set: { self.endDate = $0 }))
                             .labelsHidden()
-//                            .datePickerStyle(.compact)
                             .colorMultiply(.clear)
-//                            .opacity(0.01) // DatePicker를 사실상 투명하게 만들어 클릭 영역으로만 사용
                     }
             }
             HStack {
-                Text("퀴즈")
+                Text(type.description)
                     .frame(width: 76, alignment: .leading)
                     .foregroundStyle(Color.txtDefault)
                     .font(.pretendardBold16)
@@ -254,7 +248,7 @@ struct CreatePostView: View {
                 TextField(
                     "",
                     text: $question,
-                    prompt: Text("퀴즈를 입력하세요.")
+                    prompt: Text("\(type.description)를 입력하세요.")
                 )
                 .textFieldStyle(SmallTextFieldStyle())
             }
