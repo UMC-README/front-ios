@@ -22,6 +22,9 @@ struct MainView: View {
                         await mainViewModel.getCreateRoom()
                         await mainViewModel.getJoinRoom()
                     }
+                    .refreshable {
+                        mainViewModel.send(action: .load)
+                    }
             }
                 .navigationDestination(for: NavigationDestination.self) {
                     NavigationRoutingView(destination: $0)

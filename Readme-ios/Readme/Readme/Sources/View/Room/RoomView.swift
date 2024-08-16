@@ -27,6 +27,9 @@ struct RoomView: View {
                             }
                         
                     }
+                    .refreshable {
+                        await roomViewModel.getAllPosts()
+                    }
                     .fullScreenCover(item: $roomViewModel.roomModelDestination) {
                         switch $0 {
                         case .roomSetting:
