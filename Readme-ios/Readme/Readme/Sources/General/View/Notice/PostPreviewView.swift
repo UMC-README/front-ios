@@ -16,6 +16,7 @@ struct PostPreviewView: View {
             HStack {
                 
                 NoticeTypeIconView(type: post.postType ?? .mission)
+                SubmitTypeIconView(type: post.submitState ?? .notComplete)
                 Spacer()
                 Text("\(post.commentCount ?? -1)")
                 Text("버튼")
