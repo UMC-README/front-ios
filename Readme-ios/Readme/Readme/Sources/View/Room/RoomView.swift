@@ -58,10 +58,10 @@ struct RoomView: View {
                 PostPreviewView(post: post)
                     .onTapGesture {
                         print("\(post.postID)번 게시글 클릭")
-                        if let postId = post.postID {
-                            roomViewModel.send(action: .goToPost(postId: post.postID!))
+                        if let postId = post.postID, let isRoomAdmin = roomViewModel.postLiteResponse?.result?.isRoomAdmin! {
+                            roomViewModel.send(action: .goToPost(postId: postId, isRoomAdmin: isRoomAdmin))
                         } else {
-                            print("postId를 찾을 수 없습니다.")
+                            print("postId, isRoomAdmin을 찾을 수 없습니다.")
                         }
                         
                     }

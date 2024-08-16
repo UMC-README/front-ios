@@ -11,7 +11,7 @@ import Combine
 @Observable
 class RoomViewModel: ObservableObject {
     enum Action {
-        case goToPost(postId: Int)
+        case goToPost(postId: Int, isRoomAdmin: Bool)
     }
     
     var roomId: Int
@@ -33,8 +33,8 @@ class RoomViewModel: ObservableObject {
     
     func send(action: Action) {
         switch action {
-        case .goToPost(let postId):
-            container.navigationRouter.destinations.append(.post(postId: postId))
+        case .goToPost(let postId, let isRoomAdmin):
+            container.navigationRouter.destinations.append(.post(postId: postId, isRoomAdmin: isRoomAdmin))
             
         
             
