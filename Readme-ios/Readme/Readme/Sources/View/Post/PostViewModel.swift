@@ -12,18 +12,20 @@ import PhotosUI
 @Observable
 class PostViewModel: ObservableObject {
     enum Action {
-        case load
+        case goToSubmit(postId: Int)
     }
     
     var postResponse: PostResponse?
     var post: PostLite?
     var postId: Int
+    var isRoomAdmin: Bool
     
     private var container: DIContainer
     
-    init(container: DIContainer, postId: Int) {
+    init(container: DIContainer, postId: Int, isRoomAdmin: Bool) {
         self.container = container
         self.postId = postId
+        self.isRoomAdmin = false    // TODO: false -> isRoomAdmin 으로 수정하기 
     }
     
     /// 공지글 상세 조회
@@ -35,6 +37,15 @@ class PostViewModel: ObservableObject {
         } catch {
             postResponse = .stub1
             Log.network("Post VM - getPost() 에러", error)
+        }
+    }
+}
+
+extension PostViewModel {
+    func send(action: Action) {
+        switch action {
+        case .goToSubmit(let postId):       /// 공지 확인
+            container.navigationRouter.destinations.append(.submit(postId: postId))
         }
     }
 }

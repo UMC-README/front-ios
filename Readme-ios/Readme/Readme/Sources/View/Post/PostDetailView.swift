@@ -8,17 +8,14 @@
 import SwiftUI
 
 struct PostDetailView: View {
-    
-//    var post: PostResponse = PostResponse.stub1
-//    var postID: Int
-   
+
     @EnvironmentObject var container: DIContainer
     @StateObject var postViewModel: PostViewModel
-//    var postResponse: PostResponse
     
     // TODO: Comment
     
     var body: some View {
+        
         ZStack {
             Color.backgroundLight.ignoresSafeArea(.all)
             
@@ -69,21 +66,7 @@ struct PostDetailView: View {
                     .foregroundStyle(Color.txtCaption)
             }
             
-            HStack {
-                Spacer()
-                
-                Button {
-                    
-                } label: {
-                    Text("공지 확인")
-                        .font(.pretendardRegular16)
-                        .foregroundStyle(Color.basicWhite)
-                        .padding(.horizontal, 10)
-                        .padding(.vertical, 6)
-                        .background(Color.primaryNormal)
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
-                }
-            }
+            checkNoticeButtonView
         }
         .padding(10)
         .background(Color.primaryLight)
@@ -91,9 +74,37 @@ struct PostDetailView: View {
     }
     
     /// 오른쪽 위 버튼 (관리자 / 일반멤버 구분)
-    var settingButton: some View {
+    var settingButtonForAdmin: some View {
         HStack {
             
+        }
+    }
+    
+    var settingButtonForNormal: some View {
+        HStack {
+            
+        }
+    }
+    
+    var checkNoticeButtonView: some View {
+        HStack {
+            Spacer()
+            
+            Button {
+                if !postViewModel.isRoomAdmin {
+                    postViewModel.send(action: .goToSubmit(postId: postViewModel.postId))
+                } else {
+                    print("공지 확인 관리자모드")
+                }
+            } label: {
+                Text("공지 확인")
+                    .font(.pretendardRegular16)
+                    .foregroundStyle(Color.basicWhite)
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 6)
+                    .background(Color.primaryNormal)
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+            }
         }
     }
     
@@ -110,7 +121,7 @@ struct PostDetailView_Previews: PreviewProvider {
     static let container: DIContainer = .stub
     
     static var previews: some View {
-        PostDetailView(postViewModel: .init(container: container, postId: 1))
+        PostDetailView(postViewModel: .init(container: container, postId: 1, isRoomAdmin: true))
             .environmentObject(container)
     }
 }
