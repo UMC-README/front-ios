@@ -320,7 +320,7 @@ struct CreatePostView_Previews: PreviewProvider {
     static let container: DIContainer = .stub
     
     static var previews: some View {
-        CreatePostView(roomViewModel: .init(container: container, roomId: 45))
+        CreatePostView(roomViewModel: .init(container: container, roomId: 45, roomName: "공지방 이름"))
             .environmentObject(container)
     }
 }

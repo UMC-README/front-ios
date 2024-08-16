@@ -12,8 +12,8 @@ enum NavigationDestination: Hashable {
     case mypage
     case penalty
 //    case submit
-    case room(roomId: Int)
+    case room(roomId: Int, roomName: String)
     case createRoom(userId: Int)
     case post(postId: Int, isRoomAdmin: Bool)
-    case submit(postId: Int)
+    case submit(postId: Int, roomName: String)
 }

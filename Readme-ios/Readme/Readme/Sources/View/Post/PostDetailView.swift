@@ -92,7 +92,7 @@ struct PostDetailView: View {
             
             Button {
                 if !postViewModel.isRoomAdmin {
-                    postViewModel.send(action: .goToSubmit(postId: postViewModel.postId))
+                    postViewModel.send(action: .goToSubmit(postId: postViewModel.postId, roomName: postViewModel.roomName))
                 } else {
                     print("공지 확인 관리자모드")
                 }
@@ -121,7 +121,7 @@ struct PostDetailView_Previews: PreviewProvider {
     static let container: DIContainer = .stub
     
     static var previews: some View {
-        PostDetailView(postViewModel: .init(container: container, postId: 1, isRoomAdmin: true))
+        PostDetailView(postViewModel: .init(container: container, postId: 1, isRoomAdmin: true, roomName: "공지방 이름"))
             .environmentObject(container)
     }
 }

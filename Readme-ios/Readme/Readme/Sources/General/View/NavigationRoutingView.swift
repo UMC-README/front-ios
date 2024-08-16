@@ -19,14 +19,14 @@ struct NavigationRoutingView: View {
             MyPageView()
         case let .penalty:
             PenaltyView()
-        case let .room(roomId):
-            RoomView(roomViewModel: .init(container: container, roomId: roomId))
+        case let .room(roomId, roomName):
+            RoomView(roomViewModel: .init(container: container, roomId: roomId, roomName: roomName))
         case let .createRoom(userId):
             CreateRoomView(createRoomViewModel: .init(container: container), userId: userId)
-        case let .post(postId, isRoomAdmin):
-            PostDetailView(postViewModel: .init(container: container, postId: postId, isRoomAdmin: isRoomAdmin))
-        case let .submit(postId):
-            SubmitView(submitViewModel: .init(container: container, postId: postId))
+        case let .post(postId, isRoomAdmin, roomName):
+            PostDetailView(postViewModel: .init(container: container, postId: postId, isRoomAdmin: isRoomAdmin, roomName: roomName))
+        case let .submit(postId, roomName):
+            SubmitView(submitViewModel: .init(container: container, postId: postId, roomName: roomName))
         }
     }
 }

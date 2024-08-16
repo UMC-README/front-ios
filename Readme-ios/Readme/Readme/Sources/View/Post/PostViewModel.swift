@@ -12,20 +12,22 @@ import PhotosUI
 @Observable
 class PostViewModel: ObservableObject {
     enum Action {
-        case goToSubmit(postId: Int)
+        case goToSubmit(postId: Int, roomName: String)
     }
     
     var postResponse: PostResponse?
     var post: PostLite?
     var postId: Int
     var isRoomAdmin: Bool
+    var roomName: String
     
     private var container: DIContainer
     
-    init(container: DIContainer, postId: Int, isRoomAdmin: Bool) {
+    init(container: DIContainer, postId: Int, isRoomAdmin: Bool, roomName: String) {
         self.container = container
         self.postId = postId
-        self.isRoomAdmin = false    // TODO: false -> isRoomAdmin 으로 수정하기 
+        self.isRoomAdmin = isRoomAdmin    // TODO: false -> isRoomAdmin 으로 수정하기
+        self.roomName = roomName
     }
     
     /// 공지글 상세 조회
@@ -44,8 +46,8 @@ class PostViewModel: ObservableObject {
 extension PostViewModel {
     func send(action: Action) {
         switch action {
-        case .goToSubmit(let postId):       /// 공지 확인
-            container.navigationRouter.destinations.append(.submit(postId: postId))
+        case .goToSubmit(let postId, let roomName):       /// 공지 확인
+            container.navigationRouter.destinations.append(.submit(postId: postId, roomName: roomName))
         }
     }
 }

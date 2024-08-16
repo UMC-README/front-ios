@@ -11,13 +11,16 @@ import Combine
 @Observable
 class RoomViewModel: ObservableObject {
     enum Action {
-        case goToPost(postId: Int, isRoomAdmin: Bool)
+        case goToPost(postId: Int, isRoomAdmin: Bool, roomName: String)
     }
     
     var roomId: Int
+    var roomName: String
+    
     var myUser: UserResponse?
     var phase: Phase = .notRequested
     var postLiteResponse: PostLiteResponse?
+    
     
     var roomModelDestination: RoomModelDestination?
     
@@ -26,15 +29,16 @@ class RoomViewModel: ObservableObject {
     private var container: DIContainer
 //    private var subsriptions = Set<AnyCancellable>()
     
-    init(container: DIContainer, roomId: Int) {
+    init(container: DIContainer, roomId: Int, roomName: String) {
         self.container = container
         self.roomId = roomId
+        self.roomName = roomName
     }
     
     func send(action: Action) {
         switch action {
-        case .goToPost(let postId, let isRoomAdmin):
-            container.navigationRouter.destinations.append(.post(postId: postId, isRoomAdmin: isRoomAdmin))
+        case .goToPost(let postId, let isRoomAdmin, let roomName):
+            container.navigationRouter.destinations.append(.post(postId: postId, isRoomAdmin: isRoomAdmin, roomName: roomName))
             
         
             

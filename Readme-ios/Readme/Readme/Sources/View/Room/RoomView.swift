@@ -58,8 +58,8 @@ struct RoomView: View {
                 PostPreviewView(post: post)
                     .onTapGesture {
                         print("\(post.postID)번 게시글 클릭")
-                        if let postId = post.postID, let isRoomAdmin = roomViewModel.postLiteResponse?.result?.isRoomAdmin! {
-                            roomViewModel.send(action: .goToPost(postId: postId, isRoomAdmin: isRoomAdmin))
+                        if let postId = post.postID, let isRoomAdmin = roomViewModel.postLiteResponse?.result?.isRoomAdmin!  {
+                            roomViewModel.send(action: .goToPost(postId: postId, isRoomAdmin: isRoomAdmin, roomName: roomViewModel.roomName))
                         } else {
                             print("postId, isRoomAdmin을 찾을 수 없습니다.")
                         }
@@ -117,7 +117,7 @@ struct RoomView_Previews: PreviewProvider {
     static let container: DIContainer = .stub
     
     static var previews: some View {
-        RoomView(roomViewModel: .init(container: container, roomId: 45))
+        RoomView(roomViewModel: .init(container: container, roomId: 45, roomName: "공지방 이름"))
             .environmentObject(container)
     }
 }
