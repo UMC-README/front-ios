@@ -42,7 +42,7 @@ struct SubmitAfterResponse: Codable {
 extension SubmitResponse {
     public static var submitResponseStub01: SubmitResponse = .init(
         isSuccess: true, code: 200, message: "Success!",
-        result: .init(id: 1, type: .mission, question: "question")
+        result: .init(id: 1, type: .quiz, question: "question")
     )
 }
 
