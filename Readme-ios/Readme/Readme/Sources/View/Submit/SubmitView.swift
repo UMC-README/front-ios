@@ -35,8 +35,7 @@ struct SubmitView: View {
                         case .none:
                             Text("None")
                         }
-                        
-                        
+                    
                         Spacer()
                         
                         sendButtonView
@@ -45,16 +44,26 @@ struct SubmitView: View {
                         switch $0 {
                         case .compete:
                             CompleteView {
-                                dismiss()
+                                
                                 submitViewModel.send(action: .goToRoomMain)
                             } rereadPost: {
-                                
+                                submitViewModel.send(action: .goToPost)
                             }
 
                         case .notComplete:
-                            NotCompleteView()
+                            NotCompleteView {
+                                
+                                submitViewModel.send(action: .goToRoomMain)
+                            } rereadPost: {
+                                submitViewModel.send(action: .goToPost)
+                            }
                         case .pending:
-                            PendingView()
+                            PendingView{
+                                
+                                submitViewModel.send(action: .goToRoomMain)
+                            } rereadPost: {
+                                submitViewModel.send(action: .goToPost)
+                            }
                         }
                         
                     }

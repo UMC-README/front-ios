@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CompleteView: View {
+    @Environment(\.dismiss) var dismiss
     
     var goToMain: () -> ()
     var rereadPost: () -> ()
@@ -25,12 +26,24 @@ struct CompleteView: View {
                     Text("⭕️")
                         .font(.system(size: 100))
                     Spacer()
-                    Button {
-                        goToMain()
-                    } label: {
-                        Text("메인으로")
+                    
+                    VStack(spacing: 10) {
+                        Button {
+                            dismiss()
+                            goToMain()
+                        } label: {
+                            Text("메인으로")
+                        }
+                        .buttonStyle(DefaultButtonStyle(buttonType: .blue))
+                        
+                        Button {
+                            dismiss()
+                            rereadPost()
+                        } label: {
+                            Text("공지 다시 읽기")
+                        }
+                        .buttonStyle(DefaultButtonStyle(buttonType: .white))
                     }
-                    .buttonStyle(ConfirmButtonStyle(buttonType: .blue))
                 }
                 .padding(.horizontal, 16)
             }

@@ -8,6 +8,12 @@
 import SwiftUI
 
 struct NotCompleteView: View {
+    
+    @Environment(\.dismiss) var dismiss
+    
+    var goToMain: () -> ()
+    var rereadPost: () -> ()
+    
     var body: some View {
         NavigationView {
             VStack(spacing: 80) {
@@ -19,12 +25,25 @@ struct NotCompleteView: View {
                 Text("❌")
                     .font(.system(size: 100))
                 Spacer()
-                Button {
+                
+                VStack(spacing: 10) {
+                
+                    Button {
+                        dismiss()
+                        goToMain()
+                    } label: {
+                        Text("메인으로")
+                    }
+                    .buttonStyle(DefaultButtonStyle(buttonType: .blue))
                     
-                } label: {
-                    Text("메인으로")
+                    Button {
+                        dismiss()
+                        rereadPost()
+                    } label: {
+                        Text("공지 다시 읽기")
+                    }
+                    .buttonStyle(DefaultButtonStyle(buttonType: .white))
                 }
-                .buttonStyle(ConfirmButtonStyle(buttonType: .blue))
             }
             .padding(.horizontal, 16)
         }
@@ -32,5 +51,9 @@ struct NotCompleteView: View {
 }
 
 #Preview {
-    NotCompleteView()
+    NotCompleteView {
+        
+    } rereadPost: {
+        
+    }
 }

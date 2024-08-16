@@ -52,12 +52,9 @@ extension SubmitViewModel {
             self.submitModelDestination = .pending
             
         case .goToRoomMain:
-            container.navigationRouter.pop()
-            container.navigationRouter.pop()
-            container.navigationRouter.pop()
+            container.navigationRouter.popPages(num: 2)
             
         case .goToPost:
-            container.navigationRouter.pop()
             container.navigationRouter.pop()
         }
     }
