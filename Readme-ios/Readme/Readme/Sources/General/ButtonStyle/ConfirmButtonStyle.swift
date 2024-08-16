@@ -16,9 +16,11 @@ enum ConfirmButtonType: String {
 
 struct ConfirmButtonStyle: ButtonStyle {
     
+//    var isEmpty: Bool
     let buttonType: ConfirmButtonType
     
     init(buttonType: ConfirmButtonType) {
+//        self.isEmpty = isEmpty
         self.buttonType = buttonType
     }
     
@@ -29,6 +31,7 @@ struct ConfirmButtonStyle: ButtonStyle {
             .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
             .foregroundStyle(buttonType == .blue ? Color.basicWhite : Color.danger)
             .background(buttonType == .blue ? Color.primaryNormal : Color.dangerLight)
+//            .background(isEmpty ? )
             .clipShape(
                 RoundedRectangle(cornerRadius: 8)
             )

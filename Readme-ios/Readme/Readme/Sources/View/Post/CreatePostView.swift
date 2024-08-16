@@ -10,11 +10,12 @@ import PhotosUI
 
 struct CreatePostView: View {
     @EnvironmentObject var container: DIContainer
+    @Environment(\.dismiss) var dismiss
     @ObservedObject var roomViewModel: RoomViewModel
-    var roomID: Int?
-//    var onCompleted: (PostRequest) -> Void
     
+    var roomID: Int?
     let types: [PostType] = [.quiz, .mission]
+    
     @State var type: PostType = .quiz
     
     @State var title: String = ""
@@ -25,37 +26,50 @@ struct CreatePostView: View {
     
     @State var startDate: Date? = nil
     @State var endDate: Date? = nil
-//    @State var endDate: Date = Date()
+
     @State var isStartDateVisible = false
     @State var isEndDateVisible = false
     
     
-    @State var quizOrMission: String = ""
-    @State var answer: String = ""
+    @State var question: String = ""
+    @State var answer: String? = nil
 
-    
     @State var isCompleted: Bool = false
     
     let maxPhotosToSelect = 10
     
     var body: some View {
-        ZStack {
-            Color.backgroundLight.ignoresSafeArea(.all)
-//            GeometryReader { geometry in
+        NavigationView {
+            ZStack {
+                Color.backgroundLight.ignoresSafeArea(.all)
                 ScrollView {
-                    VStack(alignment: .leading) {
+                    VStack(alignment: .leading, spacing: 16) {
+                        
                         typeSelectionView
                         postContentView
                         imageUploadView
                         infoView
                         sendButtonView
                     }
-                .padding(.horizontal, 16)
-
+                    
+                    .padding(.horizontal, 16)
+                    
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "xmark")
+                            .foregroundColor(.black)
+                    }
+                }
             }
         }
     }
     
+    /// 공지글 타입 선택
     @ViewBuilder
     var typeSelectionView: some View {
         HStack {
@@ -79,6 +93,7 @@ struct CreatePostView: View {
         }
     }
     
+    /// 공지글 본문
     @ViewBuilder
     var postContentView: some View {
         
@@ -155,8 +170,7 @@ struct CreatePostView: View {
     
     @MainActor
     func convertDataToImage() {
-//        images.removeAll()
-        
+
         if !selectedImages.isEmpty {
             for item in selectedImages {
                 Task {
@@ -180,7 +194,8 @@ struct CreatePostView: View {
                     .foregroundStyle(Color.txtDefault)
                     .font(.pretendardBold16)
                 
-                Text(startDate.map { DateFormatter.customFormatter.string(from: $0) } ?? "yyyy.mm.dd HH:mm")
+                Text(startDate.map { DateFormatter.customFormatter.string(from: $0) } ?? "YYYY.MM.dd")
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     .foregroundStyle((startDate != nil) ? Color.txtDefault : Color.txtEmpty)
                     .font(.pretendardMedium16)
                     .padding(.horizontal, 8)
@@ -192,12 +207,12 @@ struct CreatePostView: View {
                         RoundedRectangle(cornerRadius: 8)
                             .strokeBorder(Color.primaryLightActive, lineWidth: 0.33)
                     }
-                .overlay(alignment: .top) {
-                    DatePicker("", selection: Binding(get: { startDate ?? Date() },set: { self.startDate = $0 }), displayedComponents: [.date, .hourAndMinute])
-                        .labelsHidden()
-                        .colorMultiply(.clear)       // <<< here
-//                        .scaleEffect(isStartDateVisible ? 1 : 0)
-                }
+                    .overlay(alignment: .top) {
+                        DatePicker("", selection: Binding(get: { startDate ?? Date() }, set: { self.startDate = $0 }))
+                            .labelsHidden()
+                            .colorMultiply(.clear)
+
+                    }
             }
             HStack {
                 Text("마감 날짜")
@@ -205,8 +220,9 @@ struct CreatePostView: View {
                     .foregroundStyle(Color.txtDefault)
                     .font(.pretendardBold16)
                 
-                Text(endDate.map { DateFormatter.customFormatter.string(from: $0) } ?? "yyyy.mm.dd HH:mm")
-                    .foregroundStyle((startDate != nil) ? Color.txtDefault : Color.txtEmpty)
+                Text(endDate.map { DateFormatter.customFormatter.string(from: $0) } ?? "YYYY.MM.dd")    // 시간 안 받음.
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .foregroundStyle((endDate != nil) ? Color.txtDefault : Color.txtEmpty)
                     .font(.pretendardMedium16)
                     .padding(.horizontal, 8)
                     .padding(.vertical, 8)
@@ -217,23 +233,22 @@ struct CreatePostView: View {
                         RoundedRectangle(cornerRadius: 8)
                             .strokeBorder(Color.primaryLightActive, lineWidth: 0.33)
                     }
-                .overlay(alignment: .top) {
-                    DatePicker("", selection: Binding(get: { startDate ?? Date() },set: { self.startDate = $0 }), displayedComponents: [.date, .hourAndMinute])
-                        .labelsHidden()
-                        .colorMultiply(.clear)       // <<< here
-//                        .scaleEffect(isStartDateVisible ? 1 : 0)
-                }
+                    .overlay(alignment: .top) {
+                        DatePicker("", selection: Binding(get: { endDate ?? Date() }, set: { self.endDate = $0 }))
+                            .labelsHidden()
+                            .colorMultiply(.clear)
+                    }
             }
             HStack {
-                Text("퀴즈")
+                Text(type.description)
                     .frame(width: 76, alignment: .leading)
                     .foregroundStyle(Color.txtDefault)
                     .font(.pretendardBold16)
                 
                 TextField(
                     "",
-                    text: $quizOrMission,
-                    prompt: Text("퀴즈를 입력하세요.")
+                    text: $question,
+                    prompt: Text("\(type.description)를 입력하세요.")
                 )
                 .textFieldStyle(SmallTextFieldStyle())
             }
@@ -247,7 +262,10 @@ struct CreatePostView: View {
                     
                     TextField(
                         "",
-                        text: $answer,
+                        text: Binding(
+                                    get: { answer ?? "" },
+                                    set: { answer = $0.isEmpty ? nil : $0 }
+                                ),
                         prompt: Text("정답을 입력하세요.")
                     )
                     .textFieldStyle(SmallTextFieldStyle())
@@ -262,18 +280,22 @@ struct CreatePostView: View {
                 // Date를 String으로 변환
                 let startDateString = startDate != nil ? DateFormatter.customFormatter.string(from: startDate!) : ""
                 let endDateString = endDate != nil ? DateFormatter.customFormatter.string(from: endDate!) : ""
+            
+            print(endDateString)
+            
+            let roomID = roomViewModel.roomId
 
                 // PostRequest 객체 생성
-                let request = roomViewModel.makePostRequest(
-                    roomID: roomID ?? 0,
+            let request = roomViewModel.makePostRequest(
+                    roomID: roomID,
+                    type: type.rawValue,
                     title: title,
                     content: content,
-                    type: type.rawValue,
                     startDate: startDateString,
                     endDate: endDateString,
-                    question: quizOrMission,
-                    userID: roomViewModel.myUser?.result?.userID ?? 0, // 이 부분은 적절하게 수정해야 할 수 있습니다.
-                    imgURLs: [] // 이 부분도 이미지 URL로 교체 필요
+                    question: question,
+                    quizAnswer: answer,
+                    imgURLs: []
                 )
                 print("공지글 작성 request \(request)")
                 // 서버로 요청 보내기
@@ -298,7 +320,7 @@ struct CreatePostView_Previews: PreviewProvider {
     static let container: DIContainer = .stub
     
     static var previews: some View {
-        CreatePostView(roomViewModel: .init(container: container, roomId: 45))
+        CreatePostView(roomViewModel: .init(container: container, roomId: 45, roomName: "공지방 이름"))
             .environmentObject(container)
     }
 }

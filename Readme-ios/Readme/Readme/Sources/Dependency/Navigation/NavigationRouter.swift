@@ -16,6 +16,7 @@ protocol NavigationRoutable {
     func push(to view: NavigationDestination)
     func pop()
     func popToRootView()
+    func popPages(num: Int)
 }
 
 class NavigationRouter: NavigationRoutable, ObservableObjectSettable {
@@ -38,5 +39,9 @@ class NavigationRouter: NavigationRoutable, ObservableObjectSettable {
     
     func popToRootView() {
         destinations = []
+    }
+    
+    func popPages(num: Int) {
+        destinations.removeLast(num)
     }
 }

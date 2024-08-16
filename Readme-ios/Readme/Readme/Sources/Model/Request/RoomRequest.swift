@@ -9,7 +9,7 @@ import Foundation
 // MARK: - RoomRequest
 
 struct RoomRequest: Codable {
-//    let adminId: Int
+    let adminId: Int
     let adminNickname: String
     let roomName: String
     let roomPassword: String
@@ -18,7 +18,7 @@ struct RoomRequest: Codable {
     let maxPenalty: Int
     
     enum CodingKeys: String, CodingKey {
-//        case adminId = "admin_id"               // 관리자 아이디
+        case adminId = "admin_id"               // 관리자 아이디
         case adminNickname = "admin_nickname"   // 관리자 닉네임(단체 대표자 이름)
         case roomName = "room_name"             // 공지방 이름
         case roomPassword = "room_password"     // 공지방 비밀번호
@@ -30,5 +30,5 @@ struct RoomRequest: Codable {
 
 extension RoomRequest {
 //    static var stub01: RoomRequest = .init(adminId: 12, adminNickname: "숩", roomName: "공지방 예시이름", roomPassword: "1234", roomImage: "image.jpg", roomInviteUrl: "test.com", maxPenalty: 10)
-    static var stub01: RoomRequest = .init(adminNickname: "숩", roomName: "공지방 예시이름", roomPassword: "1234", roomImage: "image.jpg", maxPenalty: 10)
+    static var stub01: RoomRequest = .init(adminId: 0, adminNickname: "숩", roomName: "공지방 예시이름", roomPassword: "1234", roomImage: "image.jpg", maxPenalty: 10)
 }

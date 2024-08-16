@@ -22,9 +22,11 @@ public enum RoomAPI {
     case getPostComment
     case patchPostComment(Int)
     case deletePostComment(Int)
-    case getPost(Int)
-    case postAnswer(Int)
-    case roomPenalty(Int)
+    
+    case getSubmitRequirement(Int)  /// 공지글 퀴즈/미션 제출 요구사항 조회
+    case postSubmitRequirement(Int) /// 공지글 퀴즈/미션 제출 요구사항 제출
+    
+//    case roomPenalty(Int)
     
     public var apiDesc: String {
         switch self {
@@ -58,15 +60,11 @@ public enum RoomAPI {
         case .deletePostComment(let commentId):
             return "/room/post/\(commentId)"
             
-        case .getPost(let postId):
-            return "/room/\(postId)"
+        case .getSubmitRequirement(let postId):
+            return "/room/post/\(postId)/submit"
             
-        case .postAnswer(let postId):
-            return "/room/\(postId)"
-            
-        case .roomPenalty(let roomId):
-            return "/room/\(roomId)/penalty"
-            
+        case .postSubmitRequirement(let postId):
+            return "/room/post/\(postId)/submit"
         }
     }
 }

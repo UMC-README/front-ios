@@ -45,8 +45,8 @@ class CreateRoomViewModel {
     }
     
     /// 공지방 모델 생성
-    func createRoomModel(adminNickname: String, roomName: String, roomPassword: String, roomImage: String?, maxPenalty: Int) {
-        self.roomRequest = .init(adminNickname: adminNickname, roomName: roomName, roomPassword: roomPassword, roomImage: roomImage!, maxPenalty: maxPenalty)
+    func createRoomModel(adminId: Int, adminNickname: String, roomName: String, roomPassword: String, roomImage: String?, maxPenalty: Int) {
+        self.roomRequest = .init(adminId: adminId, adminNickname: adminNickname, roomName: roomName, roomPassword: roomPassword, roomImage: roomImage!, maxPenalty: maxPenalty)
             
     }
     

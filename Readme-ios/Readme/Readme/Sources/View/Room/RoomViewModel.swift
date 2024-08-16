@@ -11,31 +11,40 @@ import Combine
 @Observable
 class RoomViewModel: ObservableObject {
     enum Action {
-        case getAllNotice(roomId: Int)
+        case goToPost(postId: Int, isRoomAdmin: Bool, roomName: String)
     }
     
     var roomId: Int
+    var roomName: String
+    
     var myUser: UserResponse?
     var phase: Phase = .notRequested
     var postLiteResponse: PostLiteResponse?
+    
+    
+    var roomModelDestination: RoomModelDestination?
     
     var isPresentedPostEditView: Bool = false
     
     private var container: DIContainer
 //    private var subsriptions = Set<AnyCancellable>()
     
-    init(container: DIContainer, roomId: Int) {
+    init(container: DIContainer, roomId: Int, roomName: String) {
         self.container = container
         self.roomId = roomId
+        self.roomName = roomName
     }
     
-//    func send(action: Action) {
-//        switch action {
-//        case .getAllNotice(let roomId):
-//            
-//        
-//        }
-//    }
+    func send(action: Action) {
+        switch action {
+        case .goToPost(let postId, let isRoomAdmin, let roomName):
+            container.navigationRouter.destinations.append(.post(postId: postId, isRoomAdmin: isRoomAdmin, roomName: roomName))
+            
+        
+            
+        
+        }
+    }
     
     func getAllPosts() async {
         do {
@@ -53,8 +62,8 @@ class RoomViewModel: ObservableObject {
         }
     }
     
-    func makePostRequest(roomID: Int, title: String, content: String, type: String, startDate: String, endDate: String, question: String, userID: Int, imgURLs: [String]) -> PostRequest {
-        return .init(body: .init(roomID: roomID, type: type, title: title, content: content, startDate: startDate, endDate: endDate, question: ""), imgURLs: [])
+    func makePostRequest(roomID: Int, type: String, title: String, content: String, startDate: String, endDate: String, question: String, quizAnswer: String?, imgURLs: [String]) -> PostRequest {
+        return .init(roomID: roomID, type: type, title: title, content: content, startDate: startDate, endDate: endDate, question: question, quizAnswer: quizAnswer, imgURLs: imgURLs)
     }
     
     /// 공지글 생성

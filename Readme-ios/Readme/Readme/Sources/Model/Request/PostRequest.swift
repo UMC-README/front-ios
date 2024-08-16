@@ -9,19 +9,15 @@ import Foundation
 
 // MARK: - PostRequest
 struct PostRequest: Codable {
-    let body: PostRequestBody?
+    let roomID: Int
+    let type: String
+    let title: String
+    let content: String
+    let startDate: String
+    let endDate: String
+    let question: String
+    let quizAnswer: String?
     let imgURLs: [String]?
-}
-
-// MARK: - Body
-struct PostRequestBody: Codable {
-    let roomID: Int?
-    let type: String?
-    let title: String?
-    let content: String?
-    let startDate: String?
-    let endDate: String?
-    let question: String?
 
     enum CodingKeys: String, CodingKey {
         case roomID = "room_id"
@@ -31,5 +27,8 @@ struct PostRequestBody: Codable {
         case startDate = "start_date"
         case endDate = "end_date"
         case question = "question"
+        case quizAnswer = "quiz_answer"
+        case imgURLs = "imgURLs"
     }
 }
+

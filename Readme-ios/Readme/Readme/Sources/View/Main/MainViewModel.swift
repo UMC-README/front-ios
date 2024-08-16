@@ -17,7 +17,7 @@ class MainViewModel: ObservableObject {
         case goToAdmit
         case goToPenalty
         case goToCreateRoom
-        case goToRoom(Int)
+        case goToRoom(Int, String)
 //        case goToNotice(Notice)
 //        case goToCreatePost /// test
     
@@ -102,8 +102,8 @@ class MainViewModel: ObservableObject {
             if let userId = self.myUser?.result?.userID {
                 self.container.navigationRouter.push(to: .createRoom(userId: userId))
             }
-        case .goToRoom(let roomId):
-            self.container.navigationRouter.push(to: .room(roomId: roomId))
+        case .goToRoom(let roomId, let roomName):
+            self.container.navigationRouter.push(to: .room(roomId: roomId, roomName: roomName))
             
 //        case .goToCreatePost:
 //            self.container.navigationRouter.push(to: .createPost)

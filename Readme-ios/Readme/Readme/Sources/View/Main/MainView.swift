@@ -22,6 +22,9 @@ struct MainView: View {
                         await mainViewModel.getCreateRoom()
                         await mainViewModel.getJoinRoom()
                     }
+                    .refreshable {
+                        mainViewModel.send(action: .load)
+                    }
             }
                 .navigationDestination(for: NavigationDestination.self) {
                     NavigationRoutingView(destination: $0)
@@ -190,7 +193,7 @@ struct MainView: View {
                 ForEach(mainViewModel.myCreateRoom?.result?.rooms ?? []) { item in
                     RoomItemView(time: "30", roomName: item.roomName ?? "", nickname: item.roomName ?? "")
                         .onTapGesture {
-                            mainViewModel.send(action: .goToRoom(item.roomId ?? 1))
+                            mainViewModel.send(action: .goToRoom(item.roomId ?? 1, item.roomName!))
                         }
                 }
             }
@@ -208,10 +211,10 @@ struct MainView: View {
         VStack(alignment: .leading, spacing: 10) {
             title("입장한 공지방")
             LazyVGrid(columns: columns) {
-                ForEach(mainViewModel.myCreateRoom?.result?.rooms ?? []) { item in
+                ForEach(mainViewModel.myJoinRoom?.result?.rooms ?? []) { item in
                     RoomItemView(time: "30", roomName: item.roomName ?? "", nickname: item.roomName ?? "")
                         .onTapGesture {
-                            mainViewModel.send(action: .goToRoom(item.roomId ?? 1))
+                            mainViewModel.send(action: .goToRoom(item.roomId ?? 1, item.roomName!))
                         }
                 }
             }
