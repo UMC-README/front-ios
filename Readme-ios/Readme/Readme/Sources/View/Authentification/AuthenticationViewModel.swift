@@ -11,6 +11,7 @@ import SwiftData
 enum AuthenticatedState {
     case unauthenticated
     case authenticated
+//    case signup
 }
 
 @Observable
@@ -27,6 +28,11 @@ class AuthenticationViewModel: ObservableObject {
     var userEmail: String?
     var userPassword: String?
     
+    var isSignUp: Bool = false
+    
+    var authRequest: AuthRequest?
+    var signInQuestions: [SignUpQuestionType] = [.name, .nickname, .email, .password]
+    
     private var container: DIContainer
     
     init(container: DIContainer) {
@@ -35,6 +41,20 @@ class AuthenticationViewModel: ObservableObject {
 }
 
 extension AuthenticationViewModel {
+    
+    func createAuthRequest(name: String, nickname: String, email: String, password: String) -> AuthRequest {
+        return .init(name: name, nickname: nickname, email: email, password: password)
+    }
+    
+    func signUpWithEmain() async {
+        if let authRequest = authRequest {
+            do {
+//                try await container.services.userService.sig
+            } catch {
+                
+            }
+        }
+    }
     
     func signinWithEmail() async {
         print("signinWithEmail(⭐️ 로그인을 시작합니다. \(userEmail), \(userPassword)")
