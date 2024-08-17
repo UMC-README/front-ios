@@ -19,11 +19,17 @@ struct MainView: View {
                     .task {
                         mainViewModel.send(action: .load)
                         await mainViewModel.getUser()
+                        await mainViewModel.getRecentPost()
                         await mainViewModel.getCreateRoom()
                         await mainViewModel.getJoinRoom()
+                        
                     }
                     .refreshable {
                         mainViewModel.send(action: .load)
+                        await mainViewModel.getUser()
+                        await mainViewModel.getRecentPost()
+                        await mainViewModel.getCreateRoom()
+                        await mainViewModel.getJoinRoom()
                     }
             }
                 .navigationDestination(for: NavigationDestination.self) {
@@ -143,12 +149,8 @@ struct MainView: View {
         VStack(alignment: .leading, spacing: 10) {
             title("최근 공지")
             VStack(spacing: 0) {
-                // TODO : For Each
-                RecentNoticeItemView(roomName: "예시 공지방 이름", noticeTitle: "예시 공지글 제목", time: "1분 전")
-                RecentNoticeItemView(roomName: "예시 공지방 이름", noticeTitle: "예시 공지글 제목", time: "1분 전")
-                RecentNoticeItemView(roomName: "예시 공지방 이름", noticeTitle: "예시 공지글 제목", time: "1분 전")
-                RecentNoticeItemView(roomName: "예시 공지방 이름", noticeTitle: "예시 공지글 제목", time: "1분 전")
-                RecentNoticeItemView(roomName: "예시 공지방 이름", noticeTitle: "예시 공지글 제목", time: "1분 전")
+                RecentNoticeItemView(postResult: mainViewModel.recentPost?.result ?? .recentPostResultStub1)
+                
                 
                 // TODO: 최근 공지 좌우 페이징 버튼 수정
                 HStack {

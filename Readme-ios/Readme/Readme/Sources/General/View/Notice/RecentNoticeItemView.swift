@@ -9,24 +9,50 @@ import SwiftUI
 
 struct RecentNoticeItemView: View {
     
-    var roomName: String
-    var noticeTitle: String
-    var time: String
+    var postResult: RecentPostResult
     
     var body: some View {
+        
+        ForEach (0..<5, id: \.self) { index in
+            if postResult.recentPostList!.count > index {
+                let postList = postResult.recentPostList!
+                recentPostItemView(post: postList[index])
+            } else {
+                blankPostItemView
+            }
+        }
+        
+    }
+    
+    @ViewBuilder
+    func recentPostItemView(post: RecentPost) -> some View {
         HStack(alignment: .center, spacing: 4) {
-            Text(roomName)
+            Text(post.roomName!)
                 .frame(width: 82, alignment: .leading)
                 .font(.pretendardRegular12)
                 .foregroundStyle(Color.txtCaption)
                 
-            Text(noticeTitle)
+            Text(post.title!)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .font(.pretendardRegular14)
                 .foregroundStyle(Color.txtDefault)
-            Text(time)
+            Text(post.createdAt!)
                 .font(.pretendardRegular10)
                 .foregroundStyle(Color.txtCaption)
+        
+        }
+        .lineLimit(1)
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 12)
+        .border(width: 0.33, edges: [.bottom], color: Color.txtCaption)
+    }
+    
+    @ViewBuilder
+    var blankPostItemView: some View {
+        HStack(alignment: .center, spacing: 4) {
+            Text("")
+                .frame(maxWidth: .infinity)
+                .font(.pretendardRegular14)
         
         }
         .lineLimit(1)
@@ -37,5 +63,5 @@ struct RecentNoticeItemView: View {
 }
 
 #Preview {
-    RecentNoticeItemView(roomName: "공지방 이름공지방 이름공지방 이름공지방 이름", noticeTitle: "공지글", time: "1분 전")
+    RecentNoticeItemView(postResult: .recentPostResultStub1)
 }

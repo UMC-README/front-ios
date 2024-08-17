@@ -25,6 +25,7 @@ class MainViewModel: ObservableObject {
     
     var myUser: UserResponse?
     var fixedNotice: FixedPost?
+    var recentPost: RecentPostResponse?
     var myCreateRoom: RoomLiteResponse?
     var myJoinRoom: RoomLiteResponse?
     var phase: Phase = .notRequested
@@ -45,6 +46,17 @@ class MainViewModel: ObservableObject {
         } catch {
             myUser = .stub01
             Log.network("Main VM - getUser() 에러", error)
+        }
+    }
+    
+    /// 최근 공지글 조회
+    func getRecentPost() async {
+        do {
+            recentPost = try await container.services.userService.getRecentPost()
+            
+        } catch {
+            recentPost = .recentpostResponseStub1
+            Log.network("Main VM - getRecentPost() 에러", error)
         }
     }
     
