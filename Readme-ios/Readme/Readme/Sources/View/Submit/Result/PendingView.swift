@@ -23,8 +23,7 @@ struct PendingView: View {
                     Text("운영자에게 확인 요청을 전송하였습니다.")
                         .font(.pretendardBold28)
                         .foregroundStyle(Color.txtDefault)
-                    Text("⭕️")
-                        .font(.system(size: 100))
+                   
                     Spacer()
                     
                     VStack(spacing: 10) {
