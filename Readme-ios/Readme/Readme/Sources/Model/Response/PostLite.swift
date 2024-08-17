@@ -29,14 +29,37 @@ struct FixedPost: Identifiable, Codable {
     var code: Int?
     var message: String?
     var result: FixedPostResult?
-    
-    struct FixedPostResult: Identifiable, Codable {
-        var id = UUID().uuidString
-        var postId: Int?
-        var title: String?
-        var startDate: String?
-        var endDate: String?
-    }
+}
+
+struct FixedPostResult: Identifiable, Codable {
+    var id = UUID().uuidString
+    var postId: Int?
+    var title: String?
+    var startDate: String?
+    var endDate: String?
+}
+
+/// 최근 공지
+struct RecentPostResponse: Codable {
+    let isSuccess: Bool?
+    let code: Int?
+    let message: String?
+    let result: RecentPostResult?
+}
+
+struct RecentPostResult: Codable {
+    let recentPostList: [RecentPost]?
+    let isNext: Bool?
+    let totalPages: Int?
+}
+
+struct RecentPost: Codable, Identifiable {
+    let id = UUID().uuidString
+    let roomId: Int?
+    let roomName: String?
+    let postId: Int?
+    let title: String?
+    let createdAt: String?
 }
 
 /// 공지글 미리보기
@@ -113,6 +136,25 @@ extension FixedPost {
         )
 }
 
+extension RecentPostResponse {
+    static var recentpostResponseStub1: RecentPostResponse =
+        .init(isSuccess: true, code: 200, message: "Success!", result: .recentPostResultStub1)
+}
+
+extension RecentPostResult {
+    static var recentPostResultStub1: RecentPostResult =
+        .init(recentPostList:
+                          [
+                              .recentPostStub1
+                          ],
+                      isNext: true,
+                      totalPages: 3)
+}
+
+extension RecentPost {
+    static var recentPostStub1: RecentPost =
+        .init(roomId: 1, roomName: "room name", postId: 1, title: "title", createdAt: "24.01.01")
+}
 
 extension PostLiteResponse {
     static var stub1: PostLiteResponse =

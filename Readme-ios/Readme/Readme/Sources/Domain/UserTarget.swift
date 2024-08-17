@@ -16,7 +16,8 @@ enum UserTarget {
     case signIn(email: String, password: String)        /// 로그인
     case kakaoSignIn(code: String)                      /// 카카오 로그인
     case getUser(accessToken: String)                   /// 내 프로필 조회
-    case getFixedNotice(accessToken: String)            /// 고정 공지 조회
+    case getFixedPost(accessToken: String)            /// 고정 공지 조회
+    case getRecentPost(page: Int, pageSize: Int, accessToken: String) /// 최근 공지글 목록 조회 조회
     case getCreateRoom(page: Int, pageSize: Int, accessToken: String)   /// 내가 생성한 공지방 조회
     case getJoinRoom(page: Int, pageSize: Int, accessToken: String)     /// 내가 입장한 공지방 조회
 }
@@ -49,8 +50,11 @@ extension UserTarget: BaseTargetType {
         case .getUser:
             return UserAPI.user.apiDesc
             
-        case .getFixedNotice:
+        case .getFixedPost:
             return UserAPI.fixed.apiDesc
+            
+        case .getRecentPost:
+            return UserAPI.recent.apiDesc
             
         case .getCreateRoom:
             return UserAPI.createRoom.apiDesc
@@ -73,7 +77,8 @@ extension UserTarget: BaseTargetType {
             return .post
             
         case .getUser, 
-                .getFixedNotice,
+                .getFixedPost,
+                .getRecentPost,
                 .getCreateRoom,
                 .getJoinRoom:
             return .get
@@ -118,24 +123,19 @@ extension UserTarget: BaseTargetType {
             ]
             return .requestParameters(parameters: parameters, encoding: URLEncoding.queryString) // ?{q변수명}={값}&{변수명2}={값2}
         
-        case .getUser(_), .getFixedNotice(_):
+        case .getUser(_), .getFixedPost(_):
             let parameters : [String : Any] = [:]
             return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
-            
-        case .getCreateRoom(let page, let pageSize, _):
+                
+        case .getRecentPost(let page, let pageSize, _),
+                .getCreateRoom(let page, let pageSize, _),
+                .getJoinRoom(page: let page, pageSize: let pageSize, _):
             let parameters: [String : Any] = [
                 "page" : page,
                 "pageSize" : pageSize,
             ]
             return .requestParameters(parameters: parameters, encoding: URLEncoding.queryString)
-            
-        case .getJoinRoom(page: let page, pageSize: let pageSize, accessToken: let accessToken):
-            let parameters: [String : Any] = [
-                "page" : page,
-                "pageSize" : pageSize,
-            ]
-            return .requestParameters(parameters: parameters, encoding: URLEncoding.queryString)
-            
+
         }
     }
     
@@ -149,7 +149,7 @@ extension UserTarget: BaseTargetType {
                 "Authorization": "Bearer \(token)",
             ]
         
-        case .getUser(let accessToken), .getFixedNotice(let accessToken):
+        case .getUser(let accessToken), .getFixedPost(let accessToken):
             token = accessToken
             return [
 //                "Content-Type": "application/json",
@@ -182,22 +182,15 @@ extension UserTarget: BaseTargetType {
                 "Content-Type": "application/json"
             ]
         
-        case .getCreateRoom(_, _, let accessToken):
+        case .getRecentPost(_, _, let accessToken),
+                .getCreateRoom(_, _, let accessToken),
+                .getJoinRoom(_, _, let accessToken):
             token = accessToken
             
             return [
                 "Content-Type": "application/json",
                 "Authorization" : "Bearer \(token)"
             ]
-            
-        case .getJoinRoom(_, _, let accessToken):
-            token = accessToken
-            
-            return [
-                "Content-Type": "application/json",
-                "Authorization" : "Bearer \(token)"
-            ]
-            
         }
     }
 }
