@@ -21,6 +21,8 @@ protocol UserServiceType {
     func getFixedNotice(completion: @escaping (Result<FixedPost, ServiceError>) -> Void)  /// 고정된 공지 조회
     func getFixedNotice() async throws -> FixedPost       /// 고정된 공지 조회
     
+    func getRecentPost() async throws -> RecentPostResponse
+    
     
     func getCreateRoom() async throws -> RoomLiteResponse
     func getJoinRoom() async throws -> RoomLiteResponse
@@ -107,7 +109,7 @@ class UserService: UserServiceType {
             return
         }
         
-        provider.request(.getFixedNotice(accessToken: accessToken)) { result in
+        provider.request(.getFixedPost(accessToken: accessToken)) { result in
             switch result {
             case let .success(response):
                 do {
@@ -133,7 +135,7 @@ class UserService: UserServiceType {
             return notice
         }
         
-        provider.request(.getFixedNotice(accessToken: accessToken)) { result in
+        provider.request(.getFixedPost(accessToken: accessToken)) { result in
             switch result {
             case let .success(response):
                 do {
@@ -148,6 +150,37 @@ class UserService: UserServiceType {
         }
         
         return notice
+    }
+    
+    /// 최근 공지 조회
+    func getRecentPost() async throws -> RecentPostResponse {
+        let accessToken: String? = TokenManager.shared.accessToken
+        
+        guard let accessToken = accessToken else {
+            print("토큰이 존재하지 않습니다.")
+            return .recentpostResponseStub1
+        }
+        
+        return try await withCheckedThrowingContinuation { continuation in
+            provider.request(.getRecentPost(page: 1, pageSize: 6, accessToken: accessToken), completion: { result in
+                switch result {
+                case let .success(response):
+                    do {
+                        let response = try self.jsonDecoder.decode(RecentPostResponse.self, from: response.data)
+                        print("UserService - 최근 공지글 조회 성공")
+                        continuation.resume(returning: response)
+                    } catch {
+                        Log.network("UserService - 최근 공지글 조회 실패", error.localizedDescription)
+                        continuation.resume(throwing: error)
+                    }
+                    
+                case let .failure(error):
+                    Log.network("UserService - 최근 공지글 조회 네트워킹 에러", error.localizedDescription)
+                    continuation.resume(throwing: error)
+                }
+                
+            })
+        }
     }
     
     /// 내가 생성한 공지방 조회
@@ -232,6 +265,9 @@ class StubUserService: UserServiceType {
         return []
     }
     
+    func getRecentPost() async throws -> RecentPostResponse {
+        return .recentpostResponseStub1
+    }
 
     func uploadImage(data: Data?) async throws -> ImageURLResponse {
         return ImageURLResponse.stub01
