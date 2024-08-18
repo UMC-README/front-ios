@@ -13,19 +13,20 @@ import SwiftUI
 
 protocol UserServiceType {
     func uploadImage(data: Data?) async throws -> ImageURLResponse  /// s3 이미지 url 생성
+    func createCode(email: String) async throws -> EmailResponse                 /// 이메일 인증코드 생성
+    func confirmCode(email: String, code: String) async throws -> CodeResponse                 /// 이메일 인증코드 확인
+    func signupWithEmail(authRequest: AuthRequest) async throws -> SignUpResponse
     
-    func getUser() async throws -> UserResponse     /// 내 프로필 조회
-//    func getRecentNotice() async throws -> [NoticeResponse] /// 최근 공지글 조회
-    
+    func getUser() async throws -> UserResponse                     /// 내 프로필 조회
     
     func getFixedNotice(completion: @escaping (Result<FixedPost, ServiceError>) -> Void)  /// 고정된 공지 조회
-    func getFixedNotice() async throws -> FixedPost       /// 고정된 공지 조회
+    func getFixedNotice() async throws -> FixedPost                 /// 고정된 공지 조회
     
-    func getRecentPost() async throws -> RecentPostResponse
+    func getRecentPost() async throws -> RecentPostResponse         /// 최근 공지 조회
     
     
-    func getCreateRoom() async throws -> RoomLiteResponse
-    func getJoinRoom() async throws -> RoomLiteResponse
+    func getCreateRoom() async throws -> RoomLiteResponse           /// 내가 생성한 공지방 조회
+    func getJoinRoom() async throws -> RoomLiteResponse             /// 내가 입장한 공지방 조회
 }
 
 class UserService: UserServiceType {
@@ -33,7 +34,6 @@ class UserService: UserServiceType {
 
     private let jsonDecoder = JSONDecoder()
     let provider = MoyaProvider<UserTarget>(plugins: [MoyaLoggingPlugin()])
-    
     
     /// s3 이미지 url 생성
     func uploadImage(data: Data?) async throws -> ImageURLResponse {
@@ -65,7 +65,78 @@ class UserService: UserServiceType {
             })
         }
     }
+
+    /// 이메일 인증코드 생성
+    func createCode(email: String) async throws -> EmailResponse {
+
+        return try await withCheckedThrowingContinuation { continuation in
+            provider.request(.createCode(email: email), completion: { result in
+                switch result {
+                case let .success(response):
+                    do {
+                        let response = try self.jsonDecoder.decode(EmailResponse.self, from: response.data)
+                        print("UserService - 이메일 인증코드 생성 성공")
+                        continuation.resume(returning: response)
+                    } catch {
+                        Log.network("UserService - 이메일 인증코드 생성 실패", error.localizedDescription)
+                        continuation.resume(throwing: error)
+                    }
+                    
+                case let .failure(error):
+                    Log.network("UserService - 이메일 인증코드 생성 네트워킹 에러", error.localizedDescription)
+                    continuation.resume(throwing: error)
+                }
+            })
+        }
+    }
     
+    /// 이메일 인증코드 확인
+    func confirmCode(email: String, code: String) async throws -> CodeResponse {
+        
+        return try await withCheckedThrowingContinuation { continuation in
+            provider.request(.confirmCode(email: email, code: code), completion: { result in
+                switch result {
+                case let .success(response):
+                    do {
+                        let response = try self.jsonDecoder.decode(CodeResponse.self, from: response.data)
+                        print("UserService - 이메일 인증코드 확인 디코딩 성공")
+                        continuation.resume(returning: response)
+                    } catch {
+                        Log.network("UserService - 이메일 인증코드 확인 디코딩 실패", error.localizedDescription)
+                        continuation.resume(throwing: error)
+                    }
+                    
+                case let .failure(error):
+                    Log.network("UserService - 이메일 인증코드 확인 네트워킹 에러", error.localizedDescription)
+                    continuation.resume(throwing: error)
+                }
+            })
+        }
+    }
+    
+    /// 이메일로 회원가입
+    func signupWithEmail(authRequest: AuthRequest) async throws -> SignUpResponse {
+        
+        return try await withCheckedThrowingContinuation { continuation in
+            provider.request(.signUp(authRequest: authRequest), completion: { result in
+                switch result {
+                case let .success(response):
+                    do {
+                        let response = try self.jsonDecoder.decode(SignUpResponse.self, from: response.data)
+                        print("UserService - 회원가입 성공")
+                        continuation.resume(returning: response)
+                    } catch {
+                        Log.network("UserService - 회원가입 실패", error.localizedDescription)
+                        continuation.resume(throwing: error)
+                    }
+                    
+                case let .failure(error):
+                    Log.network("UserService - 회원가입 네트워킹 에러", error.localizedDescription)
+                    continuation.resume(throwing: error)
+                }
+            })
+        }
+    }
     
     /// 내 프로필 조회
     func getUser() async throws -> UserResponse {
@@ -248,6 +319,22 @@ class UserService: UserServiceType {
 
 class StubUserService: UserServiceType {
     
+    
+    func uploadImage(data: Data?) async throws -> ImageURLResponse {
+        return ImageURLResponse.stub01
+    }
+
+    func createCode(email: String) async throws -> EmailResponse {
+        return .emailResponseStub1
+    }
+
+    func confirmCode(email: String, code: String) async throws -> CodeResponse {
+        return .codeResponseStub1
+    }
+    
+    func signupWithEmail(authRequest: AuthRequest) async throws -> SignUpResponse {
+        return .signUpResponseStub1
+    }
 
     func getUser() async throws -> UserResponse {
         return UserResponse.stub01
@@ -267,10 +354,6 @@ class StubUserService: UserServiceType {
     
     func getRecentPost() async throws -> RecentPostResponse {
         return .recentpostResponseStub1
-    }
-
-    func uploadImage(data: Data?) async throws -> ImageURLResponse {
-        return ImageURLResponse.stub01
     }
     
     func getCreateRoom() async throws -> RoomLiteResponse {
