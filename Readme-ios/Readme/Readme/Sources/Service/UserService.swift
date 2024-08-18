@@ -18,6 +18,7 @@ protocol UserServiceType {
     func signupWithEmail(authRequest: AuthRequest) async throws -> SignUpResponse
     
     func getUser() async throws -> UserResponse                     /// 내 프로필 조회
+    func getAllProfile() async throws -> UserProfileResponse        /// 내 프로필 전체 조회
     
     func getFixedNotice(completion: @escaping (Result<FixedPost, ServiceError>) -> Void)  /// 고정된 공지 조회
     func getFixedNotice() async throws -> FixedPost                 /// 고정된 공지 조회
@@ -163,6 +164,38 @@ class UserService: UserServiceType {
                     
                 case let .failure(error):
                     Log.network("UserService - 내 프로필 조회 네트워킹 에러", error.localizedDescription)
+                    continuation.resume(throwing: error)
+                }
+                
+            })
+        }
+    }
+    
+    /// 내 프로필 전체 조회
+    func getAllProfile() async throws -> UserProfileResponse {
+        
+        let accessToken: String? = TokenManager.shared.accessToken
+        
+        guard let accessToken = accessToken else {
+            print("토큰이 존재하지 않습니다.")
+            return .userProfileResponseStub1
+        }
+        
+        return try await withCheckedThrowingContinuation { continuation in
+            provider.request(.getAllProfile(accessToken: accessToken), completion: { result in
+                switch result {
+                case let .success(response):
+                    do {
+                        let response = try self.jsonDecoder.decode(UserProfileResponse.self, from: response.data)
+//                        user = response
+                        continuation.resume(returning: response)
+                    } catch {
+                        Log.network("UserService - 내 프로필 전체 조회 실패", error.localizedDescription)
+                        continuation.resume(throwing: error)
+                    }
+                    
+                case let .failure(error):
+                    Log.network("UserService - 내 프로필 조회 전체 네트워킹 에러", error.localizedDescription)
                     continuation.resume(throwing: error)
                 }
                 
@@ -338,6 +371,10 @@ class StubUserService: UserServiceType {
 
     func getUser() async throws -> UserResponse {
         return UserResponse.stub01
+    }
+    
+    func getAllProfile() async throws -> UserProfileResponse {
+        return .userProfileResponseStub1
     }
     
     func getFixedNotice(completion: @escaping (Result<FixedPost, ServiceError>) -> Void) {
