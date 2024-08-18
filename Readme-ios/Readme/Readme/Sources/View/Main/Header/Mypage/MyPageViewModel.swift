@@ -8,7 +8,7 @@
 import Foundation
 
 @Observable
-class MyPageViewModel {
+class MyPageViewModel: ObservableObject {
     
     enum Action {
         case getMyAllProfile
@@ -18,7 +18,8 @@ class MyPageViewModel {
     
     
     var user: UserResponse?             // 기본 프로필
-    var roomUser: [UserResponse]?       // 공지방 프로필 목록
+//    var roomUser: [UserResponse]?       // 공지방 프로필 목록
+    var userProfileResponse: UserProfileResponse?   // 내 프로필 전체 조회
     var phase: Phase = .notRequested
     
     var container: DIContainer
@@ -38,4 +39,15 @@ class MyPageViewModel {
         }
     }
     
+}
+
+
+extension MyPageViewModel {
+    func getAllProfile() async {
+        do {
+            userProfileResponse = try? await container.services.userService.getAllProfile()
+        } catch {
+            Log.network("Mypage VM - getAllProfile() 실패", error)
+        }
+    }
 }

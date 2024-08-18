@@ -9,16 +9,24 @@ import SwiftUI
 
 struct MyPageView: View {
     
-//    var profileList: [User] = [.stub01, .stub02, .stub03, .stub04]
+    @StateObject var myPageViewModel: MyPageViewModel
     
     var body: some View {
-        ScrollView {
-            VStack {
-                headerView
-                roomProfileList
-                    .padding(.horizontal, 16)
+        ZStack {
+            Color.backgroundLight.ignoresSafeArea(.all)
+            ScrollView {
+                VStack {
+                    headerView
+                    roomProfileList
+                        .padding(.horizontal, 16)
+                }
+                .task {
+                    await myPageViewModel.getAllProfile()
+                }
+                .refreshable {
+                    await myPageViewModel.getAllProfile()
+                }
             }
-            
         }
         .navigationTitle("내 프로필 설정")
         .navigationBarTitleDisplayMode(.inline)
@@ -41,7 +49,26 @@ struct MyPageView: View {
     @ViewBuilder
     var defaultProfileView: some View {
         HStack {
-            RoundedRectangle(cornerRadius: 12).frame(width: 54, height: 54)
+            AsyncImage(url:
+                        URL(string: "profileImage")) { phase in
+                switch phase {
+                case .success(let image):
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 54, height: 54)
+                        .clipShape(RoundedRectangle(cornerRadius: 14))
+                        .shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 0)
+                    
+                case .empty:
+                    Text("none")
+                case .failure(_):
+                    Text("none")
+                @unknown default:
+                    Text("none")
+                }
+            }
+            
             VStack(alignment: .leading) {
                 Text("닉네임")
                     .font(.pretendardMedium18)
@@ -74,30 +101,44 @@ struct MyPageView: View {
                 .font(.pretendardRegular14)
                 .foregroundStyle(Color.txtCaption)
             
-            
-//            if profileList.isEmpty {
-//                EmptyView(content: "등록된 공지방 프로필이 없습니다.", backgroundColor: Color.primaryLight)
-//            } else {
-//                ForEach(profileList) { item in
-//                    roomProfileItem(nickname: item.result?.nickname ?? "", roomName: item.result.roomName ?? "")
-//                }
-                
-//                ForEach(profileList) { item in
-//                    roomProfileItem(nickname: item.result?.nickname ?? "", roomName: item.result. ?? "")
-//                }
-//            }
+            if myPageViewModel.userProfileResponse?.result?.profiles == nil {
+                Text("프로필 없습니다.")
+            } else {
+                ForEach(myPageViewModel.userProfileResponse?.result?.profiles ?? []) { profile in
+                    
+                    roomProfileItem(profileImage: profile.profileImage ?? "", nickname: profile.nickname ?? "", roomName: profile.roomName ?? "")
+                }
+            }
         }
     }
     
     @ViewBuilder
-    func roomProfileItem(nickname: String, roomName: String) -> some View {
+    func roomProfileItem(profileImage: String, nickname: String, roomName: String) -> some View {
         HStack {
-            RoundedRectangle(cornerRadius: 12).frame(width: 44, height: 44)
+            AsyncImage(url:
+                        URL(string: profileImage)) { phase in
+                switch phase {
+                case .success(let image):
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 44, height: 44)
+                        .clipShape(RoundedRectangle(cornerRadius: 14))
+                        .shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 0)
+                    
+                case .empty:
+                    Text("none")
+                case .failure(_):
+                    Text("none")
+                @unknown default:
+                    Text("none")
+                }
+            }
             VStack(alignment: .leading) {
-                Text("닉네임")
+                Text(nickname)
                     .font(.pretendardRegular14)
                     .foregroundStyle(Color.txtDefault)
-                Text("기본 프로필")
+                Text(roomName)
                     .font(.pretendardRegular12)
                     .foregroundStyle(Color.txtCaption)
             }
@@ -119,8 +160,10 @@ struct MyPageView: View {
 
 
 struct MyPageView_Previews: PreviewProvider {
+    static let container: DIContainer = .stub
+    
     static var previews: some View {
-        MyPageView()
+        MyPageView(myPageViewModel: .init(container: container))
             .previewLayout(.sizeThatFits)
     }
 }

@@ -16,7 +16,7 @@ struct NavigationRoutingView: View {
         case let .signUp:
             Text("signup")
         case let .mypage:
-            MyPageView()
+            MyPageView(myPageViewModel: .init(container: container))
         case let .penalty:
             PenaltyView()
         case let .room(roomId, roomName):

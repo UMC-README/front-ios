@@ -40,6 +40,27 @@ struct UserResult: Codable, Identifiable {
     }
 }
 
+/// 유저 전체 프로필 조회
+struct UserProfileResponse: Codable {
+    let isSuccess: Bool?
+    let code: Int?
+    let message: String?
+    let result: UserProfileResult?
+}
+
+struct UserProfileResult: Codable {
+    let nickname: String?
+    let profileImage: String?
+    let profiles: [Profile]?
+}
+
+struct Profile: Codable, Identifiable {
+    let id = UUID().uuidString
+    let roomID: Int?
+    let roomName: String?
+    let nickname: String?
+    let profileImage: String?
+}
 
 extension UserResponse {
     static var stub01: UserResponse {
@@ -67,5 +88,20 @@ extension UserResponse {
                 .init(userID: 5, name: "강해린", nickname: "강해린", email: "jsc@gmail.com", profileImage: "")
         )
     }
+}
 
+extension UserProfileResponse {
+    public static var userProfileResponseStub1: UserProfileResponse {
+        .init(isSuccess: true, code: 200, message: "Success!", result: .init(nickname: "nickname", profileImage: "image", profiles: [.profileStub1, .profileStub2]))
+    }
+}
+
+extension Profile {
+    public static var profileStub1: Profile {
+        .init(roomID: 1, roomName: "roomName1", nickname: "nickname1", profileImage: "")
+    }
+    
+    public static var profileStub2: Profile {
+        .init(roomID: 2, roomName: "roomName2", nickname: "nickname2", profileImage: "")
+    }
 }

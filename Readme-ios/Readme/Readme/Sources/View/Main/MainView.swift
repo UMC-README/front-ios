@@ -81,6 +81,7 @@ struct MainView: View {
                     HStack {
                         Rectangle().frame(width: 16, height: 16)
                         Text("확인 요청 내역")
+                            .font(.pretendardRegular12)
                     }
                 }
                 .buttonStyle(MyInfoButtonStyle())
@@ -91,6 +92,7 @@ struct MainView: View {
                     HStack {
                         Rectangle().frame(width: 16, height: 16)
                         Text("페널티")
+                            .font(.pretendardRegular12)
                     }
                 }
                 .buttonStyle(MyInfoButtonStyle())
@@ -102,8 +104,26 @@ struct MainView: View {
     @ViewBuilder
     var profileView: some View {
         HStack {
-            RoundedRectangle(cornerRadius: 12)
-                .frame(width: 44, height: 44)
+            AsyncImage(url: 
+                        URL(string: (mainViewModel.myUser?.result?.profileImage) ?? "")) { phase in
+                switch phase {
+                case .success(let image):
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 44, height: 44)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                        .shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 0)
+
+                case .empty:
+                    Text("none")
+                case .failure(_):
+                    Text("none")
+                @unknown default:
+                    Text("none")
+                }
+                
+            }
             VStack(alignment: .leading) {
                 Text(mainViewModel.myUser?.result?.nickname ?? "")  // 닉네임
                     .font(.pretendardBold18)

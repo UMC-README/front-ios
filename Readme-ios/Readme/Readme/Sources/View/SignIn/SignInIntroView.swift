@@ -13,23 +13,28 @@ struct SignInIntroView: View {
     @State var password: String = ""
     
     var body: some View {
-        ZStack {
-            Color.backgroundLight.ignoresSafeArea(.all)
-            
-            VStack(spacing: 10) {
-                Spacer()
+        NavigationStack {
+            ZStack {
+                Color.backgroundLight.ignoresSafeArea(.all)
                 
-                signinView
-                
-                Spacer()
-                
-                signinButtonView
-                
-                Spacer()
-                    .frame(height: 123)
+                VStack(spacing: 10) {
+                    Spacer()
+                    
+                    signinView
+                    
+                    Spacer()
+                    
+                    signinButtonView
+                    
+                    Spacer()
+                        .frame(height: 123)
+                }
+                .padding(.horizontal, 16)
+                .padding(.bottom, 10)
             }
-            .padding(.horizontal, 16)
-            .padding(.bottom, 10)
+            .navigationDestination(isPresented: $authViewModel.isSignUp) {
+                SignUpView()
+            }
         }
     }
     
@@ -83,7 +88,7 @@ struct SignInIntroView: View {
         }.buttonStyle(DefaultButtonStyle(buttonType: .blue))
         
         Button {
-            
+            authViewModel.isSignUp.toggle()
         } label: {
             Text("회원가입")
         }.buttonStyle(DefaultButtonStyle(buttonType: .white))

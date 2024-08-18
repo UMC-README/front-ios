@@ -23,6 +23,9 @@ struct AuthenticatedView: View {
                                         AuthController.handleOpenUrl(url: url)
                                     }
                                 })
+            case .completeSignup:
+                Text("회원가입 완료")
+                
             case .authenticated:
                 MainView(mainViewModel: .init(container: container))
             }

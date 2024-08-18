@@ -39,7 +39,7 @@ public enum UserAPI {
             return "/user/s3/upload"
             
         case .createCode:   /// 이메일 인증코드 생성
-            return "/user/s3/upload"
+            return "/user/create-code"
             
         case .confirmCode:  /// 이메일 인증코드 확인
             return "/user/confirm-code"
