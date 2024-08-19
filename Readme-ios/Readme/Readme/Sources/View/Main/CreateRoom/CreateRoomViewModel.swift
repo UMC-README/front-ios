@@ -10,14 +10,16 @@ import SwiftUI
 import PhotosUI
 
 @Observable
-class CreateRoomViewModel {
+class CreateRoomViewModel: ObservableObject {
     
     var selectedImage: PhotosPickerItem?
     
     private var container: DIContainer
-    private var roomRequest: RoomRequest?
+    private var roomRequest: RoomRequest?   /// 공지방 생성 요청
     var imageResponse: ImageURLResponse?
     var photoURL: String?
+    var showCompleteView: Bool = false
+    var roomResponse: CompleteRoomResponse? /// 공지방 완성 후
     
     init(container: DIContainer) {
         self.container = container
@@ -63,9 +65,15 @@ class CreateRoomViewModel {
     func createRoom() async -> Bool {
         print("CreateRoomVM createRoom()")
         if let roomRequest = roomRequest {
-            self.container.services.adminService.createRoom(roomRequest: roomRequest)
-            print("CreateRoomVM 공지방 생성 성공")
-            return true
+            do {
+                self.roomResponse = try await self.container.services.adminService.createRoom(roomRequest: roomRequest)
+                print("CreateRoomVM 공지방 생성 성공")
+                self.showCompleteView = true
+                
+                return true
+            } catch {
+                Log.network("CreateRoomVM 공지방 생성 실패", error)
+            }
         }
         print("CreateRoomVM 공지방 생성 실패")
         return false

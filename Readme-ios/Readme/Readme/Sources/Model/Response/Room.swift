@@ -70,6 +70,23 @@ struct RoomLiteResponse: Codable {
     }
 }
 
+/// 공지방 완성 후 response
+struct CompleteRoomResponse: Codable {
+    let isSuccess: Bool?
+    let code: Int?
+    let message: String?
+    let result: CompleteRoomResult?
+}
+
+struct CompleteRoomResult: Codable {
+    let roomId: Int?
+    let roomImage: [String]?
+    let adminNickname: String?
+    let roomName: String?
+    let roomPassword: String?
+    let maxPenalty: Int?
+    let roomInviteUrl: String?
+}
 
 
 
@@ -123,5 +140,8 @@ extension RoomLiteResponse {
                 ], isNext: false)
         )
     }
-    
+}
+
+extension CompleteRoomResponse {
+    public static var comRoomResponseStub1: CompleteRoomResponse = .init(isSuccess: true, code: 200, message: "Success!", result: .init(roomId: 1, roomImage: [""], adminNickname: "nickname", roomName: "roomName", roomPassword: "1234", maxPenalty: 1, roomInviteUrl: ""))
 }
