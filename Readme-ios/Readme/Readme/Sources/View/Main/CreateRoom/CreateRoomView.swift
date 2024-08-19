@@ -68,7 +68,8 @@ struct CreateRoomView: View {
                         
                 }
                 .task {
-                    photoURL = try? await createRoomViewModel.uploadRoomImage(pickerItem: selectedImage)
+                    // TODO: - s3 업로드
+//                    photoURL = try? await createRoomViewModel.uploadRoomImage(pickerItem: selectedImage)
                     print(photoURL)
                 }
             }
@@ -84,7 +85,7 @@ struct CreateRoomView: View {
                             self.uiImage = uiImage
                         }
                     }
-                    try await createRoomViewModel.uploadRoomImage(pickerItem: selectedImage)
+                    try await createRoomViewModel.uploadRoomImage(pickerItems: [selectedImage!])
                 } catch {
                     print(error.localizedDescription)
                     selectedImage = nil

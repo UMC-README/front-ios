@@ -9,7 +9,7 @@ import Foundation
 import Moya
 
 enum UserTarget {
-    case s3Upload(data: Data?, accessToken: String)     /// s3에 이미지 업로드
+    case s3Upload(data: [Data?], accessToken: String)     /// s3에 이미지 업로드
     case createCode(email: String)                      /// 이메일 인증코드 생성
     case confirmCode(email: String, code: String)       /// 이메일 인증코드 확인
     case signUp(authRequest: AuthRequest)               /// 회원가입
@@ -31,7 +31,7 @@ extension UserTarget: BaseTargetType {
     var path: String {
         switch self {
         case .s3Upload:
-            return UserAPI.imageUpload.apiDesc
+            return UserAPI.postS3.apiDesc
             
         case .createCode:
             return UserAPI.createCode.apiDesc
@@ -94,9 +94,14 @@ extension UserTarget: BaseTargetType {
         switch self {
             
         case .s3Upload(let data, _):
-            let imageData = MultipartFormData(provider: .data(data!), name: "file", fileName: "image.jpeg", mimeType: "image/jpg")
-            let multipartData = [imageData]
-            return .uploadMultipart(multipartData)
+            
+            var multipartFormData = [MultipartFormData]()
+            for (index, data) in data.enumerated() {
+                multipartFormData.append(MultipartFormData(provider: .data(data!), name: "file", fileName: "image\(index).jpeg", mimeType: "image/jpg"))
+                
+            }
+        
+            return .uploadMultipart(multipartFormData)
             
         case .createCode(let email):
             let parameters : [String : Any] = [

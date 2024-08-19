@@ -16,6 +16,7 @@ class CreateRoomViewModel {
     
     private var container: DIContainer
     private var roomRequest: RoomRequest?
+    private var imageResponse: ImageURLResponse?
     var photoURL: String?
     
     init(container: DIContainer) {
@@ -23,21 +24,29 @@ class CreateRoomViewModel {
     }
     
     /// s3 이미지 생성
-    func uploadRoomImage(pickerItem: PhotosPickerItem?) async throws -> String {
-        guard let pickerItem = pickerItem else {
+    func uploadRoomImage(pickerItems: [PhotosPickerItem]?) async throws {
+        guard let pickerItems = pickerItems else {
                 throw NSError(domain: "UploadRoomImageError", code: 1, userInfo: [NSLocalizedDescriptionKey: "픽커 아이템이 없습니다."])
             }
+        var pickerItemsList = [Data]()
+        
         
         do {
+            for (index, pickerItem) in pickerItems.enumerated() {
                 let data = try await container.services.photoPickerService.loadTransferable(from: pickerItem)
-                let url = try await container.services.userService.uploadImage(data: data)
-                if let image = url.result {
-                    self.photoURL = image.image
-                    print("이미지 링크 : \(self.photoURL)")
-                    return photoURL!
-                } else {
-                    throw NSError(domain: "UploadRoomImageError", code: 2, userInfo: [NSLocalizedDescriptionKey: "이미지 URL이 없습니다."])
-                }
+                
+                pickerItemsList.append(data)
+            }
+            
+            imageResponse = try await container.services.userService.uploadImage(data: pickerItemsList)
+//            if let image = url.result {
+//                self.photoURL = image.image
+//                print("이미지 링크 : \(self.photoURL)")
+//              
+//            } else {
+//                throw NSError(domain: "UploadRoomImageError", code: 2, userInfo: [NSLocalizedDescriptionKey: "이미지 URL이 없습니다."])
+//            }
+                
             } catch {
                 print("MainVM uploadRoomImage url 생성 실패: \(error.localizedDescription)")
                 throw error
