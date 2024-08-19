@@ -12,7 +12,8 @@ public enum BaseAPI: String {
         switch self {
         case .base:
 //            return "https://read-me.kro.kr"
-            return "http://localhost:8000"
+//            return "http://localhost:8000"
+            return "https://read-me.kro.kr"
         }
     }
 }
