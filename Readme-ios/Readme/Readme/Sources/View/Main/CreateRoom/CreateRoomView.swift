@@ -178,7 +178,7 @@ struct CreateRoomView: View {
                     adminNickname: adminName,
                     roomName: roomName,
                     roomPassword: roomPassword,
-                    roomImage: createRoomViewModel.photoURL,
+                    roomImage: [(createRoomViewModel.imageResponse?.result?.images?.first)!],
 //                    inviteURL: "text.com",
                     maxPenalty: Int(penalty)!
                 )

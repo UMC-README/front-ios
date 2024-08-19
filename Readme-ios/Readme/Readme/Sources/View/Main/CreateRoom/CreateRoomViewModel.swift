@@ -16,7 +16,7 @@ class CreateRoomViewModel {
     
     private var container: DIContainer
     private var roomRequest: RoomRequest?
-    private var imageResponse: ImageURLResponse?
+    var imageResponse: ImageURLResponse?
     var photoURL: String?
     
     init(container: DIContainer) {
@@ -39,6 +39,7 @@ class CreateRoomViewModel {
             }
             
             imageResponse = try await container.services.userService.uploadImage(data: pickerItemsList)
+            
 //            if let image = url.result {
 //                self.photoURL = image.image
 //                print("이미지 링크 : \(self.photoURL)")
@@ -54,9 +55,8 @@ class CreateRoomViewModel {
     }
     
     /// 공지방 모델 생성
-    func createRoomModel(adminId: Int, adminNickname: String, roomName: String, roomPassword: String, roomImage: String?, maxPenalty: Int) {
-        self.roomRequest = .init(adminId: adminId, adminNickname: adminNickname, roomName: roomName, roomPassword: roomPassword, roomImage: roomImage!, maxPenalty: maxPenalty)
-            
+    func createRoomModel(adminId: Int, adminNickname: String, roomName: String, roomPassword: String, roomImage: [String], maxPenalty: Int) {
+        self.roomRequest = .init(adminId: adminId, adminNickname: adminNickname, roomName: roomName, roomPassword: roomPassword, roomImage: roomImage, maxPenalty: maxPenalty)
     }
     
     /// 공지방 생성
