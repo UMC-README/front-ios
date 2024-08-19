@@ -11,7 +11,7 @@ import PhotosUI
 struct CreateRoomView: View {
     
     @EnvironmentObject var container: DIContainer
-    var createRoomViewModel: CreateRoomViewModel
+    @StateObject var createRoomViewModel: CreateRoomViewModel
     @State var selectedImage: PhotosPickerItem?
     @State var uiImage: UIImage?
     @State var photoURL: String?
@@ -42,6 +42,10 @@ struct CreateRoomView: View {
         .padding(.top, 10)
         .navigationTitle("공지방 생성")
         .navigationBarTitleDisplayMode(.inline)
+        .fullScreenCover(isPresented: $createRoomViewModel.showCompleteView) {
+            CompleteRoomView(createRoomViewModel: createRoomViewModel)
+                .environmentObject(container)
+        }
     }
     
     @ViewBuilder
@@ -67,15 +71,7 @@ struct CreateRoomView: View {
                         .padding(.trailing, 10)
                         
                 }
-                .task {
-                    // TODO: - s3 업로드
-//                    photoURL = try? await createRoomViewModel.uploadRoomImage(pickerItem: selectedImage)
-                    print(photoURL)
-                }
             }
-            
-            
-            
         }
         .onChange(of: selectedImage, { oldValue, newValue in
             Task {
@@ -183,11 +179,7 @@ struct CreateRoomView: View {
                     maxPenalty: Int(penalty)!
                 )
                 
-                let createResult = await createRoomViewModel.createRoom()
-                
-                if (createResult) {
-//                    NavigationLinkfi
-                }
+                await createRoomViewModel.createRoom()
             }
         } label: {
             Text("생성하기")
