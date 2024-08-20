@@ -18,11 +18,11 @@ struct AuthenticatedView: View {
             case .unauthenticated:
                 SignInIntroView()
                     .environmentObject(authViewModel)
-                    .onOpenURL(perform: { url in
-                                    if (AuthApi.isKakaoTalkLoginUrl(url)) {
-                                        AuthController.handleOpenUrl(url: url)
-                                    }
-                                })
+//                    .onOpenURL(perform: { url in
+//                                    if (AuthApi.isKakaoTalkLoginUrl(url)) {
+//                                        AuthController.handleOpenUrl(url: url)
+//                                    }
+//                                })
             case .completeSignup:
                 Text("회원가입 완료")
                 

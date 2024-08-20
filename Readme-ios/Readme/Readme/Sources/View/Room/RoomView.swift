@@ -89,32 +89,12 @@ struct RoomView: View {
                                 .foregroundStyle(Color.basicWhite)
                         }
                 }
-//                .fullScreenCover(isPresented: $roomViewModel.isPresentedPostEditView) {
-//                    CreatePostView(roomViewModel: roomViewModel, roomID: roomViewModel.roomId)
-//                }
             }
             .padding(.bottom, 16)
         }
         .padding(.trailing, 16)
     }
 }
-
-//Button {
-//    viewModel.isPresentedDescEditView.toggle()
-//} label: {
-//    Text(viewModel.userInfo?.description ?? "상태메시지를 입력해주세요.")
-//        .font(.system(size: 14))
-//        .foregroundColor(.bgWh)
-//}
-//.sheet(isPresented: $viewModel.isPresentedDescEditView) {
-//    MyProfileDescEditView(description: viewModel.userInfo?.description ?? "") {
-//        willBeDesc in
-//        /// 완료 버튼을 누르면 해당 클로저 실행 (DB의 값 업데이트)
-//        Task {
-//            await viewModel.updateDescription(willBeDesc)
-//        }
-//    }
-//}
 
 struct RoomView_Previews: PreviewProvider {
     static let container: DIContainer = .stub

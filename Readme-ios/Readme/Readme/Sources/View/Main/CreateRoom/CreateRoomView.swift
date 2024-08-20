@@ -11,7 +11,7 @@ import PhotosUI
 struct CreateRoomView: View {
     
     @EnvironmentObject var container: DIContainer
-    var createRoomViewModel: CreateRoomViewModel
+    @StateObject var createRoomViewModel: CreateRoomViewModel
     @State var selectedImage: PhotosPickerItem?
     @State var uiImage: UIImage?
     @State var photoURL: String?
@@ -27,6 +27,10 @@ struct CreateRoomView: View {
         ZStack {
             Color.backgroundLight.ignoresSafeArea(.all)
             contentView
+                .fullScreenCover(isPresented: $createRoomViewModel.showCompleteView) {
+                    CompleteRoomView(createRoomViewModel: createRoomViewModel)
+                        .environmentObject(container)
+                }
         }
     }
     
@@ -42,6 +46,7 @@ struct CreateRoomView: View {
         .padding(.top, 10)
         .navigationTitle("공지방 생성")
         .navigationBarTitleDisplayMode(.inline)
+        
     }
     
     @ViewBuilder
@@ -67,14 +72,7 @@ struct CreateRoomView: View {
                         .padding(.trailing, 10)
                         
                 }
-                .task {
-                    photoURL = try? await createRoomViewModel.uploadRoomImage(pickerItem: selectedImage)
-                    print(photoURL)
-                }
             }
-            
-            
-            
         }
         .onChange(of: selectedImage, { oldValue, newValue in
             Task {
@@ -84,7 +82,7 @@ struct CreateRoomView: View {
                             self.uiImage = uiImage
                         }
                     }
-                    try await createRoomViewModel.uploadRoomImage(pickerItem: selectedImage)
+                    try await createRoomViewModel.uploadRoomImage(pickerItems: [selectedImage!])
                 } catch {
                     print(error.localizedDescription)
                     selectedImage = nil
@@ -177,16 +175,12 @@ struct CreateRoomView: View {
                     adminNickname: adminName,
                     roomName: roomName,
                     roomPassword: roomPassword,
-                    roomImage: createRoomViewModel.photoURL,
+                    roomImage: [(createRoomViewModel.imageResponse?.result?.images?.first)!],
 //                    inviteURL: "text.com",
                     maxPenalty: Int(penalty)!
                 )
                 
-                let createResult = await createRoomViewModel.createRoom()
-                
-                if (createResult) {
-//                    NavigationLinkfi
-                }
+                await createRoomViewModel.createRoom()
             }
         } label: {
             Text("생성하기")

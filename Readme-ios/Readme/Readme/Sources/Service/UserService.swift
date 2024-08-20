@@ -12,7 +12,7 @@ import Moya
 import SwiftUI
 
 protocol UserServiceType {
-    func uploadImage(data: Data?) async throws -> ImageURLResponse  /// s3 이미지 url 생성
+    func uploadImage(data: [Data?]) async throws -> ImageURLResponse  /// s3 이미지 url 생성
     func createCode(email: String) async throws -> EmailResponse                 /// 이메일 인증코드 생성
     func confirmCode(email: String, code: String) async throws -> CodeResponse                 /// 이메일 인증코드 확인
     func signupWithEmail(authRequest: AuthRequest) async throws -> SignUpResponse
@@ -37,7 +37,7 @@ class UserService: UserServiceType {
     let provider = MoyaProvider<UserTarget>(plugins: [MoyaLoggingPlugin()])
     
     /// s3 이미지 url 생성
-    func uploadImage(data: Data?) async throws -> ImageURLResponse {
+    func uploadImage(data: [Data?]) async throws -> ImageURLResponse {
         
         let accessToken: String? = TokenManager.shared.accessToken
         
@@ -353,7 +353,7 @@ class UserService: UserServiceType {
 class StubUserService: UserServiceType {
     
     
-    func uploadImage(data: Data?) async throws -> ImageURLResponse {
+    func uploadImage(data: [Data?]) async throws -> ImageURLResponse {
         return ImageURLResponse.stub01
     }
 

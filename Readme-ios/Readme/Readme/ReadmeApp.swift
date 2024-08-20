@@ -23,12 +23,13 @@ struct ReadmeApp: App {
         WindowGroup {
             AuthenticatedView(authViewModel: AuthenticationViewModel(container: container))
                 .environmentObject(container)
-                .onOpenURL(perform: { url in
-                    if (AuthApi.isKakaoTalkLoginUrl(url)) {
-                        AuthController.handleOpenUrl(url: url)
-                    }
-                }
-        )}
+            //                .onOpenURL(perform: { url in
+            //                    if (AuthApi.isKakaoTalkLoginUrl(url)) {
+            //                        AuthController.handleOpenUrl(url: url)
+            //                    }
+            //                }
+//            )
+        }
     }
 
 }

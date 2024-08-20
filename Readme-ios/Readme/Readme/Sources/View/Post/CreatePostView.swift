@@ -96,7 +96,7 @@ struct CreatePostView: View {
     /// 공지글 본문
     @ViewBuilder
     var postContentView: some View {
-        
+    
         VStack {
             TextField("제목을 입력하세요.", text: $title)
                 .foregroundStyle(Color.basicWhite)

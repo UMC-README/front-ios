@@ -11,7 +11,8 @@ import Foundation
 
 public enum UserAPI {
     
-    case imageUpload            /// S3 업로드
+    case postS3            /// S3 업로드
+    case deleteS3
     case createCode             /// 이메일 인증코드 생성
     case confirmCode            /// 이메일 인증코드 확인
     case signup                 /// 회원가입
@@ -35,8 +36,8 @@ public enum UserAPI {
     
     public var apiDesc: String {
         switch self {
-        case .imageUpload:  /// S3 업로드
-            return "/user/s3/upload"
+        case .postS3, .deleteS3:  /// S3 이미지 업로드 / 이미지 삭제
+            return "/user/s3"
             
         case .createCode:   /// 이메일 인증코드 생성
             return "/user/create-code"
