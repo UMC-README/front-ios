@@ -27,6 +27,10 @@ struct CreateRoomView: View {
         ZStack {
             Color.backgroundLight.ignoresSafeArea(.all)
             contentView
+                .fullScreenCover(isPresented: $createRoomViewModel.showCompleteView) {
+                    CompleteRoomView(createRoomViewModel: createRoomViewModel)
+                        .environmentObject(container)
+                }
         }
     }
     
@@ -42,10 +46,7 @@ struct CreateRoomView: View {
         .padding(.top, 10)
         .navigationTitle("공지방 생성")
         .navigationBarTitleDisplayMode(.inline)
-        .fullScreenCover(isPresented: $createRoomViewModel.showCompleteView) {
-            CompleteRoomView(createRoomViewModel: createRoomViewModel)
-                .environmentObject(container)
-        }
+        
     }
     
     @ViewBuilder
