@@ -18,9 +18,6 @@ class MainViewModel: ObservableObject {
         case goToPenalty
         case goToCreateRoom
         case goToRoom(Int, String)
-//        case goToNotice(Notice)
-//        case goToCreatePost /// test
-    
     }
     
     var myUser: UserResponse?
@@ -28,6 +25,8 @@ class MainViewModel: ObservableObject {
     var recentPost: RecentPostResponse?
     var myCreateRoom: RoomLiteResponse?
     var myJoinRoom: RoomLiteResponse?
+    
+    var recentPostPageNum: Int = 1
     var phase: Phase = .notRequested
     
     
@@ -65,7 +64,6 @@ class MainViewModel: ObservableObject {
         do {
             let createRoom = try await container.services.userService.getCreateRoom()
             myCreateRoom = createRoom
-//            print(myCreateRoom)
         } catch {
             myCreateRoom = .stub01
             Log.network("Main VM - getCreateRoom() 에러", error)
@@ -77,7 +75,6 @@ class MainViewModel: ObservableObject {
         do {
             let joinRoom = try await container.services.userService.getJoinRoom()
             myJoinRoom = joinRoom
-//            print(myCreateRoom)
         } catch {
             myJoinRoom = .stub01
             Log.network("Main VM - getJoinRoom() 에러", error)
@@ -88,7 +85,6 @@ class MainViewModel: ObservableObject {
     func send(action: Action) {
         switch action {
         case .load:
-//            phase = .loadin
             container.services.userService.getFixedNotice(completion: { result in
                 switch result {
                 case .success(let notice):
@@ -116,9 +112,6 @@ class MainViewModel: ObservableObject {
             }
         case .goToRoom(let roomId, let roomName):
             self.container.navigationRouter.push(to: .room(roomId: roomId, roomName: roomName))
-            
-//        case .goToCreatePost:
-//            self.container.navigationRouter.push(to: .createPost)
         }
     }
 }

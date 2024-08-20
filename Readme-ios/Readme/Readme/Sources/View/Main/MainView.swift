@@ -79,9 +79,9 @@ struct MainView: View {
                     
                 } label: {
                     HStack {
-                        Rectangle().frame(width: 16, height: 16)
+                        // TODO: icon 추가
                         Text("확인 요청 내역")
-                            .font(.pretendardRegular12)
+                            
                     }
                 }
                 .buttonStyle(MyInfoButtonStyle())
@@ -92,7 +92,6 @@ struct MainView: View {
                     HStack {
                         Rectangle().frame(width: 16, height: 16)
                         Text("페널티")
-                            .font(.pretendardRegular12)
                     }
                 }
                 .buttonStyle(MyInfoButtonStyle())
