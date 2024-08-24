@@ -15,7 +15,7 @@ struct SmallDatePickerStyle: DatePickerStyle {
     
     func makeBody(configuration: Configuration) -> some View {
 //        Text(date, formatter: DateFormatter.customFormatter)
-        Text(date.map { DateFormatter.customFormatter.string(from: $0) } ?? "yyyy.mm.dd HH:mm")
+        Text(date.map { DateFormatter.customFormatter.string(from: $0) } ?? "yy.mm.dd HH:mm")
             .foregroundStyle(Color.txtDefault)
             .font(.pretendardMedium16)
             .padding(.horizontal, 8)

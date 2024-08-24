@@ -19,15 +19,18 @@ class RoomViewModel: ObservableObject {
     
     var myUser: UserResponse?
     var phase: Phase = .notRequested
-    var postLiteResponse: PostLiteResponse?
+    var postLiteResponse: PostLiteResponse? /// 공지글 전체 조회
     
     
+    /// Admin
     var roomModelDestination: RoomModelDestination?
     
     var isPresentedPostEditView: Bool = false
     
+    var requestRoomResponse: RequestRoomResponse?   /// 확인 요청 내역이 있는 공지글 조회
+    var requestPostResponse: RequestPostResponse?   /// 공지글별 확인 요청 내역 전체 조회
+    
     private var container: DIContainer
-//    private var subsriptions = Set<AnyCancellable>()
     
     init(container: DIContainer, roomId: Int, roomName: String) {
         self.container = container
@@ -39,16 +42,11 @@ class RoomViewModel: ObservableObject {
         switch action {
         case .goToPost(let postId, let isRoomAdmin, let roomName):
             container.navigationRouter.destinations.append(.post(postId: postId, isRoomAdmin: isRoomAdmin, roomName: roomName))
-            
-        
-            
-        
         }
     }
     
     func getAllPosts() async {
         do {
-//            guard let roomId = roomId else { return }
             let posts = try await container.services.roomService.getAllNotice(roomId: roomId)
             postLiteResponse = posts
             
@@ -66,6 +64,12 @@ class RoomViewModel: ObservableObject {
         return .init(roomID: roomID, type: type, title: title, content: content, startDate: startDate, endDate: endDate, question: question, quizAnswer: quizAnswer, imgURLs: imgURLs)
     }
     
+    
+}
+
+// Admin
+extension RoomViewModel {
+    
     /// 공지글 생성
     func createPost(postRequest: PostRequest) async -> Bool {
         do {
@@ -76,5 +80,28 @@ class RoomViewModel: ObservableObject {
             print("RoomVM 공지글 생성 실패")
             return false
         }
+    }
+    
+    /// 확인 요청 내역 공지글 목록 조회
+    func getRoomRequest(roomId: Int) async {
+        do {
+            requestRoomResponse = try await container.services.adminService.getRoomRequest(roomId: roomId)
+        } catch {
+            Log.network("Room VM - getRoomRequest() 에러 ", error)
+        }
+    }
+    
+    /// 하나의 공지글에 대한 확인 요청 내역 (대기 or 승인 완료) 조회
+    func getPostRequest(roomId: Int, postId: Int) async {
+        do {
+            requestPostResponse = try await container.services.adminService.getPostRequest(roomId: roomId, postId: postId)
+        } catch {
+            Log.network("Room VM - getPostRequest() 에러 ", error)
+        }
+    }
+    
+    /// 대기중 요청 수락/거절
+    func acceptOrRejectRequest(submitId: Int, accessToken: String) {
+        
     }
 }

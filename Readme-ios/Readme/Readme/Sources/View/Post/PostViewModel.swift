@@ -16,7 +16,7 @@ class PostViewModel: ObservableObject {
     }
     
     var postResponse: PostResponse?
-    var post: PostLite?
+    var post: Post?
     var postId: Int
     var isRoomAdmin: Bool
     var roomName: String

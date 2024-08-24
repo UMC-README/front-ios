@@ -10,7 +10,7 @@ import Foundation
 extension DateFormatter {
     static let customFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy.MM.dd"
+        formatter.dateFormat = "yy.MM.dd"
         return formatter
     }()
 }

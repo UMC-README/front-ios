@@ -194,7 +194,7 @@ struct CreatePostView: View {
                     .foregroundStyle(Color.txtDefault)
                     .font(.pretendardBold16)
                 
-                Text(startDate.map { DateFormatter.customFormatter.string(from: $0) } ?? "YYYY.MM.dd")
+                Text(startDate.map { DateFormatter.customFormatter.string(from: $0) } ?? "YY.MM.dd")
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .foregroundStyle((startDate != nil) ? Color.txtDefault : Color.txtEmpty)
                     .font(.pretendardMedium16)
@@ -220,7 +220,7 @@ struct CreatePostView: View {
                     .foregroundStyle(Color.txtDefault)
                     .font(.pretendardBold16)
                 
-                Text(endDate.map { DateFormatter.customFormatter.string(from: $0) } ?? "YYYY.MM.dd")    // 시간 안 받음.
+                Text(endDate.map { DateFormatter.customFormatter.string(from: $0) } ?? "YY.MM.dd")    // 시간 안 받음.
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .foregroundStyle((endDate != nil) ? Color.txtDefault : Color.txtEmpty)
                     .font(.pretendardMedium16)

@@ -20,7 +20,7 @@ protocol UserServiceType {
     func getUser() async throws -> UserResponse                     /// 내 프로필 조회
     func getAllProfile() async throws -> UserProfileResponse        /// 내 프로필 전체 조회
     
-    func getFixedNotice(completion: @escaping (Result<FixedPost, ServiceError>) -> Void)  /// 고정된 공지 조회
+//    func getFixedNotice(completion: @escaping (Result<FixedPost, ServiceError>) -> Void)  /// 고정된 공지 조회
     func getFixedNotice() async throws -> FixedPost                 /// 고정된 공지 조회
     
     func getRecentPost() async throws -> RecentPostResponse         /// 최근 공지 조회
@@ -204,29 +204,29 @@ class UserService: UserServiceType {
     }
     
     /// 고정된 공지 조회
-    func getFixedNotice(completion: @escaping (Result<FixedPost, ServiceError>) -> Void) {
-        
-        let accessToken: String? = TokenManager.shared.accessToken
-        
-        guard let accessToken = accessToken else {
-            print("토큰이 존재하지 않습니다.")
-            return
-        }
-        
-        provider.request(.getFixedPost(accessToken: accessToken)) { result in
-            switch result {
-            case let .success(response):
-                do {
-                    let response = try self.jsonDecoder.decode(FixedPost.self, from: response.data)
-                    completion(.success(response))
-                } catch {
-                    completion(.failure(ServiceError.error(error)))
-                }
-            case let .failure(error):
-                completion(.failure(ServiceError.error(error)))
-            }
-        }
-    }
+//    func getFixedNotice(completion: @escaping (Result<FixedPost, ServiceError>) -> Void) {
+//        
+//        let accessToken: String? = TokenManager.shared.accessToken
+//        
+//        guard let accessToken = accessToken else {
+//            print("토큰이 존재하지 않습니다.")
+//            return
+//        }
+//        
+//        provider.request(.getFixedPost(accessToken: accessToken)) { result in
+//            switch result {
+//            case let .success(response):
+//                do {
+//                    let response = try self.jsonDecoder.decode(FixedPost.self, from: response.data)
+//                    completion(.success(response))
+//                } catch {
+//                    completion(.failure(ServiceError.error(error)))
+//                }
+//            case let .failure(error):
+//                completion(.failure(ServiceError.error(error)))
+//            }
+//        }
+//    }
     
     func getFixedNotice() async throws -> FixedPost {
         
@@ -377,9 +377,9 @@ class StubUserService: UserServiceType {
         return .userProfileResponseStub1
     }
     
-    func getFixedNotice(completion: @escaping (Result<FixedPost, ServiceError>) -> Void) {
-        
-    }
+//    func getFixedNotice(completion: @escaping (Result<FixedPost, ServiceError>) -> Void) {
+//        
+//    }
     
     func getFixedNotice() async throws -> FixedPost {
         return FixedPost.stub1

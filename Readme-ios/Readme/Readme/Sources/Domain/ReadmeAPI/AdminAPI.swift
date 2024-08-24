@@ -23,11 +23,10 @@ public enum AdminAPI {
     case invitations
     case deleteUser(String)
     
-    // TODO: 확인요청내역조회 /api/admin/submit/type=?
-    //    case submitType
+    case getRoomRequest(Int) /// 확인 요청 내역 공지글 목록 조회
+    case getPostRequest(Int, Int) /// 하나의 공지글에 대한 확인 요청 내역 (대기 or 승인 완료) 조회
+    case acceptOrRejectRequest(Int)  /// 대기중 요청 수락/거절
     
-    // TODO: 대기중 요청 수락/거절
-    // case postSubmitType(String)
     case penalty
     
     public var apiDesc: String {
@@ -64,12 +63,14 @@ public enum AdminAPI {
         case .deleteUser(let userId):
             return "/admin/users/\(userId)"
             
+        case .getRoomRequest(let roomId):
+            return "/admin/posts/\(roomId)"
             
-        // TODO: 확인요청내역조회 /api/admin/submit/type=?
-        //    case submitType
-        
-        // TODO: 대기중 요청 수락/거절
-        // case postSubmitType(String)
+        case .getPostRequest(let roomId, let postId):
+            return "/admin/submit/\(roomId)/\(postId)"
+            
+        case .acceptOrRejectRequest(let submitId):
+            return "/admin/submit/\(submitId)"
             
         case .penalty:
             return "/admin/penalty"

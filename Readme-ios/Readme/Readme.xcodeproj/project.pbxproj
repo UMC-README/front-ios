@@ -107,6 +107,10 @@
 		6CA418A72C5A762800AFC116 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA418A62C5A762800AFC116 /* Auth.swift */; };
 		6CAE007A2C70A1BE00238CF7 /* SignUpQuestionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CAE00792C70A1BE00238CF7 /* SignUpQuestionType.swift */; };
 		6CDB34EE2C73C3DD006E29DB /* CompleteRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CDB34ED2C73C3DD006E29DB /* CompleteRoomView.swift */; };
+		6CDB34F32C74737A006E29DB /* SubmitHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CDB34F22C74737A006E29DB /* SubmitHistoryView.swift */; };
+		6CDB34F52C7473AA006E29DB /* SubmitHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CDB34F42C7473AA006E29DB /* SubmitHistoryViewModel.swift */; };
+		6CDB34FA2C74758F006E29DB /* RequestHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CDB34F92C74758F006E29DB /* RequestHistoryView.swift */; };
+		6CDB34FE2C748755006E29DB /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CDB34FD2C748755006E29DB /* Request.swift */; };
 		6CF7CD352C58CEE100D6D4D8 /* TokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF7CD342C58CEE100D6D4D8 /* TokenManager.swift */; };
 		6CF7CD382C58D36500D6D4D8 /* RoomRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF7CD372C58D36500D6D4D8 /* RoomRequest.swift */; };
 		6CF7CD3B2C58D70900D6D4D8 /* AdminService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF7CD3A2C58D70900D6D4D8 /* AdminService.swift */; };
@@ -208,6 +212,10 @@
 		6CA418A62C5A762800AFC116 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		6CAE00792C70A1BE00238CF7 /* SignUpQuestionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpQuestionType.swift; sourceTree = "<group>"; };
 		6CDB34ED2C73C3DD006E29DB /* CompleteRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteRoomView.swift; sourceTree = "<group>"; };
+		6CDB34F22C74737A006E29DB /* SubmitHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitHistoryView.swift; sourceTree = "<group>"; };
+		6CDB34F42C7473AA006E29DB /* SubmitHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitHistoryViewModel.swift; sourceTree = "<group>"; };
+		6CDB34F92C74758F006E29DB /* RequestHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestHistoryView.swift; sourceTree = "<group>"; };
+		6CDB34FD2C748755006E29DB /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		6CF7CD342C58CEE100D6D4D8 /* TokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenManager.swift; sourceTree = "<group>"; };
 		6CF7CD372C58D36500D6D4D8 /* RoomRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomRequest.swift; sourceTree = "<group>"; };
 		6CF7CD3A2C58D70900D6D4D8 /* AdminService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminService.swift; sourceTree = "<group>"; };
@@ -305,7 +313,6 @@
 			children = (
 				6C2CE8992C52B8A30066DA03 /* PostDetailView.swift */,
 				6C1C6BA92C63F21A002761C3 /* PostViewModel.swift */,
-				6C1C6BA72C63EE74002761C3 /* CreatePostView.swift */,
 			);
 			path = Post;
 			sourceTree = "<group>";
@@ -484,6 +491,7 @@
 		6C8701542C54F0AC00C6CF97 /* Header */ = {
 			isa = PBXGroup;
 			children = (
+				6CDB34EF2C747285006E29DB /* SubmitHistory */,
 				6C8701582C54F0D700C6CF97 /* Penalty */,
 				6C8701552C54F0B900C6CF97 /* Mypage */,
 			);
@@ -576,6 +584,7 @@
 		6C882A982C4D1EB400AE5734 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				6CDB34F62C7474BD006E29DB /* Admin */,
 				6C7F9AF02C6F291300FED8E3 /* Submit */,
 				6C2CE8982C52B8950066DA03 /* Post */,
 				6C05F71B2C5160E8008FFE7E /* Room */,
@@ -665,6 +674,40 @@
 			path = DatePickerStyle;
 			sourceTree = "<group>";
 		};
+		6CDB34EF2C747285006E29DB /* SubmitHistory */ = {
+			isa = PBXGroup;
+			children = (
+				6CDB34F22C74737A006E29DB /* SubmitHistoryView.swift */,
+				6CDB34F42C7473AA006E29DB /* SubmitHistoryViewModel.swift */,
+			);
+			path = SubmitHistory;
+			sourceTree = "<group>";
+		};
+		6CDB34F62C7474BD006E29DB /* Admin */ = {
+			isa = PBXGroup;
+			children = (
+				6CDB34F82C74755F006E29DB /* RequestHistory */,
+				6CDB34F72C7474C2006E29DB /* CreatePost */,
+			);
+			path = Admin;
+			sourceTree = "<group>";
+		};
+		6CDB34F72C7474C2006E29DB /* CreatePost */ = {
+			isa = PBXGroup;
+			children = (
+				6C1C6BA72C63EE74002761C3 /* CreatePostView.swift */,
+			);
+			path = CreatePost;
+			sourceTree = "<group>";
+		};
+		6CDB34F82C74755F006E29DB /* RequestHistory */ = {
+			isa = PBXGroup;
+			children = (
+				6CDB34F92C74758F006E29DB /* RequestHistoryView.swift */,
+			);
+			path = RequestHistory;
+			sourceTree = "<group>";
+		};
 		6CF7CD332C58CED800D6D4D8 /* Token */ = {
 			isa = PBXGroup;
 			children = (
@@ -693,6 +736,7 @@
 				6C621DE02C5804FE0007999B /* ImageURLResponse.swift */,
 				6CA418A62C5A762800AFC116 /* Auth.swift */,
 				6C7F9AF52C6F2A4900FED8E3 /* Submit.swift */,
+				6CDB34FD2C748755006E29DB /* Request.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -791,10 +835,12 @@
 				6C621DE32C5816180007999B /* CreateRoomViewModel.swift in Sources */,
 				6C75A7732C52212F00EF396E /* RoomView.swift in Sources */,
 				6C7F9B032C6FB7C800FED8E3 /* SubmitModelDestination.swift in Sources */,
+				6CDB34F32C74737A006E29DB /* SubmitHistoryView.swift in Sources */,
 				6C1927E52C4E35CF00669E23 /* DefaultButtonStyle.swift in Sources */,
 				6C621DDF2C5800C60007999B /* PhotoImage.swift in Sources */,
 				6C1927E22C4E315900669E23 /* Color+Extension.swift in Sources */,
 				6C1927DC2C4E2C6000669E23 /* MainView.swift in Sources */,
+				6CDB34FE2C748755006E29DB /* Request.swift in Sources */,
 				6C55BB6C2C4FC93C00A3C357 /* RecentNoticeItemView.swift in Sources */,
 				6C7F9B012C6FB42300FED8E3 /* PendingView.swift in Sources */,
 				6C1927DF2C4E2C9C00669E23 /* SignInIntroView.swift in Sources */,
@@ -867,10 +913,12 @@
 				6C882AAF2C4D304700AE5734 /* NavigationDestination.swift in Sources */,
 				6C75A7772C52270500EF396E /* NavigationRoutingView.swift in Sources */,
 				6C621DDA2C57F8730007999B /* CreateRoomView.swift in Sources */,
+				6CDB34F52C7473AA006E29DB /* SubmitHistoryViewModel.swift in Sources */,
 				6C882ABA2C4D6F1600AE5734 /* AuthenticationService.swift in Sources */,
 				6CF7CD3D2C58D7AB00D6D4D8 /* AdminTarget.swift in Sources */,
 				6C43ECDC2C5399B8000582AF /* Extension+OSLog.swift in Sources */,
 				6CA418A52C5A722000AFC116 /* AuthRequest.swift in Sources */,
+				6CDB34FA2C74758F006E29DB /* RequestHistoryView.swift in Sources */,
 				6C43ECE62C53B28D000582AF /* ErrorView.swift in Sources */,
 				6CF7CD3B2C58D70900D6D4D8 /* AdminService.swift in Sources */,
 				6CDB34EE2C73C3DD006E29DB /* CompleteRoomView.swift in Sources */,

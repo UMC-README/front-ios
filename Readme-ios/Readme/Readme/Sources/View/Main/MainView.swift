@@ -17,16 +17,18 @@ struct MainView: View {
             VStack {
                 mainContentView
                     .task {
-                        mainViewModel.send(action: .load)
+//                        mainViewModel.send(action: .load)
                         await mainViewModel.getUser()
+                        await mainViewModel.getFixedPost()
                         await mainViewModel.getRecentPost()
                         await mainViewModel.getCreateRoom()
                         await mainViewModel.getJoinRoom()
                         
                     }
                     .refreshable {
-                        mainViewModel.send(action: .load)
+//                        mainViewModel.send(action: .load)
                         await mainViewModel.getUser()
+                        await mainViewModel.getFixedPost()
                         await mainViewModel.getRecentPost()
                         await mainViewModel.getCreateRoom()
                         await mainViewModel.getJoinRoom()
@@ -79,7 +81,7 @@ struct MainView: View {
                     
                 } label: {
                     HStack {
-                        // TODO: icon 추가
+//                         TODO: icon 추가
                         Text("확인 요청 내역")
                             
                     }
