@@ -13,14 +13,25 @@ struct PostResponse: Codable {
     let code: Int?
     let message: String?
     let result: PostResult?
-
-    struct PostResult: Codable {
-        let post: [PostLite]?
-        let imageURLs: [String]?
-    }
 }
 
+struct PostResult: Codable {
+    let post: [Post]?
+    let imageURLs: [String]?
+}
 
+struct Post: Codable, Identifiable {
+    let id = UUID().uuidString
+    let postId: Int?
+    let postType: PostType?
+    let postTitle: String?
+    let postBody: String?
+    let startDate: String?
+    let endDate: String?
+    let commentCount: Int?
+    let submitState: String?
+    let unreadCount: Int?
+}
 
 /// 고정된 공지글
 struct FixedPost: Identifiable, Codable {
@@ -68,46 +79,37 @@ struct PostLiteResponse: Codable {
     let code: Int?
     let message: String?
     let result: PostLiteResult?
-    
-    struct PostLiteResult: Codable {
-        let isRoomAdmin: Bool?
-        let posts: [PostLite]?
-        let cursorID: Int?
-
-        enum CodingKeys: String, CodingKey {
-            case isRoomAdmin = "isRoomAdmin"
-            case posts = "posts"
-            case cursorID = "cursorId"
-        }
-    }
 }
 
-// MARK: - PostLite
+struct PostLiteResult: Codable {
+    let roomName: String?
+    let isRoomAdmin: Bool?
+    let joinedRoomAt: String?
+    let penaltyCount: Int?
+    let maxPenalty: Int?
+    let notCheckedPenalty: [NotCheckedPenalty]?
+    let posts: [PostLite]?
+    let cursorID: Int?
+}
+
+struct NotCheckedPenalty: Codable, Identifiable {
+    let id = UUID().uuidString
+    let postId: Int?
+    let postTitle: String?
+}
+
 struct PostLite: Codable, Identifiable {
     let id = UUID().uuidString
-    let postID: Int?
+    let postId: Int?
     let postType: PostType?
     let postTitle: String?
     let postBody: String?
-    let postImage: [String]?
+    let postImage: String?
     let startDate: String?
     let endDate: String?
     let commentCount: Int?
     let submitState: SubmitStateType?
     let unreadCount: Int?
-
-    enum CodingKeys: String, CodingKey {
-        case postID = "postId"
-        case postType = "postType"
-        case postTitle = "postTitle"
-        case postBody = "postBody"
-        case postImage = "postImage"
-        case startDate = "startDate"
-        case endDate = "endDate"
-        case commentCount = "commentCount"
-        case submitState = "submitState"
-        case unreadCount = "unreadCount"
-    }
 }
 
 
@@ -118,7 +120,7 @@ extension PostResponse {
         isSuccess: true, code: 200, message: "Success!",
         result: .init(
             post: [
-                .init(postID: 1, postType: .mission, postTitle: "postTitle", postBody: "postBody", postImage: ["PostImage"], startDate: "2024.01.01 00:00", endDate: "2024.01.31 23:59", commentCount: 99, submitState: .complete, unreadCount: 99)
+                
             ],
             imageURLs: [
                 "url"
@@ -156,19 +158,21 @@ extension RecentPost {
         .init(roomId: 1, roomName: "room name", postId: 1, title: "title", createdAt: "24.01.01")
 }
 
+/// 공지글 미리보기
 extension PostLiteResponse {
     static var stub1: PostLiteResponse =
         .init(isSuccess: true, code: 200, message: "Success!",
-              result: .init(isRoomAdmin: true, 
-                            posts: [
-                                .postStub01
-                            ],
-                            cursorID: 1
-              )
+              result: .init(roomName: "roomName", isRoomAdmin: true, joinedRoomAt: "yy-MM-dd", penaltyCount: 99, maxPenalty: 99, notCheckedPenalty: [.notCheckedPenaltyStub1], posts: [.postStub01], cursorID: 1)
         )
 }
 
+/// 미확인 페널티 (팝업)
+extension NotCheckedPenalty {
+    static var notCheckedPenaltyStub1: NotCheckedPenalty = .init(postId: 1, postTitle: "title")
+}
+
+/// 공지글
 extension PostLite {
     static var postStub01: PostLite =
-        .init(postID: 1, postType: .mission, postTitle: "stub title", postBody: "stub postBody", postImage: [], startDate: "2024.01.01", endDate: "2024.12.31", commentCount: 99, submitState: .complete, unreadCount: 1)
+        .init(postId: 200, postType: .mission, postTitle: "", postBody: "", postImage: "", startDate: "yy-MM-dd", endDate: "yy-MM-dd", commentCount: 1, submitState: .complete, unreadCount: 99)
 }

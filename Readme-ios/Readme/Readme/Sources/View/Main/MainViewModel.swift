@@ -12,7 +12,7 @@ import PhotosUI
 @Observable
 class MainViewModel: ObservableObject {
     enum Action {
-        case load
+//        case load
         case goToSetting
         case goToAdmit
         case goToPenalty
@@ -45,6 +45,15 @@ class MainViewModel: ObservableObject {
         } catch {
             myUser = .stub01
             Log.network("Main VM - getUser() 에러", error)
+        }
+    }
+    
+    /// 고정된 공지글 조회
+    func getFixedPost() async {
+        do {
+            fixedNotice = try await container.services.userService.getFixedNotice()
+        } catch {
+            Log.network("Main VM - getRecentPost() 에러", error)
         }
     }
     
@@ -84,18 +93,18 @@ class MainViewModel: ObservableObject {
     
     func send(action: Action) {
         switch action {
-        case .load:
-            container.services.userService.getFixedNotice(completion: { result in
-                switch result {
-                case .success(let notice):
-                    print("MainVM - 고정된 공지글 조회 성공")
-                    self.fixedNotice = notice
-                case .failure(let error):
-                    Log.network("MainVM - 고정된 공지글 조회 실패)", error.localizedDescription)
-                    self.fixedNotice = .stub1
-                }
-                
-            })
+//        case .load:
+//            container.services.userService.getFixedNotice(completion: { result in
+//                switch result {
+//                case .success(let notice):
+//                    print("MainVM - 고정된 공지글 조회 성공")
+//                    self.fixedNotice = notice
+//                case .failure(let error):
+//                    Log.network("MainVM - 고정된 공지글 조회 실패)", error.localizedDescription)
+//                    self.fixedNotice = .stub1
+//                }
+//                
+//            })
             
         case .goToAdmit:
             self.container.navigationRouter.push(to: .mypage)

@@ -12,6 +12,7 @@ struct RoomView: View {
     @EnvironmentObject var container: DIContainer
     @StateObject var roomViewModel: RoomViewModel
     
+    var onFloating: Bool = false
 
     var body: some View {
 //        NavigationStack {
@@ -36,8 +37,8 @@ struct RoomView: View {
                             Text("공지방 수정 삭제")
                         case .memberList:
                             Text("멤버 목록")
-                        case .submitList:
-                            Text("확인 요청 내역")
+                        case .requestHistoryList:
+                            RequestHistoryView(roomViewModel: roomViewModel)
                         case .createPost:
                             CreatePostView(roomViewModel: roomViewModel, roomID: roomViewModel.roomId)
                         }
@@ -45,10 +46,10 @@ struct RoomView: View {
                     .padding(.horizontal, 16)
                     
                 }
-                adminButtonView
-                    
+                if (roomViewModel.postLiteResponse?.result?.isRoomAdmin ?? false) {
+                    adminButtonView
+                }
             }
-//        }
     }
     
     /// 공지글 미리보기 목록
@@ -60,8 +61,8 @@ struct RoomView: View {
             ForEach(roomViewModel.postLiteResponse?.result?.posts ?? []) { post in
                 PostPreviewView(post: post)
                     .onTapGesture {
-                        print("\(post.postID)번 게시글 클릭")
-                        if let postId = post.postID, let isRoomAdmin = roomViewModel.postLiteResponse?.result?.isRoomAdmin!  {
+                        print("\(post.postId)번 게시글 클릭")
+                        if let postId = post.postId, let isRoomAdmin = roomViewModel.postLiteResponse?.result?.isRoomAdmin!  {
                             roomViewModel.send(action: .goToPost(postId: postId, isRoomAdmin: isRoomAdmin, roomName: roomViewModel.roomName))
                         } else {
                             print("postId, isRoomAdmin을 찾을 수 없습니다.")
@@ -86,6 +87,18 @@ struct RoomView: View {
                         .frame(width: 100, height: 100)
                         .overlay {
                             Text("글")
+                                .foregroundStyle(Color.basicWhite)
+                        }
+                }
+                
+                Button {
+                    roomViewModel.roomModelDestination = .requestHistoryList
+                    print("확인 요청 내역 페이지 이동")
+                } label: {
+                    Circle()
+                        .frame(width: 100, height: 100)
+                        .overlay {
+                            Text("확인")
                                 .foregroundStyle(Color.basicWhite)
                         }
                 }

@@ -48,9 +48,9 @@ struct PostDetailView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
             
             HStack {
-                Text(postViewModel.post?.startDate ?? "YYYY-MM-DD HH:mm")
+                Text(postViewModel.post?.startDate ?? "YY-MM-DD HH:mm")
                 Text("-")
-                Text(postViewModel.post?.endDate ?? "YYYY-MM-DD HH:mm")
+                Text(postViewModel.post?.endDate ?? "YY-MM-DD HH:mm")
             }
             .foregroundStyle(Color.primaryNormal)
             .font(.pretendardRegular12)

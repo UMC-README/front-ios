@@ -11,7 +11,7 @@ import Foundation
 enum RoomModelDestination: Hashable, Identifiable {
     case roomSetting    /// 공지방 수정, 삭제
     case memberList     /// 공지방 멤버 목록
-    case submitList     /// 확인 요청 내역
+    case requestHistoryList    /// 확인 요청 내역
     case createPost     /// 공지글 작성
     
     var id: Int {
